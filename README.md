@@ -14,6 +14,8 @@
 
 > Projeto **comunitário e independente**, sem vínculo oficial com a UFSC, o Moodle, a Anthropic ou a OpenAI. Primeiro alvo: Moodle Presencial da UFSC; a arquitetura aceita outras instituições.
 
+<p align="center"><img src="assets/moodle-logo.png" alt="Logo do Moodle" width="72"><br><sub>Logo do Moodle® usada só para indicar a plataforma com a qual este projeto se integra.<br><b>Este projeto não é oficial</b>: não é feito, apoiado nem aprovado pela Moodle Pty Ltd.</sub></p>
+
 ---
 
 ## ✨ Em ação
@@ -107,4 +109,4 @@ make check     # lint + tipos + testes (≈10 s, sem credenciais, sem internet)
 
 [Ferramentas](docs/tools.md) · [Arquitetura](docs/architecture.md) · [Tokens e VPN](docs/tokens.md) · [Clientes](docs/clients.md) · [Hospedagem e auth](docs/auth.md) · [Frequência e notas](docs/attendance-grades.md) · [Matriz de recursos](docs/feature-matrix.md) · [Fluxos](docs/workflows.md)
 
-Licença [MIT](LICENSE).
+Licença [MIT](LICENSE). A licença cobre o código deste repositório, não a logo e o nome "Moodle", que são marcas registradas de [Moodle Pty Ltd](https://moodle.com) e aparecem aqui só para identificar a plataforma. Este projeto é independente e **não é oficial**.

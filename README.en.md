@@ -8,6 +8,8 @@ A **community, independent** [MCP](https://modelcontextprotocol.io) server that 
 
 > Not affiliated with UFSC, Moodle, Anthropic or OpenAI. The first target is UFSC's Moodle "Presencial"; the architecture supports other institutions ([guide](docs/add-institution.md)). Docs are mostly in English under `docs/`; the Portuguese README is [README.md](README.md).
 
+<p align="center"><img src="assets/moodle-logo.png" alt="Moodle logo" width="72"><br><sub>The Moodle® logo is used only to show which platform this project connects to.<br><b>This project is unofficial</b>: it is not made, endorsed or approved by Moodle Pty Ltd.</sub></p>
+
 ## Quick start (local, stdio)
 
 Python 3.11+ and [uv](https://docs.astral.sh/uv/). **Not published on PyPI yet** — install from GitHub or a wheel:
