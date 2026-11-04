@@ -2,7 +2,7 @@
 name = "moodle-academic-mcp"
 version = "0.1.0"
 description = "Community MCP server connecting each student's own Moodle account to AI clients (Claude Code, Codex, ChatGPT)."
-readme = "README.en.md"
+readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.11"
 authors = [{ name = "moodle-academic-mcp contributors" }]
