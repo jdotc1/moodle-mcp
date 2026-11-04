@@ -1,0 +1,16 @@
+name: Bug report
+description: Something does not work
+body:
+  - type: textarea
+    id: what
+    attributes: {label: What happened, description: "Redact tokens, names and course material."}
+    validations: {required: true}
+  - type: input
+    id: moodle
+    attributes: {label: Moodle version / institution (from `doctor`)}
+  - type: input
+    id: client
+    attributes: {label: MCP client and version}
+  - type: textarea
+    id: doctor
+    attributes: {label: "`moodle-academic-mcp doctor --json` output (tokens are redacted automatically; check anyway)"}

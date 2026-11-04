@@ -1,0 +1,13 @@
+name: Add an institution or plugin
+description: Propose support for another university or Moodle plugin
+body:
+  - type: input
+    id: url
+    attributes: {label: Moodle base URL}
+    validations: {required: true}
+  - type: textarea
+    id: services
+    attributes: {label: External services visible at /user/managetoken.php}
+  - type: textarea
+    id: plugins
+    attributes: {label: Plugins used for groups / attendance / assignments}

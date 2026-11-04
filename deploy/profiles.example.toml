@@ -1,0 +1,5 @@
+# Institutions served by a hosted instance. Users cannot add arbitrary URLs (SSRF protection).
+[profiles.ufsc]
+base_url = "https://presencial.moodle.ufsc.br"
+institution = "UFSC (Moodle Presencial)"
+timezone = "America/Sao_Paulo"

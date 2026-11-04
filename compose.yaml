@@ -1,0 +1,31 @@
+# Hosted-mode development stack: app + PostgreSQL. Dev auth only (see docs/auth.md for OIDC in production).
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: mamcp
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mamcp-dev-only}
+      POSTGRES_DB: mamcp
+    volumes: [dbdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mamcp"]
+      interval: 5s
+      retries: 10
+  app:
+    build: .
+    depends_on:
+      db: {condition: service_healthy}
+    environment:
+      MAMCP_PROFILES_FILE: /config/profiles.toml
+      MAMCP_DATABASE_URL: postgresql+asyncpg://mamcp:${POSTGRES_PASSWORD:-mamcp-dev-only}@db:5432/mamcp
+      MAMCP_ENCRYPTION_KEY: ${MAMCP_ENCRYPTION_KEY:?generate one, see .env.example}
+      MAMCP_AUTH_MODE: ${MAMCP_AUTH_MODE:-dev}
+      MAMCP_ALLOW_DEV_AUTH: ${MAMCP_ALLOW_DEV_AUTH:-1}
+      MAMCP_PUBLIC_URL: ${MAMCP_PUBLIC_URL:-http://localhost:8080}
+    volumes:
+      - ./deploy/profiles.example.toml:/config/profiles.toml:ro
+      - artifacts:/home/mamcp/artifacts
+    ports: ["127.0.0.1:8080:8080"]
+volumes:
+  dbdata:
+  artifacts:

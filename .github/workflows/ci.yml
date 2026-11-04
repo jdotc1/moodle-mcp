@@ -1,0 +1,45 @@
+name: ci
+on:
+  push: {branches: [main]}
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --python ${{ matrix.python }} --group dev --all-extras
+      - run: uv run ruff check src tests
+      - run: uv run ruff format --check src tests
+      - run: uv run mypy src
+      - run: uv run pytest -q
+  postgres:
+    runs-on: ubuntu-latest
+    services:
+      pg:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: mamcp, POSTGRES_PASSWORD: ci, POSTGRES_DB: mamcp}
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U mamcp" --health-interval 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --group dev --all-extras
+      - run: uv run pytest -q tests/test_store_postgres.py
+        env:
+          MAMCP_TEST_POSTGRES_URL: postgresql+asyncpg://mamcp:ci@localhost:5432/mamcp
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv build
+      - run: |
+          uv venv /tmp/v && uv pip install --python /tmp/v/bin/python dist/*.whl
+          /tmp/v/bin/moodle-academic-mcp version
+          /tmp/v/bin/moodle-academic-mcp functions assignment --limit 3

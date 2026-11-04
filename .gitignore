@@ -1,0 +1,26 @@
+# Private development sources: never commit
+/*.pdf
+/Web documentação*
+/private/
+*.token
+.env
+.env.*
+!.env.example
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+# Local state
+*.sqlite3
+*.db
+/data/
+/uploads/
+/prompt_*.md
