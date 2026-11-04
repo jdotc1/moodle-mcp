@@ -1,0 +1,12 @@
+{
+  "name": "moodle-mcp",
+  "description": "Community plugins that connect your own Moodle account to Claude Code (independent project).",
+  "owner": { "name": "moodle-academic-mcp contributors", "url": "https://github.com/matheussilvano/moodle-mcp" },
+  "plugins": [
+    {
+      "name": "moodle-academic",
+      "source": "./plugin",
+      "description": "Deadlines, assignments (draft → submit with evidence), quizzes, grades, attendance math, materials and announcements from your own Moodle. 55 tools + guided skills."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "moodle": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/matheussilvano/moodle-mcp@v0.1.0", "moodle-academic-mcp", "serve"],
+      "env": {
+        "MAMCP_BASE_URL": "${user_config.moodle_url}",
+        "MAMCP_TIMEZONE": "${user_config.timezone}",
+        "MAMCP_PROFILE": "default",
+        "MAMCP_NO_KEYRING": "1",
+        "MAMCP_ATTEST": "${user_config.attest_services}",
+        "MAMCP_ATTENDANCE_MIN_PERCENT": "${user_config.attendance_min_percent}",
+        "MAMCP_ATTENDANCE_RULE_SOURCE": "${user_config.attendance_rule_source}",
+        "MOODLE_TOKEN_DEFAULT_MOBILE": "${user_config.mobile_token}",
+        "MOODLE_TOKEN_DEFAULT_ATTENDANCE": "${user_config.attendance_token}",
+        "MOODLE_TOKEN_DEFAULT_VPL": "${user_config.vpl_token}"
+      }
+    }
+  }
+}

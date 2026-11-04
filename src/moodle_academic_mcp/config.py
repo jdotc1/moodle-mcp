@@ -125,6 +125,37 @@ def builtin_profile_presets() -> dict[str, dict[str, Any]]:
     }
 
 
+def _env(name: str, default: str = "") -> str:
+    """Environment value, ignoring empty strings and unsubstituted ${placeholders} left by launchers."""
+    v = os.environ.get(name, default).strip()
+    return "" if v.startswith("${") else v
+
+
+def _apply_env_profile(cfg: AppConfig) -> None:
+    """A profile can be declared by environment variables (Claude Code plugin `userConfig`, containers).
+
+    MAMCP_BASE_URL (required to activate), MAMCP_PROFILE (default "default"), MAMCP_TIMEZONE,
+    MAMCP_INSTITUTION, MAMCP_ATTEST (comma list of services), MAMCP_ATTENDANCE_MIN_PERCENT / _RULE_SOURCE.
+    Tokens come from MOODLE_TOKEN_<PROFILE>_<SERVICE>. An explicit config file profile of the same name wins.
+    """
+    url = _env("MAMCP_BASE_URL")
+    if not url:
+        return
+    name = validate_profile_name(_env("MAMCP_PROFILE") or "default")
+    if name in cfg.profiles:
+        return
+    cfg.profiles[name] = ProfileSettings(
+        name=name,
+        base_url=normalize_base_url(url),
+        institution=_env("MAMCP_INSTITUTION") or name,
+        timezone=_env("MAMCP_TIMEZONE") or "UTC",
+        attendance_min_percent=_env("MAMCP_ATTENDANCE_MIN_PERCENT") or None,
+        attendance_rule_source=_env("MAMCP_ATTENDANCE_RULE_SOURCE") or None,
+        attested_services=[s.strip() for s in _env("MAMCP_ATTEST").split(",") if s.strip()],
+    )
+    cfg.default_profile = cfg.default_profile or name
+
+
 @dataclass
 class AppConfig:
     profiles: dict[str, ProfileSettings] = field(default_factory=dict)
@@ -135,7 +166,10 @@ class AppConfig:
         name = name or self.default_profile
         if not self.profiles:
             raise NotConfiguredError(
-                "No Moodle profile configured.", hint="Run: moodle-academic-mcp configure"
+                "No Moodle profile configured.",
+                hint="Run `moodle-academic-mcp configure` (or `uvx --from git+https://github.com/matheussilvano/"
+                "moodle-mcp moodle-academic-mcp configure`) in a terminal, or install the Claude Code plugin, which "
+                "asks for the URL and token itself. Never paste the token into the chat.",
             )
         if name is None:
             if len(self.profiles) == 1:
@@ -160,6 +194,7 @@ class AppConfig:
             for name, d in (raw.get("profiles") or {}).items():
                 cfg.profiles[name] = _profile_from_dict(name, d)
             cfg.default_profile = raw.get("default_profile")
+        _apply_env_profile(cfg)
         return cfg
 
     def save(self) -> None:
@@ -227,7 +262,7 @@ class LocalTokenStore:
         os.chmod(self.file, 0o600)
 
     def get(self, profile: str, service: str) -> str | None:
-        v = os.environ.get(self.env_name(profile, service))
+        v = _env(self.env_name(profile, service)) or None
         if not v and self._use_keyring:
             try:
                 import keyring

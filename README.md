@@ -42,18 +42,23 @@ claude ▸ (list_deadlines · window: 2026-11-04 15:30 → 2026-11-11 15:30, Ame
 | "Join group 3 if there is room." | group choice with a seat check and a read-back |
 | "Any new announcements since yesterday?" | `changes_since` with snapshots |
 
-## 🚀 Start in 3 minutes
+## 🚀 Start in 2 minutes
 
-```bash
-# 1) token: https://presencial.moodle.ufsc.br/user/managetoken.php  (service "Moodle mobile web service")
-uvx --from git+https://github.com/matheussilvano/moodle-mcp moodle-academic-mcp configure --profile ufsc --service mobile
-# 2) test the connection
-uvx --from git+https://github.com/matheussilvano/moodle-mcp moodle-academic-mcp doctor
-# 3) connect it to your client (works in any folder)
-claude mcp add --scope user --transport stdio moodle -- uvx --from git+https://github.com/matheussilvano/moodle-mcp moodle-academic-mcp serve
-codex mcp add moodle -- uvx --from git+https://github.com/matheussilvano/moodle-mcp moodle-academic-mcp serve
+### Option A — Claude Code plugin (recommended)
+```text
+/plugin marketplace add matheussilvano/moodle-mcp
+/plugin install moodle-academic@moodle-mcp
 ```
-Restart the client and ask: *"list my current courses"*. Requires Python 3.11+ and [uv](https://docs.astral.sh/uv/). **Not** on PyPI yet. ChatGPT and custom GPTs need the [hosted mode](docs/auth.md). Per-client guide: [docs/clients.md](docs/clients.md).
+Claude Code **asks for your Moodle URL and token** (kept in secure storage, never shown to the model). Create the token at `<your Moodle>/user/managetoken.php` (service *Moodle mobile web service*). Then use the guided skills: `/moodle-academic:semana` (overview), `:entregar` (deliver), `:faltas` (attendance), `:notas` (grades), `:estudar` (study), `:setup` (diagnose). Requires [uv](https://docs.astral.sh/uv/).
+
+### Option B — the MCP server alone (any client, terminal setup)
+```bash
+uvx --from git+https://github.com/matheussilvano/moodle-mcp@v0.1.0 moodle-academic-mcp configure --profile ufsc --service mobile
+uvx --from git+https://github.com/matheussilvano/moodle-mcp@v0.1.0 moodle-academic-mcp doctor
+claude mcp add --scope user --transport stdio moodle -- uvx --from git+https://github.com/matheussilvano/moodle-mcp@v0.1.0 moodle-academic-mcp serve
+codex mcp add moodle -- uvx --from git+https://github.com/matheussilvano/moodle-mcp@v0.1.0 moodle-academic-mcp serve
+```
+Restart the client and ask: *"list my current courses"*. Requires Python 3.11+ and uv. **Not** on PyPI yet ([how it gets there](docs/distribution.md)). ChatGPT and custom GPTs need the [hosted mode](docs/auth.md). Per-client guide: [docs/clients.md](docs/clients.md).
 
 ## 🧭 How it works
 
@@ -112,3 +117,5 @@ make check     # lint + types + tests (~10 s, no credentials, no network)
 [Tools](docs/tools.md) · [Architecture](docs/architecture.md) · [Tokens and VPN](docs/tokens.md) · [Clients](docs/clients.md) · [Hosting and auth](docs/auth.md) · [Attendance and grades](docs/attendance-grades.md) · [Feature matrix](docs/feature-matrix.md) · [Workflows](docs/workflows.md)
 
 [MIT](LICENSE) license. It covers the code in this repository, not the logo and the name "Moodle", which are trademarks of [Moodle Pty Ltd](https://moodle.com) and appear here only to identify the platform. This project is independent and **unofficial**.
+
+<!-- mcp-name: io.github.matheussilvano/moodle-mcp -->

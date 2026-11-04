@@ -1,0 +1,17 @@
+name: publish-pypi
+# Disabled until the maintainer sets repository variable PYPI_ENABLED=true and configures a PyPI
+# "trusted publisher" for this repository/workflow/environment (no token stored in GitHub).
+on:
+  release: {types: [published]}
+  workflow_dispatch:
+jobs:
+  pypi:
+    if: ${{ vars.PYPI_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions: {id-token: write, contents: read}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv build
+      - uses: pypa/gh-action-pypi-publish@release/v1

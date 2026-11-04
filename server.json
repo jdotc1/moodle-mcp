@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.matheussilvano/moodle-mcp",
+  "title": "Moodle Academic",
+  "description": "Community MCP server connecting a student's own Moodle account: deadlines, assignments, quizzes, grades, attendance, materials.",
+  "repository": { "url": "https://github.com/matheussilvano/moodle-mcp", "source": "github" },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "moodle-academic-mcp",
+      "version": "0.1.0",
+      "runtimeHint": "uvx",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        { "name": "MAMCP_BASE_URL", "description": "Base https URL of your Moodle", "isRequired": true, "format": "string" },
+        { "name": "MAMCP_TIMEZONE", "description": "IANA timezone, e.g. America/Sao_Paulo", "isRequired": false, "format": "string" },
+        { "name": "MOODLE_TOKEN_DEFAULT_MOBILE", "description": "Your personal Moodle web-service token (managetoken.php)", "isRequired": true, "isSecret": true, "format": "string" }
+      ]
+    }
+  ]
+}

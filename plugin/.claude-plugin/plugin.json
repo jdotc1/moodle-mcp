@@ -1,0 +1,67 @@
+{
+  "name": "moodle-academic",
+  "displayName": "Moodle Academic",
+  "version": "0.1.0",
+  "description": "Connect your own Moodle account (UFSC and others) to Claude Code: deadlines, assignments, quizzes, grades, attendance, materials, announcements.",
+  "author": { "name": "moodle-academic-mcp contributors", "url": "https://github.com/matheussilvano/moodle-mcp" },
+  "homepage": "https://github.com/matheussilvano/moodle-mcp",
+  "repository": "https://github.com/matheussilvano/moodle-mcp",
+  "license": "MIT",
+  "keywords": ["moodle", "education", "mcp", "ufsc", "assignments", "grades"],
+  "documentationUrl": "https://github.com/matheussilvano/moodle-mcp#readme",
+  "supportUrl": "https://github.com/matheussilvano/moodle-mcp/issues",
+  "privacyPolicyUrl": "https://github.com/matheussilvano/moodle-mcp/blob/main/docs/privacy.md",
+  "userConfig": {
+    "moodle_url": {
+      "type": "string",
+      "title": "Moodle URL",
+      "description": "Base address of your Moodle (https). Default: UFSC Moodle Presencial.",
+      "default": "https://presencial.moodle.ufsc.br",
+      "required": true
+    },
+    "timezone": {
+      "type": "string",
+      "title": "Timezone",
+      "description": "IANA timezone used for dates (e.g. America/Sao_Paulo).",
+      "default": "America/Sao_Paulo",
+      "required": true
+    },
+    "mobile_token": {
+      "type": "string",
+      "title": "Moodle token (mobile web service)",
+      "description": "Create it at <your Moodle>/user/managetoken.php, service 'Moodle mobile web service'. Stored in your system's secure storage, never shown to the model.",
+      "sensitive": true,
+      "required": true
+    },
+    "attendance_token": {
+      "type": "string",
+      "title": "Attendance token (optional)",
+      "description": "Only if your Moodle offers an 'Attendance' service on managetoken.php. Leave empty otherwise.",
+      "sensitive": true
+    },
+    "vpl_token": {
+      "type": "string",
+      "title": "VPL token (optional)",
+      "description": "Only if your Moodle offers a 'VPL web service' on managetoken.php. Leave empty otherwise.",
+      "sensitive": true
+    },
+    "attest_services": {
+      "type": "string",
+      "title": "Services whose token is yours but cannot be proven (optional)",
+      "description": "Comma list, e.g. 'attendance'. Needed when the service hides your user id. You are declaring the token belongs to your own account.",
+      "default": ""
+    },
+    "attendance_min_percent": {
+      "type": "string",
+      "title": "Minimum attendance (optional)",
+      "description": "e.g. 75%. Only fill in if you know the rule for your courses; always check each syllabus.",
+      "default": ""
+    },
+    "attendance_rule_source": {
+      "type": "string",
+      "title": "Source of that attendance rule (optional)",
+      "description": "e.g. 'plano de ensino 2026/2'.",
+      "default": ""
+    }
+  }
+}

@@ -392,3 +392,34 @@ async def test_attestation_never_overrides_a_proven_mismatch(make_account, fake_
     a = make_account(tokens={"mobile": "tokA", "mobile2": "tokB"}, prof=prof)
     ident = await a.service_identity("mobile2")
     assert ident["usable"] is False and ident["trust"] == "mismatch"
+
+
+# ------------------------------------------------------------------ env-defined profile (plugin userConfig)
+def test_profile_from_environment_and_tokens(monkeypatch, tmp_path):
+    from moodle_academic_mcp.config import AppConfig, LocalTokenStore
+
+    monkeypatch.setenv("MAMCP_BASE_URL", "https://moodle.example.edu/")
+    monkeypatch.setenv("MAMCP_TIMEZONE", "America/Sao_Paulo")
+    monkeypatch.setenv("MAMCP_ATTEST", "attendance, vpl")
+    monkeypatch.setenv("MOODLE_TOKEN_DEFAULT_MOBILE", "envtoken-1234567890")
+    monkeypatch.setenv("MOODLE_TOKEN_DEFAULT_ATTENDANCE", "")  # unset optional plugin field arrives empty
+    cfg = AppConfig.load(tmp_path / "missing.toml")
+    p = cfg.profile()
+    assert (
+        p.name == "default"
+        and p.base_url == "https://moodle.example.edu"
+        and p.timezone == "America/Sao_Paulo"
+    )
+    assert p.attested_services == ["attendance", "vpl"]
+    store = LocalTokenStore(tmp_path, use_keyring=False)
+    assert store.get("default", "mobile") == "envtoken-1234567890"
+    assert store.get("default", "attendance") is None
+
+
+def test_env_profile_rejects_plain_http(monkeypatch, tmp_path):
+    from moodle_academic_mcp.config import AppConfig
+    from moodle_academic_mcp.errors import ConfigError
+
+    monkeypatch.setenv("MAMCP_BASE_URL", "http://moodle.example.edu")
+    with pytest.raises(ConfigError):
+        AppConfig.load(tmp_path / "missing.toml")
