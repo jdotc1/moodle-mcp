@@ -1,3 +1,7 @@
+<p align="center"><img src="assets/banner.svg" alt="moodle-academic-mcp" width="100%"></p>
+
+<p align="center"><a href="https://github.com/matheussilvano/moodle-mcp/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/matheussilvano/moodle-mcp/actions/workflows/ci.yml/badge.svg"></a> <img alt="MCP" src="https://img.shields.io/badge/MCP-stdio%20%2B%20Streamable%20HTTP-6f42c1"> <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-22c55e"> <img alt="PRs welcome" src="https://img.shields.io/badge/PRs-welcome-f97316"></p>
+
 # moodle-academic-mcp
 
 A **community, independent** [MCP](https://modelcontextprotocol.io) server that connects a student's own Moodle account to Claude Code, Codex, ChatGPT and other clients. You bring **your AI** and **your tokens**; the server exposes data and actions, your client's model reads, explains, writes and generates files. No paid LLM API is needed by the maintainer.
@@ -12,7 +16,7 @@ Python 3.11+ and [uv](https://docs.astral.sh/uv/). **Not published on PyPI yet**
 uvx --from git+https://github.com/matheussilvano/moodle-mcp moodle-academic-mcp version
 moodle-academic-mcp configure --profile ufsc --service mobile   # hidden input; keyring or 0600 file
 moodle-academic-mcp doctor                                       # network, token, Moodle version, available features
-claude mcp add --transport stdio moodle -- uvx --from git+https://github.com/matheussilvano/moodle-mcp moodle-academic-mcp serve
+claude mcp add --scope user --transport stdio moodle -- uvx --from git+https://github.com/matheussilvano/moodle-mcp moodle-academic-mcp serve
 codex mcp add moodle -- uvx --from git+https://github.com/matheussilvano/moodle-mcp moodle-academic-mcp serve
 ```
 
@@ -29,3 +33,11 @@ ChatGPT and custom GPTs need the [hosted mode](docs/auth.md) (public HTTPS).
 - **Writes have not been run against any real Moodle** (mock only). Attendance/VPL/Group-choice adapters follow upstream source and are unvalidated on UFSC. See [feature-matrix](docs/feature-matrix.md) and [sandbox](docs/sandbox.md).
 
 MIT licensed. See [SECURITY](SECURITY.md), [CONTRIBUTING](CONTRIBUTING.md), [docs/privacy.md](docs/privacy.md).
+
+## Contribute
+
+```bash
+git clone https://github.com/matheussilvano/moodle-mcp && cd moodle-mcp
+make setup && make check     # ~10 s, no credentials, no network
+```
+See [good first issues](https://github.com/matheussilvano/moodle-mcp/labels/good%20first%20issue), the [roadmap](docs/roadmap.md) and [CONTRIBUTING](CONTRIBUTING.md). The most valuable contribution: validate write flows on a real Moodle sandbox ([docs/sandbox.md](docs/sandbox.md)).

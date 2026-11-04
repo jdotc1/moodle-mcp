@@ -1,0 +1,14 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+  - repo: local
+    hooks:
+      - id: no-secrets-or-private-files
+        name: block tokens and private exports
+        language: system
+        entry: bash -c 'git diff --cached --name-only | grep -Ei "\.pdf$|\.env$|secrets\.json" && { echo "private file staged"; exit 1; } || true'
+        pass_filenames: false

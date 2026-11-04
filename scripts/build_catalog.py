@@ -28,8 +28,11 @@ def parse(lines: list[str]) -> dict[str, dict]:
     out: dict[str, dict] = {}
     for n, (name, start) in enumerate(order):
         end = order[n + 1][1] if n + 1 < len(order) else len(lines)
-        block = [ln for ln in lines[start + 1 : end] if ln.strip() and "wsdoc.php" not in ln
-                 and "Web documentação de serviço" not in ln]
+        block = [
+            ln
+            for ln in lines[start + 1 : end]
+            if ln.strip() and "wsdoc.php" not in ln and "Web documentação de serviço" not in ln
+        ]
         desc = block[0].strip() if block else ""
         params: list[dict] = []
         required: dict[str, bool] = {}
@@ -48,9 +51,15 @@ def parse(lines: list[str]) -> dict[str, dict]:
             m = REST_PARAM.match(ln)
             if m and cur:
                 path = m.group(1)
-                top = re.split(r"\[", path, 1)[0]
-                params.append({"name": path, "type": m.group(2) or "string", "top": top,
-                               "required": required.get(top, False)})
+                top = re.split(r"\[", path, maxsplit=1)[0]
+                params.append(
+                    {
+                        "name": path,
+                        "type": m.group(2) or "string",
+                        "top": top,
+                        "required": required.get(top, False),
+                    }
+                )
         if "Argumentos" not in "\n".join(block[:3]) and not params:
             pass
         out[name] = {"description": desc, "params": params}
@@ -68,9 +77,13 @@ def main() -> int:
     lines = open(a.txt, encoding="utf-8").read().splitlines()
     funcs = parse(lines)
     doc = {
-        "provenance": {"source": a.source, "exported": a.date, "service": a.service,
-                       "note": "Documented for the service of the exporting account; documentation is not proof "
-                               "that every account may call every function."},
+        "provenance": {
+            "source": a.source,
+            "exported": a.date,
+            "service": a.service,
+            "note": "Documented for the service of the exporting account; documentation is not proof "
+            "that every account may call every function.",
+        },
         "functions": funcs,
     }
     with open(a.out, "w", encoding="utf-8") as f:

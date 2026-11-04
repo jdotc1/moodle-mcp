@@ -1,71 +1,110 @@
-# moodle-academic-mcp
+<p align="center"><img src="assets/banner.svg" alt="moodle-academic-mcp" width="100%"></p>
 
-Servidor [MCP](https://modelcontextprotocol.io) **comunitário e independente** que conecta a sua conta Moodle ao Claude Code, Codex, ChatGPT e outros clientes. Você usa **a sua IA** e **os seus tokens**: o servidor expõe dados e ações; o modelo do cliente interpreta, explica, escreve e gera arquivos. Nenhuma API de LLM paga pelo mantenedor é necessária.
+<p align="center">
+  <a href="https://github.com/matheussilvano/moodle-mcp/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/matheussilvano/moodle-mcp/actions/workflows/ci.yml/badge.svg"></a>
+  <img alt="Python" src="https://img.shields.io/badge/python-3.11%20|%203.12%20|%203.13-3776AB?logo=python&logoColor=white">
+  <img alt="MCP" src="https://img.shields.io/badge/MCP-stdio%20%2B%20Streamable%20HTTP-6f42c1">
+  <img alt="Tools" src="https://img.shields.io/badge/tools-55-0ea5e9">
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-22c55e"></a>
+  <a href="CONTRIBUTING.md"><img alt="PRs welcome" src="https://img.shields.io/badge/PRs-welcome-f97316"></a>
+</p>
 
-> Projeto sem vínculo oficial com a UFSC, o Moodle, a Anthropic ou a OpenAI. O primeiro ambiente-alvo é o Moodle Presencial da UFSC; a arquitetura aceita outras instituições ([guia](docs/add-institution.md)).
+<p align="center"><b>Seu Moodle dentro da sua IA.</b> Prazos, trabalhos, notas, faltas, materiais e avisos — com os <i>seus</i> tokens e o <i>seu</i> modelo.<br>
+<a href="README.en.md">English</a> · <a href="docs/tools.md">55 ferramentas</a> · <a href="docs/feature-matrix.md">o que está validado</a> · <a href="CONTRIBUTING.md">contribuir</a></p>
 
-[English version](README.en.md) · [Ferramentas](docs/tools.md) · [Matriz de recursos](docs/feature-matrix.md) · [Segurança](SECURITY.md)
+> Projeto **comunitário e independente**, sem vínculo oficial com a UFSC, o Moodle, a Anthropic ou a OpenAI. Primeiro alvo: Moodle Presencial da UFSC; a arquitetura aceita outras instituições.
 
-## O que dá para pedir
+---
 
-- “Quais trabalhos tenho para entregar na próxima semana? Separe os já enviados.” → `list_deadlines`
-- “Leia o enunciado, consulte os materiais e produza o trabalho.” → `get_assignment`, `read_material`, `search_materials`
-- “Revise estes arquivos e envie minha atividade.” → `prepare_submission`, `deliver_assignment`
-- “Entre no grupo 3 do trabalho, se houver vaga.” → `group_activities`, `join_group`
-- “Liste os questionários, abra esta tentativa e envie minhas respostas.” → `list_quizzes`, `start_quiz_attempt`, `save_quiz_answers`
-- “Quais notas já saíram? Quanto preciso tirar para passar?” → `get_grades`, `required_score`
-- “Quantas faltas tenho? Posso faltar na terça?” → `attendance_report`
-- “Mostre os avisos novos desde a última consulta.” → `changes_since`
+## ✨ Em ação
 
-55 ferramentas, 7 prompts MCP (`prepare_assignment`, `deliver_assignment_workflow`, `weekly_overview`, …). Escritas são separadas das leituras e anotadas (`readOnlyHint`, `destructiveHint`, `idempotentHint`); quem decide a política de confirmação é o seu cliente e você (veja [autonomia](docs/clients.md#política-de-confirmação)).
+```text
+você ▸ Quais trabalhos tenho para entregar nos próximos 7 dias? Separe os já enviados.
 
-## Instalação rápida (modo local, stdio)
-
-Requer Python 3.11+ e [uv](https://docs.astral.sh/uv/). O pacote **ainda não foi publicado no PyPI**; instale do GitHub ou de um wheel:
-
-```bash
-uvx --from git+https://github.com/matheussilvano/moodle-mcp moodle-academic-mcp version
-# ou, clonando:
-git clone https://github.com/matheussilvano/moodle-mcp && cd moodle-mcp && uv sync
+claude ▸ (list_deadlines · janela: 2026-11-04 15:30 → 2026-11-11 15:30, America/Sao_Paulo)
+  ✅ enviado     Lista 2 ........ Banco de Dados II ... 04/11 23:59
+  ⏳ pendente    Trabalho T ..... Banco de Dados II ... 04/11 23:59  (corte 06/11)
+  ⏳ pendente    Entrega parcial  Modelagem de Proc. .. 08/11 23:59
 ```
+<sub>Exemplo ilustrativo com dados sintéticos.</sub>
 
-1. Crie um token em `https://presencial.moodle.ufsc.br/user/managetoken.php` (serviço *Moodle mobile web service*; opcionalmente *Attendance* e *VPL web service*). Veja [tokens](docs/tokens.md).
-2. `moodle-academic-mcp configure --profile ufsc --service mobile` (entrada oculta; guarda no keyring ou em arquivo 0600).
-3. `moodle-academic-mcp doctor` — testa rede, token, versão do Moodle e quais recursos o seu serviço expõe.
-4. Conecte ao cliente:
+| Você diz | O servidor faz |
+| --- | --- |
+| “Quais prazos na **próxima semana**?” | cruza tarefas + questionários + calendário; devolve a janela exata (semana civil ≠ 7 dias) |
+| “Leia o enunciado, use os slides e **faça o trabalho**.” | `get_assignment` → `read_material` (PDF/DOCX/PPTX com páginas) → você gera o arquivo |
+| “**Envie** minha atividade.” | upload → rascunho → envio → **lê de volta** e mostra a evidência |
+| “Posso faltar na terça? Quantas aulas ainda posso perder?” | conta exata por horas-aula, chamadas pendentes, encontros críticos |
+| “Quanto preciso tirar na P2 para passar?” | simulação determinística; nota não lançada ≠ zero |
+| “Entre no grupo 3, se tiver vaga.” | Group choice com checagem de vagas e leitura de volta |
+| “Avisos novos desde ontem?” | `changes_since` com snapshots |
+
+## 🚀 Comece em 3 minutos
 
 ```bash
-# Claude Code
-claude mcp add --transport stdio moodle -- uvx --from git+https://github.com/matheussilvano/moodle-mcp moodle-academic-mcp serve
-# Codex
+# 1) token: https://presencial.moodle.ufsc.br/user/managetoken.php  (serviço "Moodle mobile web service")
+uvx --from git+https://github.com/matheussilvano/moodle-mcp moodle-academic-mcp configure --profile ufsc --service mobile
+# 2) teste a conexão
+uvx --from git+https://github.com/matheussilvano/moodle-mcp moodle-academic-mcp doctor
+# 3) conecte ao seu cliente (vale em qualquer pasta)
+claude mcp add --scope user --transport stdio moodle -- uvx --from git+https://github.com/matheussilvano/moodle-mcp moodle-academic-mcp serve
 codex mcp add moodle -- uvx --from git+https://github.com/matheussilvano/moodle-mcp moodle-academic-mcp serve
 ```
+Reinicie o cliente e pergunte: *“liste meus cursos atuais”*. Requer Python 3.11+ e [uv](https://docs.astral.sh/uv/). Ainda **não** está no PyPI. ChatGPT e GPTs personalizados precisam do [modo hospedado](docs/auth.md). Guia por cliente: [docs/clients.md](docs/clients.md).
 
-ChatGPT e GPTs personalizados precisam do [modo hospedado](docs/auth.md) (HTTPS público). Detalhes em [clientes](docs/clients.md).
+## 🧭 Como funciona
 
-## Estado da validação (honesto)
-
-| Nível | O que foi feito |
-| --- | --- |
-| Testes automatizados | 65+ testes contra um **Moodle falso** (mock) e contra PostgreSQL 16 real; stdio e Streamable HTTP com cliente MCP real |
-| Moodle real da UFSC (4.1.5+) | **somente leituras** com um token pessoal: `core_webservice_get_site_info`, cursos, tarefas/estado, calendário, lista de fóruns |
-| Escritas (entrega, quiz, grupos, fórum) | **não testadas em Moodle real** (apenas mock); exigem um sandbox — veja [sandbox](docs/sandbox.md) |
-| Attendance, VPL, Group choice | adaptadores escritos a partir do código upstream; **não validados** na UFSC |
-
-Detalhes por recurso em [feature-matrix.md](docs/feature-matrix.md).
-
-## Segurança e privacidade em uma tela
-
-- Tokens nunca vão para logs, URLs, resultados ou para o modelo; `userprivateaccesskey` é removido.
-- Downloads só falam com o host Moodle do perfil (redirecionamentos revalidados); no modo hospedado IPs privados/metadados são bloqueados.
-- Texto de PDFs, fóruns e páginas é marcado como **não confiável**; não autoriza ações.
-- Dados enviados ao modelo são processados pelo provedor que **você** escolheu, mesmo com o MCP rodando local.
-- Veja [privacy.md](docs/privacy.md) para retenção, exportação e exclusão (`moodle-academic-mcp data export|purge`).
-
-## Desenvolvimento
-
-```bash
-uv sync --all-extras && uv run pytest -q && uv run ruff check src tests && uv run mypy src
+```mermaid
+flowchart LR
+  subgraph Clientes
+    A[Claude Code / Codex<br/>stdio] 
+    B[ChatGPT / Claude<br/>Streamable HTTP + OAuth]
+    C[GPT Actions<br/>OpenAPI]
+  end
+  A --> R
+  B --> R
+  C --> R
+  R{{"registro único de operações<br/>(55 tools = 55 rotas REST)"}} --> D[domínio acadêmico<br/>tarefas · prazos · quiz · notas<br/>grupos · frequência · materiais]
+  D --> M[(cliente Moodle<br/>REST + upload + pluginfile)]
+  D --> S[(SQLite / PostgreSQL<br/>credenciais cifradas · diário de escritas)]
+  D --> K[[cálculo exato<br/>Fraction / Decimal]]
+  M --> U((Moodle da sua instituição))
 ```
 
-[CONTRIBUTING](CONTRIBUTING.md) · [Roadmap](docs/roadmap.md) · [Boas primeiras issues](docs/good-first-issues.md) · Licença MIT.
+Duas regras de ouro: **cada pessoa usa o próprio token** (nada de token compartilhado ou singleton) e **o texto de PDFs, fóruns e páginas é dado não confiável** — nunca autoriza ações.
+
+## ✅ Estado da validação (sem maquiagem)
+
+| Área | Testes automáticos (mock) | Moodle real (UFSC 4.1.5+) |
+| --- | :---: | :---: |
+| Cursos, tarefas, estado, calendário, lista de fóruns | ✅ | ✅ leitura |
+| Entrega (upload → rascunho → envio), quiz, grupos, fórum (escrita) | ✅ | ⛔ **não testado** |
+| Frequência (cálculo) / notas (simulação) | ✅ 100% puro | n/a |
+| Attendance, VPL, Group choice (adaptadores) | ✅ | ⛔ não validado |
+| Modo hospedado (HTTP, onboarding, PostgreSQL 16) | ✅ | n/a |
+| OIDC com IdP real · ChatGPT · Codex | ⛔ | ⛔ |
+
+Quer ajudar a mover um ⛔ para ✅? Veja o [sandbox](docs/sandbox.md) — é a contribuição mais valiosa.
+
+## 🔒 Segurança e privacidade
+
+- Tokens fora de logs, URLs, resultados e do modelo; `userprivateaccesskey` removido; cifrados no modo hospedado.
+- Downloads só para o host Moodle do perfil; SSRF bloqueado; arquivos locais confinados a pastas permitidas.
+- Escritas são ferramentas **separadas e anotadas**; você (ou o cliente) decide a política de confirmação — [exemplos](examples/).
+- Nada de “Entrar com UFSC” nem senha institucional. Detalhes: [SECURITY.md](SECURITY.md) · [privacy](docs/privacy.md).
+
+## 🤝 Contribua (é fácil)
+
+```bash
+git clone https://github.com/matheussilvano/moodle-mcp && cd moodle-mcp
+make setup     # uv sync + hooks
+make check     # lint + tipos + testes (≈10 s, sem credenciais, sem internet)
+```
+- 🌱 [Issues para começar](https://github.com/matheussilvano/moodle-mcp/labels/good%20first%20issue) · 🗺️ [Roadmap](docs/roadmap.md) · 🏫 [Adicionar sua universidade](docs/add-institution.md)
+- Testes usam um **Moodle falso** (`tests/fake_moodle.py`) — nenhum dado real. Nunca marque algo como validado sem rodar num Moodle de verdade.
+- Comece por [CONTRIBUTING.md](CONTRIBUTING.md); dúvidas em [Discussions](https://github.com/matheussilvano/moodle-mcp/discussions).
+
+## 📚 Documentação
+
+[Ferramentas](docs/tools.md) · [Arquitetura](docs/architecture.md) · [Tokens e VPN](docs/tokens.md) · [Clientes](docs/clients.md) · [Hospedagem e auth](docs/auth.md) · [Frequência e notas](docs/attendance-grades.md) · [Matriz de recursos](docs/feature-matrix.md) · [Fluxos](docs/workflows.md)
+
+Licença [MIT](LICENSE).

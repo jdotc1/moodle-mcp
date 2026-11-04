@@ -1,0 +1,6 @@
+{
+  "name": "moodle-academic-mcp",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "postCreateCommand": "pip install uv && uv sync --all-extras --group dev",
+  "customizations": { "vscode": { "extensions": ["charliermarsh.ruff", "ms-python.python"] } }
+}
