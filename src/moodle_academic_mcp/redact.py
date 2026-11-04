@@ -120,3 +120,4 @@ def setup_logging(level: str = "INFO") -> None:
     logging.getLogger("httpx").setLevel(logging.WARNING)
     logging.getLogger("httpcore").setLevel(logging.WARNING)
     logging.getLogger("mcp").setLevel(logging.WARNING)
+    logging.getLogger("pypdf").setLevel(logging.ERROR)  # noisy on slightly malformed PDFs

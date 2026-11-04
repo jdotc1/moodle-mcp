@@ -44,6 +44,7 @@ async def list_deadlines(
     status: str = "all",
     types: list[str] | None = None,
     include_past_due: bool = False,
+    past_due_days: int = 30,
     offset: int = 0,
     limit: int = 100,
 ) -> dict[str, Any]:
@@ -73,7 +74,7 @@ async def list_deadlines(
         if any(ts_from <= d < ts_to for d in dates) or (
             include_past_due
             and a.get("duedate")
-            and a["duedate"] < ts_from
+            and ts_from - past_due_days * 86400 <= a["duedate"] < ts_from
             and a.get("cutoffdate", 0) in (0, None)
         ):
             wanted.append((c, a))

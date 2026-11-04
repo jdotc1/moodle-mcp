@@ -105,6 +105,8 @@ class Account:
             return {
                 "service": service,
                 "verified": True,
+                "usable": True,
+                "trust": "verified",
                 "evidence": "primary service",
                 "userid": await self.userid(),
             }
@@ -112,17 +114,33 @@ class Account:
             mine = await self.userid()
             other = int((await self.site_info(service))["userid"])
         except MamcpError as e:
+            if service in self.profile.attested_services:
+                return {
+                    "service": service,
+                    "verified": False,
+                    "usable": True,
+                    "trust": "attested_by_user",
+                    "userid": await self.userid(),
+                    "evidence": "NOT proven by the server: you attested in the profile config that this token "
+                    f"belongs to your own account (site_info unavailable: {e.code})",
+                }
             return {
                 "service": service,
                 "verified": False,
+                "usable": False,
+                "trust": "unknown",
                 "userid": None,
                 "evidence": f"cannot prove identity: core_webservice_get_site_info unavailable on this service "
                 f"({e.code})",
+                "how_to_attest": "If this token is yours (created on your own managetoken page), run: "
+                f"moodle-academic-mcp configure --profile {self.profile.name} --attest {service}",
             }
-        ok = mine == other
+        ok = mine == other  # a mismatch is never overridden by attestation
         return {
             "service": service,
             "verified": ok,
+            "usable": ok,
+            "trust": "verified" if ok else "mismatch",
             "userid": other,
             "evidence": "same userid from core_webservice_get_site_info" if ok else "userid differs",
         }

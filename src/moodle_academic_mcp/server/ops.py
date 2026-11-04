@@ -54,16 +54,17 @@ async def capabilities_matrix(acct: Account) -> dict[str, Any]:
 # --------------------------------------------------------------------------- courses
 @op(tags=["courses"])
 async def list_courses(
-    acct: Account, only_current: bool = True, offset: int = 0, limit: int = 50
+    acct: Account, only_current: bool = True, offset: int = 0, limit: int = 50, semester: str | None = None
 ) -> dict[str, Any]:
     """[READ] Courses (turmas) you are enrolled in, with semester hint, dates and links.
 
     Args:
-        only_current: hide courses already ended or completed.
+        only_current: only the current term (latest semester seen, not ended). Default true.
+        semester: show exactly this term code (e.g. 20252); overrides only_current.
         offset: pagination offset.
         limit: page size (max 200).
     """
-    return await courses.list_courses(acct, only_current, offset, limit)
+    return await courses.list_courses(acct, only_current, offset, limit, semester)
 
 
 @op(tags=["courses"])
@@ -135,6 +136,7 @@ async def list_deadlines(
     status: Literal["all", "submitted", "pending"] = "all",
     types: list[str] | None = None,
     include_past_due: bool = False,
+    past_due_days: int = 30,
     offset: int = 0,
     limit: int = 100,
 ) -> dict[str, Any]:
@@ -149,10 +151,11 @@ async def list_deadlines(
         course_id: restrict to one course.
         status: submitted / pending (not submitted or unknown) / all.
         types: filter by item type, e.g. ['assign','quiz'].
-        include_past_due: also list overdue assignments that are still open.
+        include_past_due: also list assignments that became due before the window and have no hard cutoff.
+        past_due_days: how far back include_past_due looks (default 30 days).
     """
     return await deadlines.list_deadlines(
-        acct, range, start, end, course_id, status, types, include_past_due, offset, limit
+        acct, range, start, end, course_id, status, types, include_past_due, past_due_days, offset, limit
     )
 
 

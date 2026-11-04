@@ -297,3 +297,44 @@ async def test_attendance_manual_import_and_limits(alice):
     assert "not_the_same_as" in r
     sk = await attendance.report(alice, 10, min_frequency="75%", total_hours=8, skip_dates=["2999-01-01"])
     assert sk["scenario"]["skipped_sessions"] == ["m4"]
+
+
+# ------------------------------------------------------------------ attestation (user-declared same account)
+async def test_attested_attendance_token_is_usable_but_labelled(make_account, fake_state):
+    _sessions(fake_state)
+    prof = profile()
+    prof.attested_services = ["attendance"]
+    a = make_account(tokens={"mobile": "tokA", "attendance": "tokAtt"}, prof=prof)
+    ident = await a.service_identity("attendance")
+    assert ident["verified"] is False and ident["usable"] and ident["trust"] == "attested_by_user"
+    r = await attendance.report(
+        a,
+        10,
+        source="moodle",
+        attendance_id=4,
+        min_frequency="75%",
+        total_hours=8,
+        hours_per_session=2,
+        rule_source="plano de ensino",
+    )
+    assert r["data_source"]["identity"] == "attested_by_user"
+    # alice (101) was present in session 1 and absent in session 2; session 3 has no roll call; 4 is future
+    assert r["registered"] == {"present_hours": 2, "absence_hours": 2, "excluded_hours": 0}
+    assert r["pending_hours"] == 2
+
+
+async def test_unattested_error_tells_how_to_attest(make_account, fake_state):
+    _sessions(fake_state)
+    a = make_account(tokens={"mobile": "tokA", "attendance": "tokAtt"})
+    with pytest.raises(UnsupportedError) as e:
+        await attendance.report(a, 10, source="moodle", min_frequency="75%")
+    assert "--attest attendance" in e.value.hint
+
+
+async def test_attestation_never_overrides_a_proven_mismatch(make_account, fake_state):
+    # tokAtt2 belongs to bob (102) but exposes site_info in this scenario: simulate with a mobile token of bob
+    prof = profile()
+    prof.attested_services = ["mobile2"]
+    a = make_account(tokens={"mobile": "tokA", "mobile2": "tokB"}, prof=prof)
+    ident = await a.service_identity("mobile2")
+    assert ident["usable"] is False and ident["trust"] == "mismatch"

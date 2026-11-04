@@ -51,12 +51,11 @@ async def _moodle_sessions(
             "`configure`, or use attendance_import_manual.",
         )
     ident = await acct.require_verified_identity("attendance")
-    if not ident["verified"]:
+    if not ident["usable"]:
         raise UnsupportedError(
             "Cannot prove that the Attendance token belongs to the same Moodle user as your main token "
             f"({ident['evidence']}). Records are not read to avoid mixing identities.",
-            hint="Use attendance_import_manual, or an Attendance service that exposes "
-            "core_webservice_get_site_info.",
+            hint=ident.get("how_to_attest", "Use attendance_import_manual."),
         )
     if attendance_id is None:
         inst = await find_instances(acct, course_id)
@@ -106,6 +105,7 @@ async def _moodle_sessions(
         "source": "moodle:mod_attendance",
         "attendance_id": attendance_id,
         "last_roll_call_at": iso(last_taken, acct.tz) if last_taken else None,
+        "identity": ident["trust"],
         "unknown_statuses": sorted(unknown_status),
         "status": "documented_upstream_unvalidated",
     }

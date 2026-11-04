@@ -21,3 +21,16 @@ UFSC announced temporary restrictions on external access and VPN requirements fo
 
 ## Self-hosted/private Moodle
 URLs must be `https://`. Private-network targets are refused in hosted mode unless the administrator sets `allow_private_networks = true` for that profile.
+
+## Attendance token that cannot prove its identity ("permission_denied" on site info)
+Many Attendance services do not expose `core_webservice_get_site_info`, so the server cannot check that the token belongs to the same user as your `mobile` token. It then refuses to read records (it will not mix identities). If the token is yours (you created it on **your own** `managetoken.php` page), declare it once:
+
+```bash
+moodle-academic-mcp configure --profile ufsc --service attendance        # store the token (hidden input)
+moodle-academic-mcp configure --profile ufsc --attest attendance         # "this token is mine"
+moodle-academic-mcp configure --profile ufsc --attendance-min-percent 75% \
+    --attendance-rule-source "plano de ensino de cada disciplina, 2026/2"   # optional defaults
+```
+Reports then carry `identity: attested_by_user` (not "verified"). A proven *mismatch* is never overridden. The minimum frequency is **your** input with a source (the server never assumes 75 %). Without any token: `attendance_import_manual`.
+
+If your terminal has no keyring, add `MAMCP_NO_KEYRING=1` to the command; tokens are then read from the 0600 file, and the server finds them there too.

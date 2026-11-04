@@ -201,3 +201,32 @@ async def test_grades_distinguish_ungraded_from_zero(alice):
     assert by["Zero"]["graded"] is True and by["Zero"]["score"] == 0.0
     scheme = await grades.draft_scheme(alice, 10)
     assert scheme["formula"].startswith("avg(") and scheme["items"][1]["score"] is None  # Zero has no weight
+
+
+async def test_list_courses_defaults_to_latest_term(make_account, fake_state):
+    from moodle_academic_mcp.domain import courses
+
+    a = make_account()
+    orig = a.client().call
+
+    async def fake_call(fn, params=None, **kw):
+        if fn == "core_enrol_get_users_courses":
+            return [
+                {"id": 1, "shortname": "OLD1 (20242)", "startdate": 1, "enddate": 0},
+                {"id": 2, "shortname": "OLD2 (20252)", "startdate": 1, "enddate": 0},
+                {"id": 3, "shortname": "NEW1 (20262)", "startdate": 1, "enddate": 0},
+                {"id": 4, "shortname": "NEW2 (20262)", "startdate": 1, "enddate": 0},
+            ]
+        return await orig(fn, params, **kw)
+
+    a.client().call = fake_call  # type: ignore[method-assign]
+    cur = await courses.list_courses(a)
+    assert [c["id"] for c in cur["items"]] == [3, 4] and cur["filter"]["latest_term_seen"] == "20262"
+    assert "only_current=false" in cur["hint"]
+    assert len((await courses.list_courses(a, only_current=False))["items"]) == 4
+    assert [c["id"] for c in (await courses.list_courses(a, semester="20252"))["items"]] == [2]
+
+
+async def test_past_due_is_bounded(alice, monkeypatch):
+    res = await deadlines.list_deadlines(alice, "next_7_days", include_past_due=True, past_due_days=7)
+    assert res["total"] >= 1

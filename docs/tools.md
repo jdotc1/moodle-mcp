@@ -99,7 +99,8 @@ The response includes the exact window queried. 'next_week' = next calendar week
 | `course_id` | no | restrict to one course. |
 | `status` | no | submitted / pending (not submitted or unknown) / all. |
 | `types` | no | filter by item type, e.g. ['assign','quiz']. |
-| `include_past_due` | no | also list overdue assignments that are still open. |
+| `include_past_due` | no | also list assignments that became due before the window and have no hard cutoff. |
+| `past_due_days` | no | how far back include_past_due looks (default 30 days). |
 | `offset` | no |  |
 | `limit` | no |  |
 
@@ -225,9 +226,10 @@ Moodle functions: `core_course_get_contents` (read; ufsc_mobile)
 
 | Parameter | Required | Description |
 | --- | --- | --- |
-| `only_current` | no | hide courses already ended or completed. |
+| `only_current` | no | only the current term (latest semester seen, not ended). Default true. |
 | `offset` | no | pagination offset. |
 | `limit` | no | page size (max 200). |
+| `semester` | no | show exactly this term code (e.g. 20252); overrides only_current. |
 
 Moodle functions: `core_webservice_get_site_info` (read; ufsc_mobile), `core_enrol_get_users_courses` (read; ufsc_mobile)
 

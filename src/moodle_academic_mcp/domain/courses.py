@@ -30,7 +30,7 @@ def semester_hint(shortname: str, startdate: int | None, acct: Account) -> dict[
 
 
 async def list_courses(
-    acct: Account, only_current: bool = True, offset: int = 0, limit: int = 50
+    acct: Account, only_current: bool = True, offset: int = 0, limit: int = 50, semester: str | None = None
 ) -> dict[str, Any]:
     import time
 
@@ -40,8 +40,6 @@ async def list_courses(
     out = []
     for c in raw:
         end = c.get("enddate") or 0
-        if only_current and ((end and end < now) or c.get("completed") is True):
-            continue
         out.append(
             {
                 "id": c["id"],
@@ -50,14 +48,39 @@ async def list_courses(
                 "idnumber": c.get("idnumber") or None,
                 "semester": semester_hint(c.get("shortname", ""), c.get("startdate"), acct),
                 "start": iso(c.get("startdate"), acct.tz),
-                "end": iso(c.get("enddate"), acct.tz),
+                "end": iso(end, acct.tz) if end else None,
                 "progress": c.get("progress"),
                 "hidden": c.get("visible") == 0,
                 "link": acct.link(f"course/view.php?id={c['id']}"),
+                "_ended": bool(end and end < now) or c.get("completed") is True,
             }
         )
+    codes = sorted(
+        {
+            o["semester"]["value"]
+            for o in out
+            if o["semester"] and o["semester"]["value"].isdigit() and len(o["semester"]["value"]) == 5
+        }
+    )
+    latest = codes[-1] if codes else None
+    if semester:
+        out = [o for o in out if o["semester"] and o["semester"]["value"] == semester]
+    elif only_current:
+        # Sites often keep old terms enrolled with enddate=0: current = not ended AND in the latest term seen.
+        out = [
+            o
+            for o in out
+            if not o["_ended"] and (latest is None or not o["semester"] or o["semester"]["value"] == latest)
+        ]
+    for o in out:
+        o.pop("_ended")
     res = paginate(out, offset, limit)
-    res["filter"] = {"only_current": only_current}
+    res["filter"] = {"only_current": only_current, "semester": semester, "latest_term_seen": latest}
+    res["hint"] = (
+        "Older terms are hidden; pass only_current=false or semester=<code> (e.g. 20252) to see them."
+        if only_current and not semester
+        else None
+    )
     res["timezone"] = str(acct.tz)
     return res
 

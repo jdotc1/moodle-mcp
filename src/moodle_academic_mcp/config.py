@@ -54,6 +54,7 @@ class ProfileSettings:
     extra_hosts: list[str] = field(default_factory=list)
     attendance_min_percent: str | None = None  # configurable rule, never a universal constant
     attendance_rule_source: str | None = None
+    attested_services: list[str] = field(default_factory=list)  # user-attested same-account tokens
     timeout: float = 30.0
 
     def endpoint(self) -> Endpoint:
@@ -107,6 +108,7 @@ def _profile_from_dict(name: str, d: dict[str, Any]) -> ProfileSettings:
         extra_hosts=list(d.get("extra_hosts", [])),
         attendance_min_percent=d.get("attendance_min_percent"),
         attendance_rule_source=d.get("attendance_rule_source"),
+        attested_services=list(d.get("attested_services", [])),
         timeout=float(d.get("timeout", 30.0)),
     )
 
@@ -179,6 +181,8 @@ class AppConfig:
                 lines.append("extra_hosts = [" + ", ".join(f'"{h}"' for h in p.extra_hosts) + "]")
             if p.attendance_min_percent:
                 lines.append(f'attendance_min_percent = "{p.attendance_min_percent}"')
+            if p.attested_services:
+                lines.append("attested_services = [" + ", ".join(f'"{s}"' for s in p.attested_services) + "]")
             if p.attendance_rule_source:
                 lines.append(f'attendance_rule_source = "{p.attendance_rule_source}"')
         self.path.write_text("\n".join(lines) + "\n", encoding="utf-8")

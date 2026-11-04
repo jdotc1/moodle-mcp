@@ -80,6 +80,7 @@ def cmd_configure(a: argparse.Namespace) -> int:
         attendance_min_percent=existing.attendance_min_percent if existing else None,
         attendance_rule_source=existing.attendance_rule_source if existing else None,
     )
+    p.attested_services = list(existing.attested_services) if existing else []
     cfg.profiles[name] = p
     cfg.default_profile = cfg.default_profile or name
     cfg.save()
@@ -89,7 +90,21 @@ def cmd_configure(a: argparse.Namespace) -> int:
         "Tokens are read with hidden input and stored in the OS keyring when available, otherwise in a "
         "private (0600) file. They are never printed.\n"
     )
-    for service in a.service or ["mobile"]:
+    if a.attendance_min_percent:
+        p.attendance_min_percent = a.attendance_min_percent
+        p.attendance_rule_source = a.attendance_rule_source or p.attendance_rule_source
+    elif a.attendance_rule_source:
+        p.attendance_rule_source = a.attendance_rule_source
+    for svc in a.attest or []:
+        if svc not in p.attested_services:
+            p.attested_services.append(svc)
+        print(
+            f"Attested: you state that your '{svc}' token belongs to your own Moodle account "
+            "(recorded in config; the server cannot prove it)."
+        )
+    cfg.profiles[name] = p
+    cfg.save()
+    for service in a.service or ([] if a.attest else ["mobile"]):
         if sys.stdin.isatty():
             tok = getpass.getpass(f"Token for service '{service}' (empty = keep/skip): ").strip()
         else:
@@ -257,6 +272,16 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--timezone")
     s.add_argument(
         "--service", action="append", help="service token to enter (repeatable): mobile, attendance, vpl"
+    )
+    s.add_argument(
+        "--attest",
+        action="append",
+        metavar="SERVICE",
+        help="declare that this service's token is yours when the server cannot prove it (e.g. attendance)",
+    )
+    s.add_argument("--attendance-min-percent", help="default minimum frequency, e.g. 75%% (needs a source)")
+    s.add_argument(
+        "--attendance-rule-source", help="where that rule comes from, e.g. 'plano de ensino 2026/2'"
     )
     s.add_argument("--allow-insecure-http", action="store_true", help="development only")
     s.add_argument(
