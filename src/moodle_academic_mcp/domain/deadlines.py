@@ -35,6 +35,15 @@ async def calendar_action_events(
     return out
 
 
+def _match(a: dict, ts_from: int, ts_to: int) -> str:
+    """Which date of the assignment put it in the window: due | cutoff | past_due (open, before the window)."""
+    if a.get("duedate") and ts_from <= a["duedate"] < ts_to:
+        return "due"
+    if a.get("cutoffdate") and ts_from <= a["cutoffdate"] < ts_to:
+        return "cutoff (the due date is outside this window)"
+    return "past_due"
+
+
 async def list_deadlines(
     acct: Account,
     range: str = "next_7_days",
@@ -97,6 +106,7 @@ async def list_deadlines(
                 "due_at": v["due_at"],
                 "effective_due_at": eff,
                 "cutoff_at": v["cutoff_at"],
+                "window_match": _match(a, ts_from, ts_to),
                 "extension_applied": bool(st.get("extension_due_at")),
                 "submission_state": st.get("state", "unknown"),
                 "group_assignment": v["team_submission"],

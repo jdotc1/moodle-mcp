@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- `list_deadlines` items carry `window_match` (due | cutoff | past_due) to explain why they are listed.
+
 ## 0.1.1
 - Claude Code plugin + marketplace (`/plugin marketplace add matheussilvano/moodle-mcp`), guided skills, token via secure `userConfig`.
 - Profile from environment variables (`MAMCP_BASE_URL` …) now becomes the default profile; the plugin isolates its config/state under `CLAUDE_PLUGIN_DATA`.

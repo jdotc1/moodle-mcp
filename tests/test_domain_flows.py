@@ -230,3 +230,9 @@ async def test_list_courses_defaults_to_latest_term(make_account, fake_state):
 async def test_past_due_is_bounded(alice, monkeypatch):
     res = await deadlines.list_deadlines(alice, "next_7_days", include_past_due=True, past_due_days=7)
     assert res["total"] >= 1
+
+
+async def test_window_match_explains_why_an_item_is_listed(alice):
+    res = await deadlines.list_deadlines(alice, "next_30_days")
+    t1 = next(i for i in res["items"] if i["name"] == "Trabalho 1")
+    assert t1["window_match"] == "due"
