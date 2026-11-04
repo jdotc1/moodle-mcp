@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>moodle-academic-mcp · connect your Moodle</title>
+<style>
+ body{font:16px/1.5 system-ui,sans-serif;max-width:46rem;margin:2rem auto;padding:0 1rem;color:#1b1f23}
+ input,select,button{font:inherit;padding:.5rem;margin:.25rem 0}
+ input[type=password],input[type=text],select{width:100%;box-sizing:border-box}
+ .card{border:1px solid #d0d7de;border-radius:8px;padding:1rem;margin:1rem 0}
+ .ok{color:#116329}.err{color:#a40e26}.muted{color:#57606a;font-size:.9rem}
+ code{background:#f6f8fa;padding:.1rem .3rem;border-radius:4px}
+</style>
+</head>
+<body>
+<h1>Connect your Moodle</h1>
+<p class="muted">Community project, independent of any institution, Moodle, Anthropic or OpenAI. You enter <b>your own</b>
+Moodle web-service token; it is stored encrypted and never shown again or sent to the AI. Never type your institutional
+password here.</p>
+
+<div class="card" id="auth">
+ <h2>1. Sign in to this server</h2>
+ <div id="oidc" hidden><button id="login">Sign in with your identity provider</button></div>
+ <label>Bearer token (development mode) <input type="password" id="bearer" autocomplete="off" placeholder="mamcp_dev_..."></label>
+ <button id="saveBearer">Use token</button> <span id="authState" class="muted"></span>
+</div>
+
+<div class="card">
+ <h2>2. Add a Moodle token</h2>
+ <label>Institution <select id="profile"></select></label>
+ <p class="muted" id="tokenLink"></p>
+ <label>Service <select id="service"><option>mobile</option><option>attendance</option><option>vpl</option></select></label>
+ <label>Token <input type="password" id="token" autocomplete="off"></label>
+ <label><input type="checkbox" id="anyway"> Save even if the connection test fails (e.g. Attendance/VPL tokens)</label><br>
+ <button id="add">Test and save</button> <span id="addState"></span>
+</div>
+
+<div class="card">
+ <h2>3. Your connections</h2>
+ <ul id="conns"></ul>
+ <button id="export">Export my data</button> <button id="purge">Delete all my data</button>
+ <pre id="out" class="muted"></pre>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+let bearer=sessionStorage.getItem('bearer')||'';
+const api=async(path,opt={})=>{const r=await fetch(path,{...opt,headers:{...(opt.headers||{}),Authorization:'Bearer '+bearer,'Content-Type':'application/json'}});
+ let j=null;try{j=await r.json()}catch(e){} return {ok:r.ok,status:r.status,body:j}};
+async function refresh(){
+ const p=await fetch('/api/v1/profiles').then(r=>r.json());
+ $('profile').innerHTML=p.profiles.map(x=>`<option value="${x.name}">${x.institution}</option>`).join('');
+ const upd=()=>{const x=p.profiles.find(y=>y.name===$('profile').value);$('tokenLink').textContent=x?`Create the token at ${x.base_url}/user/managetoken.php`:''};
+ $('profile').onchange=upd;upd();
+ if(!bearer){$('authState').textContent='not signed in';return}
+ const c=await api('/api/v1/me/connections');
+ if(!c.ok){$('authState').textContent='token rejected ('+c.status+')';return}
+ $('authState').textContent='signed in as '+c.body.user;
+ $('conns').innerHTML=c.body.connections.map(x=>`<li>${x.profile} / ${x.service} <button data-p="${x.profile}" data-s="${x.service}">remove</button></li>`).join('')||'<li class="muted">none yet</li>';
+ document.querySelectorAll('#conns button').forEach(b=>b.onclick=async()=>{await api(`/api/v1/profiles/${b.dataset.p}/tokens/${b.dataset.s}`,{method:'DELETE'});refresh()});
+}
+$('saveBearer').onclick=()=>{bearer=$('bearer').value.trim();sessionStorage.setItem('bearer',bearer);$('bearer').value='';refresh()};
+$('add').onclick=async()=>{
+ const r=await api(`/api/v1/profiles/${$('profile').value}/tokens/${$('service').value}`,{method:'PUT',body:JSON.stringify({token:$('token').value,store_anyway:$('anyway').checked})});
+ $('token').value='';
+ $('addState').className=r.ok?'ok':'err';
+ $('addState').textContent=r.ok?('saved · '+(r.body.test.ok?'connection OK':'saved without a passing test')):((r.body&&(r.body.detail?.message||r.body.message))||('error '+r.status));
+ refresh()};
+$('export').onclick=async()=>{const r=await api('/api/v1/me/export');$('out').textContent=JSON.stringify(r.body,null,1)};
+$('purge').onclick=async()=>{if(confirm('Delete all stored data and tokens?')){const r=await api('/api/v1/me/data',{method:'DELETE'});$('out').textContent=JSON.stringify(r.body);refresh()}};
+// Optional OIDC (authorization code + PKCE) when the server advertises a public client id
+(async()=>{
+ const cfg=await fetch('/onboarding/config').then(r=>r.json());
+ if(cfg.oidc){ $('oidc').hidden=false;
+  const b64=a=>btoa(String.fromCharCode(...new Uint8Array(a))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  $('login').onclick=async()=>{const v=b64(crypto.getRandomValues(new Uint8Array(32)));sessionStorage.setItem('pkce',v);
+   const ch=b64(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(v)));
+   const u=new URL(cfg.oidc.authorization_endpoint);u.search=new URLSearchParams({response_type:'code',client_id:cfg.oidc.client_id,redirect_uri:location.origin+'/onboarding',scope:cfg.oidc.scope,code_challenge:ch,code_challenge_method:'S256',audience:cfg.oidc.audience||''});location=u};
+  const code=new URLSearchParams(location.search).get('code');
+  if(code){const r=await fetch(cfg.oidc.token_endpoint,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({grant_type:'authorization_code',code,client_id:cfg.oidc.client_id,redirect_uri:location.origin+'/onboarding',code_verifier:sessionStorage.getItem('pkce')||''})});
+   const j=await r.json();if(j.access_token){bearer=j.access_token;sessionStorage.setItem('bearer',bearer);history.replaceState({},'','/onboarding')}}
+ }
+ refresh();
+})();
+</script>
+</body></html>
