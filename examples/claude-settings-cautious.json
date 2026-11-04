@@ -1,0 +1,6 @@
+{
+  "permissions": {
+    "allow": ["mcp__moodle__list_courses", "mcp__moodle__list_deadlines", "mcp__moodle__get_assignment", "mcp__moodle__submission_status", "mcp__moodle__read_material", "mcp__moodle__search_materials", "mcp__moodle__get_grades"],
+    "ask": ["mcp__moodle__deliver_assignment", "mcp__moodle__save_submission", "mcp__moodle__submit_assignment", "mcp__moodle__finish_quiz_attempt", "mcp__moodle__start_quiz_attempt", "mcp__moodle__join_group", "mcp__moodle__post_discussion"]
+  }
+}

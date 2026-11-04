@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "moodle": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/matheussilvano/moodle-mcp", "moodle-academic-mcp", "serve"],
+      "env": { "MAMCP_UPLOAD_ROOTS": "${HOME}/trabalhos" }
+    }
+  }
+}

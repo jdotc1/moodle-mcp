@@ -1,0 +1,18 @@
+# UNTESTED recipe. Check the current image names/tags before using.
+services:
+  mariadb:
+    image: mariadb:11
+    environment: {MARIADB_ROOT_PASSWORD: sandbox, MARIADB_DATABASE: moodle, MARIADB_USER: moodle, MARIADB_PASSWORD: sandbox}
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+  moodle:
+    image: bitnamilegacy/moodle:4.5
+    depends_on: [mariadb]
+    environment:
+      MOODLE_DATABASE_TYPE: mariadb
+      MOODLE_DATABASE_HOST: mariadb
+      MOODLE_DATABASE_NAME: moodle
+      MOODLE_DATABASE_USER: moodle
+      MOODLE_DATABASE_PASSWORD: sandbox
+      MOODLE_USERNAME: admin
+      MOODLE_PASSWORD: sandbox-Admin1!
+    ports: ["127.0.0.1:8081:8080"]
