@@ -1,0 +1,8031 @@
+{
+ "functions": {
+  "block_recentlyaccesseditems_get_recent_items": {
+   "description": "List of items a user has accessed most recently.",
+   "params": [
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    }
+   ]
+  },
+  "block_starredcourses_get_starred_courses": {
+   "description": "Get users starred courses.",
+   "params": [
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    },
+    {
+     "name": "offset",
+     "required": false,
+     "top": "offset",
+     "type": "int"
+    }
+   ]
+  },
+  "core_badges_get_user_badges": {
+   "description": "Returns the list of badges awarded to a user.",
+   "params": [
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "perpage",
+     "required": false,
+     "top": "perpage",
+     "type": "int"
+    },
+    {
+     "name": "search",
+     "required": false,
+     "top": "search",
+     "type": "string"
+    },
+    {
+     "name": "onlypublic",
+     "required": false,
+     "top": "onlypublic",
+     "type": "int"
+    }
+   ]
+  },
+  "core_block_fetch_addable_blocks": {
+   "description": "Returns all addable blocks in a given page.",
+   "params": [
+    {
+     "name": "pagecontextid",
+     "required": true,
+     "top": "pagecontextid",
+     "type": "int"
+    },
+    {
+     "name": "pagetype",
+     "required": true,
+     "top": "pagetype",
+     "type": "string"
+    },
+    {
+     "name": "pagelayout",
+     "required": true,
+     "top": "pagelayout",
+     "type": "string"
+    },
+    {
+     "name": "subpage",
+     "required": false,
+     "top": "subpage",
+     "type": "string"
+    }
+   ]
+  },
+  "core_block_get_course_blocks": {
+   "description": "Returns blocks information for a course.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "returncontents",
+     "required": false,
+     "top": "returncontents",
+     "type": "int"
+    }
+   ]
+  },
+  "core_block_get_dashboard_blocks": {
+   "description": "Returns blocks information for the given user dashboard.",
+   "params": [
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "returncontents",
+     "required": false,
+     "top": "returncontents",
+     "type": "int"
+    },
+    {
+     "name": "mypage",
+     "required": false,
+     "top": "mypage",
+     "type": "string"
+    }
+   ]
+  },
+  "core_blog_get_entries": {
+   "description": "Returns blog entries.",
+   "params": [
+    {
+     "name": "filters[0][name]",
+     "required": false,
+     "top": "filters",
+     "type": "string"
+    },
+    {
+     "name": "filters[0][value]",
+     "required": false,
+     "top": "filters",
+     "type": "string"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "perpage",
+     "required": false,
+     "top": "perpage",
+     "type": "int"
+    }
+   ]
+  },
+  "core_blog_view_entries": {
+   "description": "Trigger the blog_entries_viewed event.",
+   "params": [
+    {
+     "name": "filters[0][name]",
+     "required": false,
+     "top": "filters",
+     "type": "string"
+    },
+    {
+     "name": "filters[0][value]",
+     "required": false,
+     "top": "filters",
+     "type": "string"
+    }
+   ]
+  },
+  "core_calendar_create_calendar_events": {
+   "description": "Create calendar events",
+   "params": []
+  },
+  "core_calendar_delete_calendar_events": {
+   "description": "Delete calendar events",
+   "params": [
+    {
+     "name": "events[0][eventid]",
+     "required": true,
+     "top": "events",
+     "type": "int"
+    },
+    {
+     "name": "events[0][repeat]",
+     "required": true,
+     "top": "events",
+     "type": "int"
+    }
+   ]
+  },
+  "core_calendar_get_action_events_by_course": {
+   "description": "Get calendar action events by course",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "timesortfrom",
+     "required": false,
+     "top": "timesortfrom",
+     "type": "int"
+    },
+    {
+     "name": "timesortto",
+     "required": false,
+     "top": "timesortto",
+     "type": "int"
+    },
+    {
+     "name": "aftereventid",
+     "required": false,
+     "top": "aftereventid",
+     "type": "int"
+    },
+    {
+     "name": "limitnum",
+     "required": false,
+     "top": "limitnum",
+     "type": "int"
+    }
+   ]
+  },
+  "core_calendar_get_action_events_by_courses": {
+   "description": "Get calendar action events by courses",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": true,
+     "top": "courseids",
+     "type": "int"
+    },
+    {
+     "name": "timesortfrom",
+     "required": false,
+     "top": "timesortfrom",
+     "type": "int"
+    },
+    {
+     "name": "timesortto",
+     "required": false,
+     "top": "timesortto",
+     "type": "int"
+    },
+    {
+     "name": "limitnum",
+     "required": false,
+     "top": "limitnum",
+     "type": "int"
+    },
+    {
+     "name": "searchvalue",
+     "required": false,
+     "top": "searchvalue",
+     "type": "string"
+    }
+   ]
+  },
+  "core_calendar_get_action_events_by_timesort": {
+   "description": "Get calendar action events by tiemsort",
+   "params": [
+    {
+     "name": "timesortfrom",
+     "required": false,
+     "top": "timesortfrom",
+     "type": "int"
+    },
+    {
+     "name": "timesortto",
+     "required": false,
+     "top": "timesortto",
+     "type": "int"
+    },
+    {
+     "name": "aftereventid",
+     "required": false,
+     "top": "aftereventid",
+     "type": "int"
+    },
+    {
+     "name": "limitnum",
+     "required": false,
+     "top": "limitnum",
+     "type": "int"
+    },
+    {
+     "name": "limittononsuspendedevents",
+     "required": false,
+     "top": "limittononsuspendedevents",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "searchvalue",
+     "required": false,
+     "top": "searchvalue",
+     "type": "string"
+    }
+   ]
+  },
+  "core_calendar_get_allowed_event_types": {
+   "description": "Get the type of events a user can create in the given course.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_calendar_get_calendar_access_information": {
+   "description": "Convenience function to retrieve some permissions/access information for the given course calendar.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_calendar_get_calendar_day_view": {
+   "description": "Fetch the day view data for a calendar",
+   "params": [
+    {
+     "name": "year",
+     "required": true,
+     "top": "year",
+     "type": "int"
+    },
+    {
+     "name": "month",
+     "required": true,
+     "top": "month",
+     "type": "int"
+    },
+    {
+     "name": "day",
+     "required": true,
+     "top": "day",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "categoryid",
+     "required": false,
+     "top": "categoryid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_calendar_get_calendar_event_by_id": {
+   "description": "Get calendar event by id",
+   "params": [
+    {
+     "name": "eventid",
+     "required": true,
+     "top": "eventid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_calendar_get_calendar_events": {
+   "description": "Get calendar events",
+   "params": [
+    {
+     "name": "events[eventids][0]",
+     "required": false,
+     "top": "events",
+     "type": "int"
+    },
+    {
+     "name": "events[courseids][0]",
+     "required": false,
+     "top": "events",
+     "type": "int"
+    },
+    {
+     "name": "events[groupids][0]",
+     "required": false,
+     "top": "events",
+     "type": "int"
+    },
+    {
+     "name": "events[categoryids][0]",
+     "required": false,
+     "top": "events",
+     "type": "int"
+    },
+    {
+     "name": "options[userevents]",
+     "required": false,
+     "top": "options",
+     "type": "int"
+    },
+    {
+     "name": "options[siteevents]",
+     "required": false,
+     "top": "options",
+     "type": "int"
+    },
+    {
+     "name": "options[timestart]",
+     "required": false,
+     "top": "options",
+     "type": "int"
+    },
+    {
+     "name": "options[timeend]",
+     "required": false,
+     "top": "options",
+     "type": "int"
+    },
+    {
+     "name": "options[ignorehidden]",
+     "required": false,
+     "top": "options",
+     "type": "int"
+    }
+   ]
+  },
+  "core_calendar_get_calendar_export_token": {
+   "description": "Return the auth token required for exporting a calendar.",
+   "params": []
+  },
+  "core_calendar_get_calendar_monthly_view": {
+   "description": "Fetch the monthly view data for a calendar",
+   "params": [
+    {
+     "name": "year",
+     "required": true,
+     "top": "year",
+     "type": "int"
+    },
+    {
+     "name": "month",
+     "required": true,
+     "top": "month",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "categoryid",
+     "required": false,
+     "top": "categoryid",
+     "type": "int"
+    },
+    {
+     "name": "includenavigation",
+     "required": false,
+     "top": "includenavigation",
+     "type": "int"
+    },
+    {
+     "name": "mini",
+     "required": false,
+     "top": "mini",
+     "type": "int"
+    },
+    {
+     "name": "day",
+     "required": false,
+     "top": "day",
+     "type": "int"
+    },
+    {
+     "name": "view",
+     "required": false,
+     "top": "view",
+     "type": "string"
+    }
+   ]
+  },
+  "core_calendar_get_calendar_upcoming_view": {
+   "description": "Fetch the upcoming view data for a calendar",
+   "params": [
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "categoryid",
+     "required": false,
+     "top": "categoryid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_calendar_submit_create_update_form": {
+   "description": "Submit form data for event form",
+   "params": [
+    {
+     "name": "formdata",
+     "required": true,
+     "top": "formdata",
+     "type": "string"
+    }
+   ]
+  },
+  "core_calendar_update_event_start_day": {
+   "description": "Update the start day (but not time) for an event.",
+   "params": [
+    {
+     "name": "eventid",
+     "required": true,
+     "top": "eventid",
+     "type": "int"
+    },
+    {
+     "name": "daytimestamp",
+     "required": true,
+     "top": "daytimestamp",
+     "type": "int"
+    }
+   ]
+  },
+  "core_comment_add_comments": {
+   "description": "Adds a comment or comments.",
+   "params": [
+    {
+     "name": "comments[0][contextlevel]",
+     "required": true,
+     "top": "comments",
+     "type": "string"
+    },
+    {
+     "name": "comments[0][instanceid]",
+     "required": true,
+     "top": "comments",
+     "type": "int"
+    },
+    {
+     "name": "comments[0][component]",
+     "required": true,
+     "top": "comments",
+     "type": "string"
+    },
+    {
+     "name": "comments[0][content]",
+     "required": true,
+     "top": "comments",
+     "type": "string"
+    },
+    {
+     "name": "comments[0][itemid]",
+     "required": true,
+     "top": "comments",
+     "type": "int"
+    },
+    {
+     "name": "comments[0][area]",
+     "required": true,
+     "top": "comments",
+     "type": "string"
+    }
+   ]
+  },
+  "core_comment_delete_comments": {
+   "description": "Deletes a comment or comments.",
+   "params": [
+    {
+     "name": "comments[0]",
+     "required": true,
+     "top": "comments",
+     "type": "int"
+    }
+   ]
+  },
+  "core_comment_get_comments": {
+   "description": "Returns comments.",
+   "params": [
+    {
+     "name": "contextlevel",
+     "required": true,
+     "top": "contextlevel",
+     "type": "string"
+    },
+    {
+     "name": "instanceid",
+     "required": true,
+     "top": "instanceid",
+     "type": "int"
+    },
+    {
+     "name": "component",
+     "required": true,
+     "top": "component",
+     "type": "string"
+    },
+    {
+     "name": "itemid",
+     "required": true,
+     "top": "itemid",
+     "type": "int"
+    },
+    {
+     "name": "area",
+     "required": false,
+     "top": "area",
+     "type": "string"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "sortdirection",
+     "required": false,
+     "top": "sortdirection",
+     "type": "string"
+    }
+   ]
+  },
+  "core_competency_competency_viewed": {
+   "description": "Log event competency viewed",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    }
+   ]
+  },
+  "core_competency_delete_evidence": {
+   "description": "Delete an evidence",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    }
+   ]
+  },
+  "core_competency_get_scale_values": {
+   "description": "Fetch the values for a specific scale",
+   "params": [
+    {
+     "name": "scaleid",
+     "required": true,
+     "top": "scaleid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_competency_grade_competency_in_course": {
+   "description": "Grade a competency from the course page.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "competencyid",
+     "required": true,
+     "top": "competencyid",
+     "type": "int"
+    },
+    {
+     "name": "grade",
+     "required": true,
+     "top": "grade",
+     "type": "int"
+    },
+    {
+     "name": "note",
+     "required": false,
+     "top": "note",
+     "type": "string"
+    }
+   ]
+  },
+  "core_competency_list_course_competencies": {
+   "description": "List the competencies in a course",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    }
+   ]
+  },
+  "core_competency_user_competency_plan_viewed": {
+   "description": "Log the user competency plan viewed event.",
+   "params": [
+    {
+     "name": "competencyid",
+     "required": true,
+     "top": "competencyid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "planid",
+     "required": true,
+     "top": "planid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_competency_user_competency_viewed": {
+   "description": "Log the user competency viewed event.",
+   "params": [
+    {
+     "name": "usercompetencyid",
+     "required": true,
+     "top": "usercompetencyid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_competency_user_competency_viewed_in_course": {
+   "description": "Log the user competency viewed in course event",
+   "params": [
+    {
+     "name": "competencyid",
+     "required": true,
+     "top": "competencyid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_competency_user_competency_viewed_in_plan": {
+   "description": "Log the user competency viewed in plan event.",
+   "params": [
+    {
+     "name": "competencyid",
+     "required": true,
+     "top": "competencyid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "planid",
+     "required": true,
+     "top": "planid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_completion_get_activities_completion_status": {
+   "description": "Return the activities completion status for a user in a course.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_completion_get_course_completion_status": {
+   "description": "Returns course completion status.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_completion_mark_course_self_completed": {
+   "description": "Update the course completion status for the current user (if course self-completion is enabled).",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_completion_update_activity_completion_status_manually": {
+   "description": "Update completion status for the current user in an activity, only for activities with manual tracking.",
+   "params": [
+    {
+     "name": "cmid",
+     "required": true,
+     "top": "cmid",
+     "type": "int"
+    },
+    {
+     "name": "completed",
+     "required": true,
+     "top": "completed",
+     "type": "int"
+    }
+   ]
+  },
+  "core_course_check_updates": {
+   "description": "Check if there is updates affecting the user for the given course and contexts.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "tocheck[0][contextlevel]",
+     "required": true,
+     "top": "tocheck",
+     "type": "string"
+    },
+    {
+     "name": "tocheck[0][id]",
+     "required": true,
+     "top": "tocheck",
+     "type": "int"
+    },
+    {
+     "name": "tocheck[0][since]",
+     "required": true,
+     "top": "tocheck",
+     "type": "int"
+    },
+    {
+     "name": "filter[0]",
+     "required": false,
+     "top": "filter",
+     "type": "string"
+    }
+   ]
+  },
+  "core_course_get_categories": {
+   "description": "Return category details",
+   "params": [
+    {
+     "name": "criteria[0][key]",
+     "required": false,
+     "top": "criteria",
+     "type": "string"
+    },
+    {
+     "name": "criteria[0][value]",
+     "required": false,
+     "top": "criteria",
+     "type": "string"
+    },
+    {
+     "name": "addsubcategories",
+     "required": false,
+     "top": "addsubcategories",
+     "type": "int"
+    }
+   ]
+  },
+  "core_course_get_contents": {
+   "description": "Get course contents",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "options[0][name]",
+     "required": false,
+     "top": "options",
+     "type": "string"
+    },
+    {
+     "name": "options[0][value]",
+     "required": false,
+     "top": "options",
+     "type": "string"
+    }
+   ]
+  },
+  "core_course_get_course_module": {
+   "description": "Return information about a course module",
+   "params": [
+    {
+     "name": "cmid",
+     "required": true,
+     "top": "cmid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_course_get_course_module_by_instance": {
+   "description": "Return information about a given module name and instance id",
+   "params": [
+    {
+     "name": "module",
+     "required": true,
+     "top": "module",
+     "type": "string"
+    },
+    {
+     "name": "instance",
+     "required": true,
+     "top": "instance",
+     "type": "int"
+    }
+   ]
+  },
+  "core_course_get_courses": {
+   "description": "Return course details",
+   "params": []
+  },
+  "core_course_get_courses_by_field": {
+   "description": "Get courses matching a specific field (id/s, shortname, idnumber, category)",
+   "params": [
+    {
+     "name": "field",
+     "required": false,
+     "top": "field",
+     "type": "string"
+    },
+    {
+     "name": "value",
+     "required": false,
+     "top": "value",
+     "type": "string"
+    }
+   ]
+  },
+  "core_course_get_enrolled_courses_by_timeline_classification": {
+   "description": "List of enrolled courses for the given timeline classification (past, inprogress, or future).",
+   "params": [
+    {
+     "name": "classification",
+     "required": true,
+     "top": "classification",
+     "type": "string"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    },
+    {
+     "name": "offset",
+     "required": false,
+     "top": "offset",
+     "type": "int"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "top": "sort",
+     "type": "string"
+    },
+    {
+     "name": "customfieldname",
+     "required": false,
+     "top": "customfieldname",
+     "type": "string"
+    },
+    {
+     "name": "customfieldvalue",
+     "required": false,
+     "top": "customfieldvalue",
+     "type": "string"
+    },
+    {
+     "name": "searchvalue",
+     "required": false,
+     "top": "searchvalue",
+     "type": "string"
+    }
+   ]
+  },
+  "core_course_get_enrolled_courses_with_action_events_by_timeline_classification": {
+   "description": "List of enrolled courses with action events in a given timeframe, for the given timeline classification.",
+   "params": [
+    {
+     "name": "classification",
+     "required": true,
+     "top": "classification",
+     "type": "string"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    },
+    {
+     "name": "offset",
+     "required": false,
+     "top": "offset",
+     "type": "int"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "top": "sort",
+     "type": "string"
+    },
+    {
+     "name": "customfieldname",
+     "required": false,
+     "top": "customfieldname",
+     "type": "string"
+    },
+    {
+     "name": "customfieldvalue",
+     "required": false,
+     "top": "customfieldvalue",
+     "type": "string"
+    },
+    {
+     "name": "searchvalue",
+     "required": false,
+     "top": "searchvalue",
+     "type": "string"
+    },
+    {
+     "name": "eventsfrom",
+     "required": false,
+     "top": "eventsfrom",
+     "type": "int"
+    },
+    {
+     "name": "eventsto",
+     "required": false,
+     "top": "eventsto",
+     "type": "int"
+    }
+   ]
+  },
+  "core_course_get_recent_courses": {
+   "description": "List of courses a user has accessed most recently.",
+   "params": [
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    },
+    {
+     "name": "offset",
+     "required": false,
+     "top": "offset",
+     "type": "int"
+    }
+   ]
+  },
+  "core_course_get_updates_since": {
+   "description": "Check if there are updates affecting the user for the given course since the given time stamp.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "since",
+     "required": true,
+     "top": "since",
+     "type": "int"
+    },
+    {
+     "name": "filter[0]",
+     "required": false,
+     "top": "filter",
+     "type": "string"
+    }
+   ]
+  },
+  "core_course_get_user_administration_options": {
+   "description": "Return a list of administration options in a set of courses that are avaialable or not for the current user.",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": true,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "core_course_get_user_navigation_options": {
+   "description": "Return a list of navigation options in a set of courses that are avaialable or not for the current user.",
+   "params": []
+  },
+  "core_course_search_courses": {
+   "description": "Search courses by (name, module, block, tag)",
+   "params": [
+    {
+     "name": "criterianame",
+     "required": true,
+     "top": "criterianame",
+     "type": "string"
+    },
+    {
+     "name": "criteriavalue",
+     "required": true,
+     "top": "criteriavalue",
+     "type": "string"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "perpage",
+     "required": false,
+     "top": "perpage",
+     "type": "int"
+    },
+    {
+     "name": "requiredcapabilities[0]",
+     "required": false,
+     "top": "requiredcapabilities",
+     "type": "string"
+    },
+    {
+     "name": "limittoenrolled",
+     "required": false,
+     "top": "limittoenrolled",
+     "type": "int"
+    },
+    {
+     "name": "onlywithcompletion",
+     "required": false,
+     "top": "onlywithcompletion",
+     "type": "int"
+    }
+   ]
+  },
+  "core_course_set_favourite_courses": {
+   "description": "Add a list of courses to the list of favourite courses.",
+   "params": [
+    {
+     "name": "courses[0][id]",
+     "required": true,
+     "top": "courses",
+     "type": "int"
+    },
+    {
+     "name": "courses[0][favourite]",
+     "required": true,
+     "top": "courses",
+     "type": "int"
+    }
+   ]
+  },
+  "core_course_view_course": {
+   "description": "Log that the course was viewed",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "sectionnumber",
+     "required": false,
+     "top": "sectionnumber",
+     "type": "int"
+    }
+   ]
+  },
+  "core_enrol_get_course_enrolment_methods": {
+   "description": "Get the list of course enrolment methods",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_enrol_get_enrolled_users": {
+   "description": "Get enrolled users by course id.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "options[0][name]",
+     "required": false,
+     "top": "options",
+     "type": "string"
+    },
+    {
+     "name": "options[0][value]",
+     "required": false,
+     "top": "options",
+     "type": "string"
+    }
+   ]
+  },
+  "core_enrol_get_users_courses": {
+   "description": "Get the list of courses where a user is enrolled in",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "returnusercount",
+     "required": false,
+     "top": "returnusercount",
+     "type": "int"
+    }
+   ]
+  },
+  "core_enrol_search_users": {
+   "description": "Search within the list of course participants",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "search",
+     "required": true,
+     "top": "search",
+     "type": "string"
+    },
+    {
+     "name": "searchanywhere",
+     "required": true,
+     "top": "searchanywhere",
+     "type": "int"
+    },
+    {
+     "name": "page",
+     "required": true,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "perpage",
+     "required": true,
+     "top": "perpage",
+     "type": "int"
+    }
+   ]
+  },
+  "core_files_delete_draft_files": {
+   "description": "Delete the indicated files (or directories) from a user draft file area.",
+   "params": [
+    {
+     "name": "draftitemid",
+     "required": true,
+     "top": "draftitemid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_files_get_files": {
+   "description": "browse moodle files",
+   "params": [
+    {
+     "name": "contextid",
+     "required": true,
+     "top": "contextid",
+     "type": "int"
+    },
+    {
+     "name": "component",
+     "required": true,
+     "top": "component",
+     "type": "string"
+    },
+    {
+     "name": "filearea",
+     "required": true,
+     "top": "filearea",
+     "type": "string"
+    },
+    {
+     "name": "itemid",
+     "required": true,
+     "top": "itemid",
+     "type": "int"
+    },
+    {
+     "name": "filepath",
+     "required": true,
+     "top": "filepath",
+     "type": "string"
+    },
+    {
+     "name": "filename",
+     "required": true,
+     "top": "filename",
+     "type": "string"
+    },
+    {
+     "name": "modified",
+     "required": false,
+     "top": "modified",
+     "type": "int"
+    },
+    {
+     "name": "contextlevel",
+     "required": false,
+     "top": "contextlevel",
+     "type": "string"
+    },
+    {
+     "name": "instanceid",
+     "required": false,
+     "top": "instanceid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_files_get_unused_draft_itemid": {
+   "description": "Generate a new draft itemid for the current user.",
+   "params": []
+  },
+  "core_filters_get_available_in_context": {
+   "description": "Returns the filters available in the given contexts.",
+   "params": []
+  },
+  "core_get_component_strings": {
+   "description": "Return all raw strings (with {$a->xxx}), for a specific component - similar to core get_component_strings(), call",
+   "params": [
+    {
+     "name": "component",
+     "required": true,
+     "top": "component",
+     "type": "string"
+    },
+    {
+     "name": "lang",
+     "required": false,
+     "top": "lang",
+     "type": "string"
+    }
+   ]
+  },
+  "core_grades_get_enrolled_users_for_search_widget": {
+   "description": "Returns the enrolled users within and map some fields to the returned array of user objects.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "actionbaseurl",
+     "required": true,
+     "top": "actionbaseurl",
+     "type": "string"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_grades_get_groups_for_search_widget": {
+   "description": "Get the group/(s) for a course",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "actionbaseurl",
+     "required": true,
+     "top": "actionbaseurl",
+     "type": "string"
+    }
+   ]
+  },
+  "core_grades_grader_gradingpanel_point_fetch": {
+   "description": "Fetch the data required to display the grader grading panel for simple grading, creating the grade item if required",
+   "params": [
+    {
+     "name": "component",
+     "required": true,
+     "top": "component",
+     "type": "string"
+    },
+    {
+     "name": "contextid",
+     "required": true,
+     "top": "contextid",
+     "type": "int"
+    },
+    {
+     "name": "itemname",
+     "required": true,
+     "top": "itemname",
+     "type": "string"
+    },
+    {
+     "name": "gradeduserid",
+     "required": true,
+     "top": "gradeduserid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_grades_grader_gradingpanel_point_store": {
+   "description": "Store the data required to display the grader grading panel for simple grading",
+   "params": [
+    {
+     "name": "component",
+     "required": true,
+     "top": "component",
+     "type": "string"
+    },
+    {
+     "name": "contextid",
+     "required": true,
+     "top": "contextid",
+     "type": "int"
+    },
+    {
+     "name": "itemname",
+     "required": true,
+     "top": "itemname",
+     "type": "string"
+    },
+    {
+     "name": "gradeduserid",
+     "required": true,
+     "top": "gradeduserid",
+     "type": "int"
+    },
+    {
+     "name": "notifyuser",
+     "required": false,
+     "top": "notifyuser",
+     "type": "int"
+    }
+   ]
+  },
+  "core_grades_grader_gradingpanel_scale_fetch": {
+   "description": "Fetch the data required to display the grader grading panel for scale-based grading, creating the grade item if required",
+   "params": [
+    {
+     "name": "component",
+     "required": true,
+     "top": "component",
+     "type": "string"
+    },
+    {
+     "name": "contextid",
+     "required": true,
+     "top": "contextid",
+     "type": "int"
+    },
+    {
+     "name": "itemname",
+     "required": true,
+     "top": "itemname",
+     "type": "string"
+    }
+   ]
+  },
+  "core_grades_grader_gradingpanel_scale_store": {
+   "description": "Store the data required to display the grader grading panel for scale-based grading",
+   "params": [
+    {
+     "name": "component",
+     "required": true,
+     "top": "component",
+     "type": "string"
+    },
+    {
+     "name": "contextid",
+     "required": true,
+     "top": "contextid",
+     "type": "int"
+    },
+    {
+     "name": "itemname",
+     "required": true,
+     "top": "itemname",
+     "type": "string"
+    },
+    {
+     "name": "gradeduserid",
+     "required": true,
+     "top": "gradeduserid",
+     "type": "int"
+    },
+    {
+     "name": "notifyuser",
+     "required": false,
+     "top": "notifyuser",
+     "type": "int"
+    }
+   ]
+  },
+  "core_group_get_activity_allowed_groups": {
+   "description": "Gets a list of groups that the user is allowed to access within the specified activity.",
+   "params": [
+    {
+     "name": "cmid",
+     "required": true,
+     "top": "cmid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_group_get_activity_groupmode": {
+   "description": "Returns effective groupmode used in a given activity.",
+   "params": []
+  },
+  "core_group_get_course_groupings": {
+   "description": "Returns all groupings in specified course.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_group_get_course_groups": {
+   "description": "Returns all groups in specified course.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_group_get_course_user_groups": {
+   "description": "Returns all groups in specified course for the specified user.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "groupingid",
+     "required": false,
+     "top": "groupingid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_h5p_get_trusted_h5p_file": {
+   "description": "Get the H5P file cleaned for Mobile App.",
+   "params": [
+    {
+     "name": "url",
+     "required": true,
+     "top": "url",
+     "type": "string"
+    },
+    {
+     "name": "frame",
+     "required": false,
+     "top": "frame",
+     "type": "int"
+    },
+    {
+     "name": "export",
+     "required": false,
+     "top": "export",
+     "type": "int"
+    },
+    {
+     "name": "embed",
+     "required": false,
+     "top": "embed",
+     "type": "int"
+    },
+    {
+     "name": "copyright",
+     "required": false,
+     "top": "copyright",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_block_user": {
+   "description": "Blocks a user",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "blockeduserid",
+     "required": true,
+     "top": "blockeduserid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_confirm_contact_request": {
+   "description": "Confirms a contact request",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "requesteduserid",
+     "required": true,
+     "top": "requesteduserid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_create_contact_request": {
+   "description": "Creates a contact request",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "requesteduserid",
+     "required": true,
+     "top": "requesteduserid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_data_for_messagearea_search_messages": {
+   "description": "Retrieve the template data for searching for messages",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "search",
+     "required": true,
+     "top": "search",
+     "type": "string"
+    },
+    {
+     "name": "limitfrom",
+     "required": false,
+     "top": "limitfrom",
+     "type": "int"
+    },
+    {
+     "name": "limitnum",
+     "required": false,
+     "top": "limitnum",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_decline_contact_request": {
+   "description": "Declines a contact request",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "requesteduserid",
+     "required": true,
+     "top": "requesteduserid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_delete_contacts": {
+   "description": "Remove contacts from the contact list",
+   "params": [
+    {
+     "name": "userids[0]",
+     "required": true,
+     "top": "userids",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_delete_conversations_by_id": {
+   "description": "Deletes a list of conversations.",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "conversationids[0]",
+     "required": true,
+     "top": "conversationids",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_delete_message": {
+   "description": "Deletes a message.",
+   "params": [
+    {
+     "name": "messageid",
+     "required": true,
+     "top": "messageid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "read",
+     "required": false,
+     "top": "read",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_delete_message_for_all_users": {
+   "description": "Deletes a message for all users.",
+   "params": [
+    {
+     "name": "messageid",
+     "required": true,
+     "top": "messageid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_blocked_users": {
+   "description": "Retrieve a list of users blocked",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_contact_requests": {
+   "description": "Returns contact requests for a user",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "limitfrom",
+     "required": false,
+     "top": "limitfrom",
+     "type": "int"
+    },
+    {
+     "name": "limitnum",
+     "required": false,
+     "top": "limitnum",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_conversation": {
+   "description": "Retrieve a conversation for a user",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "conversationid",
+     "required": true,
+     "top": "conversationid",
+     "type": "int"
+    },
+    {
+     "name": "includecontactrequests",
+     "required": true,
+     "top": "includecontactrequests",
+     "type": "int"
+    },
+    {
+     "name": "includeprivacyinfo",
+     "required": true,
+     "top": "includeprivacyinfo",
+     "type": "int"
+    },
+    {
+     "name": "memberlimit",
+     "required": false,
+     "top": "memberlimit",
+     "type": "int"
+    },
+    {
+     "name": "memberoffset",
+     "required": false,
+     "top": "memberoffset",
+     "type": "int"
+    },
+    {
+     "name": "messagelimit",
+     "required": false,
+     "top": "messagelimit",
+     "type": "int"
+    },
+    {
+     "name": "messageoffset",
+     "required": false,
+     "top": "messageoffset",
+     "type": "int"
+    },
+    {
+     "name": "newestmessagesfirst",
+     "required": false,
+     "top": "newestmessagesfirst",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_conversation_between_users": {
+   "description": "Retrieve a conversation for a user between another user",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "otheruserid",
+     "required": true,
+     "top": "otheruserid",
+     "type": "int"
+    },
+    {
+     "name": "includecontactrequests",
+     "required": true,
+     "top": "includecontactrequests",
+     "type": "int"
+    },
+    {
+     "name": "includeprivacyinfo",
+     "required": true,
+     "top": "includeprivacyinfo",
+     "type": "int"
+    },
+    {
+     "name": "memberlimit",
+     "required": false,
+     "top": "memberlimit",
+     "type": "int"
+    },
+    {
+     "name": "memberoffset",
+     "required": false,
+     "top": "memberoffset",
+     "type": "int"
+    },
+    {
+     "name": "messagelimit",
+     "required": false,
+     "top": "messagelimit",
+     "type": "int"
+    },
+    {
+     "name": "messageoffset",
+     "required": false,
+     "top": "messageoffset",
+     "type": "int"
+    },
+    {
+     "name": "newestmessagesfirst",
+     "required": false,
+     "top": "newestmessagesfirst",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_conversation_counts": {
+   "description": "Retrieve a list of conversation counts, indexed by type.",
+   "params": []
+  },
+  "core_message_get_conversation_members": {
+   "description": "Retrieve a list of members in a conversation",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "conversationid",
+     "required": true,
+     "top": "conversationid",
+     "type": "int"
+    },
+    {
+     "name": "includecontactrequests",
+     "required": false,
+     "top": "includecontactrequests",
+     "type": "int"
+    },
+    {
+     "name": "includeprivacyinfo",
+     "required": false,
+     "top": "includeprivacyinfo",
+     "type": "int"
+    },
+    {
+     "name": "limitfrom",
+     "required": false,
+     "top": "limitfrom",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_conversation_messages": {
+   "description": "Retrieve the conversation messages and relevant member information",
+   "params": [
+    {
+     "name": "currentuserid",
+     "required": true,
+     "top": "currentuserid",
+     "type": "int"
+    },
+    {
+     "name": "convid",
+     "required": true,
+     "top": "convid",
+     "type": "int"
+    },
+    {
+     "name": "limitfrom",
+     "required": false,
+     "top": "limitfrom",
+     "type": "int"
+    },
+    {
+     "name": "limitnum",
+     "required": false,
+     "top": "limitnum",
+     "type": "int"
+    },
+    {
+     "name": "newest",
+     "required": false,
+     "top": "newest",
+     "type": "int"
+    },
+    {
+     "name": "timefrom",
+     "required": false,
+     "top": "timefrom",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_conversations": {
+   "description": "Retrieve a list of conversations for a user",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "limitfrom",
+     "required": false,
+     "top": "limitfrom",
+     "type": "int"
+    },
+    {
+     "name": "limitnum",
+     "required": false,
+     "top": "limitnum",
+     "type": "int"
+    },
+    {
+     "name": "type",
+     "required": false,
+     "top": "type",
+     "type": "int"
+    },
+    {
+     "name": "favourites",
+     "required": false,
+     "top": "favourites",
+     "type": "int"
+    },
+    {
+     "name": "mergeself",
+     "required": false,
+     "top": "mergeself",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_member_info": {
+   "description": "Retrieve a user message profiles",
+   "params": [
+    {
+     "name": "referenceuserid",
+     "required": true,
+     "top": "referenceuserid",
+     "type": "int"
+    },
+    {
+     "name": "userids[0]",
+     "required": true,
+     "top": "userids",
+     "type": "int"
+    },
+    {
+     "name": "includecontactrequests",
+     "required": false,
+     "top": "includecontactrequests",
+     "type": "int"
+    },
+    {
+     "name": "includeprivacyinfo",
+     "required": false,
+     "top": "includeprivacyinfo",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_messages": {
+   "description": "Retrieve a list of messages sent and received by a user (conversations, notifications or both)",
+   "params": [
+    {
+     "name": "useridto",
+     "required": true,
+     "top": "useridto",
+     "type": "int"
+    },
+    {
+     "name": "useridfrom",
+     "required": false,
+     "top": "useridfrom",
+     "type": "int"
+    },
+    {
+     "name": "type",
+     "required": false,
+     "top": "type",
+     "type": "string"
+    },
+    {
+     "name": "read",
+     "required": false,
+     "top": "read",
+     "type": "int"
+    },
+    {
+     "name": "newestfirst",
+     "required": false,
+     "top": "newestfirst",
+     "type": "int"
+    },
+    {
+     "name": "limitfrom",
+     "required": false,
+     "top": "limitfrom",
+     "type": "int"
+    },
+    {
+     "name": "limitnum",
+     "required": false,
+     "top": "limitnum",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_received_contact_requests_count": {
+   "description": "Gets the number of received contact requests",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_self_conversation": {
+   "description": "Retrieve a self-conversation for a user",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "messagelimit",
+     "required": false,
+     "top": "messagelimit",
+     "type": "int"
+    },
+    {
+     "name": "messageoffset",
+     "required": false,
+     "top": "messageoffset",
+     "type": "int"
+    },
+    {
+     "name": "newestmessagesfirst",
+     "required": false,
+     "top": "newestmessagesfirst",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_unread_conversation_counts": {
+   "description": "Retrieve a list of unread conversation counts, indexed by type.",
+   "params": []
+  },
+  "core_message_get_unread_conversations_count": {
+   "description": "Retrieve the count of unread conversations for a given user",
+   "params": [
+    {
+     "name": "useridto",
+     "required": true,
+     "top": "useridto",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_unread_notification_count": {
+   "description": "Get number of unread notifications.",
+   "params": [
+    {
+     "name": "useridto",
+     "required": true,
+     "top": "useridto",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_user_contacts": {
+   "description": "Retrieve the contact list",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "limitfrom",
+     "required": false,
+     "top": "limitfrom",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_user_message_preferences": {
+   "description": "Get the message preferences for a given user.",
+   "params": [
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_get_user_notification_preferences": {
+   "description": "Get the notification preferences for a given user.",
+   "params": []
+  },
+  "core_message_mark_all_conversation_messages_as_read": {
+   "description": "Mark all conversation messages as read for a given user",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "conversationid",
+     "required": true,
+     "top": "conversationid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_mark_all_notifications_as_read": {
+   "description": "Mark all notifications as read for a given user",
+   "params": [
+    {
+     "name": "useridto",
+     "required": true,
+     "top": "useridto",
+     "type": "int"
+    },
+    {
+     "name": "useridfrom",
+     "required": false,
+     "top": "useridfrom",
+     "type": "int"
+    },
+    {
+     "name": "timecreatedto",
+     "required": false,
+     "top": "timecreatedto",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_mark_message_read": {
+   "description": "Mark a single message as read, trigger message_viewed event.",
+   "params": [
+    {
+     "name": "messageid",
+     "required": true,
+     "top": "messageid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_mark_notification_read": {
+   "description": "Mark a single notification as read, trigger notification_viewed event.",
+   "params": [
+    {
+     "name": "notificationid",
+     "required": true,
+     "top": "notificationid",
+     "type": "int"
+    },
+    {
+     "name": "timeread",
+     "required": false,
+     "top": "timeread",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_message_processor_config_form": {
+   "description": "Process the message processor config form",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "name",
+     "required": true,
+     "top": "name",
+     "type": "string"
+    },
+    {
+     "name": "formvalues[0][name]",
+     "required": true,
+     "top": "formvalues",
+     "type": "string"
+    },
+    {
+     "name": "formvalues[0][value]",
+     "required": true,
+     "top": "formvalues",
+     "type": "string"
+    }
+   ]
+  },
+  "core_message_message_search_users": {
+   "description": "Retrieve the data for searching for people",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "search",
+     "required": true,
+     "top": "search",
+     "type": "string"
+    },
+    {
+     "name": "limitfrom",
+     "required": false,
+     "top": "limitfrom",
+     "type": "int"
+    },
+    {
+     "name": "limitnum",
+     "required": false,
+     "top": "limitnum",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_mute_conversations": {
+   "description": "Mutes a list of conversations",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "conversationids[0]",
+     "required": true,
+     "top": "conversationids",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_search_contacts": {
+   "description": "Search for contacts",
+   "params": [
+    {
+     "name": "searchtext",
+     "required": true,
+     "top": "searchtext",
+     "type": "string"
+    },
+    {
+     "name": "onlymycourses",
+     "required": false,
+     "top": "onlymycourses",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_send_instant_messages": {
+   "description": "Send instant messages",
+   "params": []
+  },
+  "core_message_send_messages_to_conversation": {
+   "description": "Send messages to an existing conversation between users",
+   "params": [
+    {
+     "name": "conversationid",
+     "required": true,
+     "top": "conversationid",
+     "type": "int"
+    },
+    {
+     "name": "messages[0][text]",
+     "required": true,
+     "top": "messages",
+     "type": "string"
+    },
+    {
+     "name": "messages[0][textformat]",
+     "required": true,
+     "top": "messages",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_set_favourite_conversations": {
+   "description": "Mark a conversation or group of conversations as favourites/starred conversations.",
+   "params": [
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "conversations[0]",
+     "required": true,
+     "top": "conversations",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_unblock_user": {
+   "description": "Unblocks a user",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "unblockeduserid",
+     "required": true,
+     "top": "unblockeduserid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_unmute_conversations": {
+   "description": "Unmutes a list of conversations",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "conversationids[0]",
+     "required": true,
+     "top": "conversationids",
+     "type": "int"
+    }
+   ]
+  },
+  "core_message_unset_favourite_conversations": {
+   "description": "Unset a conversation or group of conversations as favourites/starred conversations.",
+   "params": [
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "conversations[0]",
+     "required": true,
+     "top": "conversations",
+     "type": "int"
+    }
+   ]
+  },
+  "core_notes_create_notes": {
+   "description": "Create notes",
+   "params": [
+    {
+     "name": "notes[0][userid]",
+     "required": true,
+     "top": "notes",
+     "type": "int"
+    },
+    {
+     "name": "notes[0][publishstate]",
+     "required": true,
+     "top": "notes",
+     "type": "string"
+    },
+    {
+     "name": "notes[0][courseid]",
+     "required": true,
+     "top": "notes",
+     "type": "int"
+    },
+    {
+     "name": "notes[0][text]",
+     "required": true,
+     "top": "notes",
+     "type": "string"
+    },
+    {
+     "name": "notes[0][format]",
+     "required": true,
+     "top": "notes",
+     "type": "int"
+    },
+    {
+     "name": "notes[0][clientnoteid]",
+     "required": true,
+     "top": "notes",
+     "type": "string"
+    }
+   ]
+  },
+  "core_notes_delete_notes": {
+   "description": "Delete notes",
+   "params": [
+    {
+     "name": "notes[0]",
+     "required": true,
+     "top": "notes",
+     "type": "int"
+    }
+   ]
+  },
+  "core_notes_get_course_notes": {
+   "description": "Returns all notes in specified course (or site), for the specified user.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_notes_view_notes": {
+   "description": "Simulates the web interface view of notes/index.php: trigger events.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_question_update_flag": {
+   "description": "Update the flag state of a question attempt.",
+   "params": [
+    {
+     "name": "qubaid",
+     "required": true,
+     "top": "qubaid",
+     "type": "int"
+    },
+    {
+     "name": "questionid",
+     "required": true,
+     "top": "questionid",
+     "type": "int"
+    },
+    {
+     "name": "qaid",
+     "required": true,
+     "top": "qaid",
+     "type": "int"
+    },
+    {
+     "name": "slot",
+     "required": true,
+     "top": "slot",
+     "type": "int"
+    },
+    {
+     "name": "checksum",
+     "required": true,
+     "top": "checksum",
+     "type": "string"
+    },
+    {
+     "name": "newstate",
+     "required": true,
+     "top": "newstate",
+     "type": "int"
+    }
+   ]
+  },
+  "core_rating_add_rating": {
+   "description": "Rates an item.",
+   "params": [
+    {
+     "name": "contextlevel",
+     "required": true,
+     "top": "contextlevel",
+     "type": "string"
+    },
+    {
+     "name": "instanceid",
+     "required": true,
+     "top": "instanceid",
+     "type": "int"
+    },
+    {
+     "name": "component",
+     "required": true,
+     "top": "component",
+     "type": "string"
+    },
+    {
+     "name": "ratingarea",
+     "required": true,
+     "top": "ratingarea",
+     "type": "string"
+    },
+    {
+     "name": "itemid",
+     "required": true,
+     "top": "itemid",
+     "type": "int"
+    },
+    {
+     "name": "scaleid",
+     "required": true,
+     "top": "scaleid",
+     "type": "int"
+    },
+    {
+     "name": "rating",
+     "required": true,
+     "top": "rating",
+     "type": "int"
+    },
+    {
+     "name": "rateduserid",
+     "required": true,
+     "top": "rateduserid",
+     "type": "int"
+    },
+    {
+     "name": "aggregation",
+     "required": false,
+     "top": "aggregation",
+     "type": "int"
+    }
+   ]
+  },
+  "core_rating_get_item_ratings": {
+   "description": "Retrieve all the ratings for an item.",
+   "params": [
+    {
+     "name": "contextlevel",
+     "required": true,
+     "top": "contextlevel",
+     "type": "string"
+    },
+    {
+     "name": "instanceid",
+     "required": true,
+     "top": "instanceid",
+     "type": "int"
+    },
+    {
+     "name": "component",
+     "required": true,
+     "top": "component",
+     "type": "string"
+    },
+    {
+     "name": "ratingarea",
+     "required": true,
+     "top": "ratingarea",
+     "type": "string"
+    },
+    {
+     "name": "itemid",
+     "required": true,
+     "top": "itemid",
+     "type": "int"
+    },
+    {
+     "name": "scaleid",
+     "required": true,
+     "top": "scaleid",
+     "type": "int"
+    },
+    {
+     "name": "sort",
+     "required": true,
+     "top": "sort",
+     "type": "string"
+    }
+   ]
+  },
+  "core_reportbuilder_list_reports": {
+   "description": "List custom reports for current user",
+   "params": [
+    {
+     "name": "page",
+     "required": false,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "perpage",
+     "required": false,
+     "top": "perpage",
+     "type": "int"
+    }
+   ]
+  },
+  "core_reportbuilder_retrieve_report": {
+   "description": "Retrieve custom report content",
+   "params": [
+    {
+     "name": "reportid",
+     "required": true,
+     "top": "reportid",
+     "type": "int"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "perpage",
+     "required": false,
+     "top": "perpage",
+     "type": "int"
+    }
+   ]
+  },
+  "core_reportbuilder_view_report": {
+   "description": "Trigger custom report viewed",
+   "params": []
+  },
+  "core_table_get_dynamic_table_content": {
+   "description": "Get the dynamic table content raw html",
+   "params": [
+    {
+     "name": "component",
+     "required": true,
+     "top": "component",
+     "type": "string"
+    },
+    {
+     "name": "handler",
+     "required": true,
+     "top": "handler",
+     "type": "string"
+    },
+    {
+     "name": "uniqueid",
+     "required": true,
+     "top": "uniqueid",
+     "type": "string"
+    },
+    {
+     "name": "sortdata[0][sortby]",
+     "required": false,
+     "top": "sortdata",
+     "type": "string"
+    },
+    {
+     "name": "sortdata[0][sortorder]",
+     "required": false,
+     "top": "sortdata",
+     "type": "string"
+    },
+    {
+     "name": "filters[0][name]",
+     "required": false,
+     "top": "filters",
+     "type": "string"
+    },
+    {
+     "name": "filters[0][jointype]",
+     "required": false,
+     "top": "filters",
+     "type": "int"
+    },
+    {
+     "name": "filters[0][values][0]",
+     "required": false,
+     "top": "filters",
+     "type": "string"
+    },
+    {
+     "name": "jointype",
+     "required": true,
+     "top": "jointype",
+     "type": "int"
+    },
+    {
+     "name": "firstinitial",
+     "required": true,
+     "top": "firstinitial",
+     "type": "string"
+    },
+    {
+     "name": "lastinitial",
+     "required": true,
+     "top": "lastinitial",
+     "type": "string"
+    },
+    {
+     "name": "pagenumber",
+     "required": true,
+     "top": "pagenumber",
+     "type": "int"
+    },
+    {
+     "name": "pagesize",
+     "required": true,
+     "top": "pagesize",
+     "type": "int"
+    },
+    {
+     "name": "hiddencolumns[0]",
+     "required": true,
+     "top": "hiddencolumns",
+     "type": "string"
+    },
+    {
+     "name": "resetpreferences",
+     "required": true,
+     "top": "resetpreferences",
+     "type": "int"
+    }
+   ]
+  },
+  "core_tag_get_tag_areas": {
+   "description": "Retrieves existing tag areas.",
+   "params": []
+  },
+  "core_tag_get_tag_cloud": {
+   "description": "Retrieves a tag cloud for the given collection and/or query search.",
+   "params": [
+    {
+     "name": "tagcollid",
+     "required": false,
+     "top": "tagcollid",
+     "type": "int"
+    },
+    {
+     "name": "isstandard",
+     "required": false,
+     "top": "isstandard",
+     "type": "int"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "top": "sort",
+     "type": "string"
+    },
+    {
+     "name": "search",
+     "required": false,
+     "top": "search",
+     "type": "string"
+    },
+    {
+     "name": "fromctx",
+     "required": false,
+     "top": "fromctx",
+     "type": "int"
+    },
+    {
+     "name": "ctx",
+     "required": false,
+     "top": "ctx",
+     "type": "int"
+    },
+    {
+     "name": "rec",
+     "required": false,
+     "top": "rec",
+     "type": "int"
+    }
+   ]
+  },
+  "core_tag_get_tag_collections": {
+   "description": "Retrieves existing tag collections.",
+   "params": []
+  },
+  "core_tag_get_tagindex": {
+   "description": "Gets tag index page for one tag and one tag area",
+   "params": [
+    {
+     "name": "tagindex[tag]",
+     "required": true,
+     "top": "tagindex",
+     "type": "string"
+    },
+    {
+     "name": "tagindex[tc]",
+     "required": true,
+     "top": "tagindex",
+     "type": "int"
+    },
+    {
+     "name": "tagindex[ta]",
+     "required": true,
+     "top": "tagindex",
+     "type": "int"
+    },
+    {
+     "name": "tagindex[excl]",
+     "required": true,
+     "top": "tagindex",
+     "type": "int"
+    },
+    {
+     "name": "tagindex[from]",
+     "required": true,
+     "top": "tagindex",
+     "type": "int"
+    },
+    {
+     "name": "tagindex[ctx]",
+     "required": true,
+     "top": "tagindex",
+     "type": "int"
+    },
+    {
+     "name": "tagindex[rec]",
+     "required": true,
+     "top": "tagindex",
+     "type": "int"
+    },
+    {
+     "name": "tagindex[page]",
+     "required": true,
+     "top": "tagindex",
+     "type": "int"
+    }
+   ]
+  },
+  "core_tag_get_tagindex_per_area": {
+   "description": "Gets tag index page per different areas.",
+   "params": []
+  },
+  "core_user_add_user_device": {
+   "description": "Store mobile user devices information for PUSH Notifications.",
+   "params": [
+    {
+     "name": "appid",
+     "required": true,
+     "top": "appid",
+     "type": "string"
+    },
+    {
+     "name": "name",
+     "required": true,
+     "top": "name",
+     "type": "string"
+    },
+    {
+     "name": "model",
+     "required": true,
+     "top": "model",
+     "type": "string"
+    },
+    {
+     "name": "platform",
+     "required": true,
+     "top": "platform",
+     "type": "string"
+    },
+    {
+     "name": "version",
+     "required": true,
+     "top": "version",
+     "type": "string"
+    },
+    {
+     "name": "pushid",
+     "required": true,
+     "top": "pushid",
+     "type": "string"
+    },
+    {
+     "name": "uuid",
+     "required": true,
+     "top": "uuid",
+     "type": "string"
+    },
+    {
+     "name": "publickey",
+     "required": false,
+     "top": "publickey",
+     "type": "string"
+    }
+   ]
+  },
+  "core_user_add_user_private_files": {
+   "description": "Copy files from a draft area to users private files area.",
+   "params": [
+    {
+     "name": "draftid",
+     "required": true,
+     "top": "draftid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_user_agree_site_policy": {
+   "description": "Agree the site policy for the current user.",
+   "params": []
+  },
+  "core_user_get_course_user_profiles": {
+   "description": "Get course user profiles (each of the profils matching a course id and a user id),.",
+   "params": []
+  },
+  "core_user_get_private_files_info": {
+   "description": "Returns general information about files in the user private files area.",
+   "params": [
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_user_get_user_preferences": {
+   "description": "Return user preferences.",
+   "params": [
+    {
+     "name": "name",
+     "required": false,
+     "top": "name",
+     "type": "string"
+    }
+   ]
+  },
+  "core_user_get_users_by_field": {
+   "description": "Retrieve users' information for a specified unique field - If you want to do a user search, use core_user_get_users() or",
+   "params": [
+    {
+     "name": "field",
+     "required": true,
+     "top": "field",
+     "type": "string"
+    },
+    {
+     "name": "values[0]",
+     "required": true,
+     "top": "values",
+     "type": "string"
+    }
+   ]
+  },
+  "core_user_remove_user_device": {
+   "description": "Remove a user device from the Moodle database.",
+   "params": [
+    {
+     "name": "uuid",
+     "required": true,
+     "top": "uuid",
+     "type": "string"
+    }
+   ]
+  },
+  "core_user_set_user_preferences": {
+   "description": "Set user preferences.",
+   "params": [
+    {
+     "name": "preferences[0][name]",
+     "required": true,
+     "top": "preferences",
+     "type": "string"
+    },
+    {
+     "name": "preferences[0][value]",
+     "required": true,
+     "top": "preferences",
+     "type": "string"
+    },
+    {
+     "name": "preferences[0][userid]",
+     "required": true,
+     "top": "preferences",
+     "type": "int"
+    }
+   ]
+  },
+  "core_user_update_picture": {
+   "description": "Update or delete the user picture in the site",
+   "params": [
+    {
+     "name": "draftitemid",
+     "required": true,
+     "top": "draftitemid",
+     "type": "int"
+    },
+    {
+     "name": "delete",
+     "required": false,
+     "top": "delete",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_user_update_user_device_public_key": {
+   "description": "Store mobile user public key.",
+   "params": [
+    {
+     "name": "uuid",
+     "required": true,
+     "top": "uuid",
+     "type": "string"
+    },
+    {
+     "name": "appid",
+     "required": true,
+     "top": "appid",
+     "type": "string"
+    },
+    {
+     "name": "publickey",
+     "required": true,
+     "top": "publickey",
+     "type": "string"
+    }
+   ]
+  },
+  "core_user_update_user_preferences": {
+   "description": "Update a user's preferences",
+   "params": [
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "emailstop",
+     "required": false,
+     "top": "emailstop",
+     "type": "int"
+    },
+    {
+     "name": "preferences[0][type]",
+     "required": false,
+     "top": "preferences",
+     "type": "string"
+    },
+    {
+     "name": "preferences[0][value]",
+     "required": false,
+     "top": "preferences",
+     "type": "string"
+    }
+   ]
+  },
+  "core_user_view_user_list": {
+   "description": "Simulates the web-interface view of user/index.php (triggering events),.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_user_view_user_profile": {
+   "description": "Simulates the web-interface view of user/view.php and user/profile.php (triggering events),.",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "core_webservice_get_site_info": {
+   "description": "Return some site info / user info / list web service functions",
+   "params": [
+    {
+     "name": "serviceshortnames[0]",
+     "required": false,
+     "top": "serviceshortnames",
+     "type": "string"
+    }
+   ]
+  },
+  "core_xapi_statement_post": {
+   "description": "Post an xAPI statement.",
+   "params": [
+    {
+     "name": "component",
+     "required": true,
+     "top": "component",
+     "type": "string"
+    },
+    {
+     "name": "requestjson",
+     "required": true,
+     "top": "requestjson",
+     "type": "string"
+    }
+   ]
+  },
+  "enrol_guest_get_instance_info": {
+   "description": "Return guest enrolment instance information.",
+   "params": [
+    {
+     "name": "instanceid",
+     "required": true,
+     "top": "instanceid",
+     "type": "int"
+    }
+   ]
+  },
+  "enrol_self_enrol_user": {
+   "description": "Self enrol the current user in the given course.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "password",
+     "required": false,
+     "top": "password",
+     "type": "string"
+    },
+    {
+     "name": "instanceid",
+     "required": false,
+     "top": "instanceid",
+     "type": "int"
+    }
+   ]
+  },
+  "enrol_self_get_instance_info": {
+   "description": "self enrolment instance information.",
+   "params": [
+    {
+     "name": "instanceid",
+     "required": true,
+     "top": "instanceid",
+     "type": "int"
+    }
+   ]
+  },
+  "gradereport_overview_get_course_grades": {
+   "description": "Get the given user courses final grades",
+   "params": []
+  },
+  "gradereport_overview_view_grade_report": {
+   "description": "Trigger the report view event",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "gradereport_singleview_get_grade_items_for_search_widget": {
+   "description": "Get the gradeitem/(s) for a course",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "gradereport_user_get_grade_items": {
+   "description": "Returns the complete list of grade items for users in a course",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    }
+   ]
+  },
+  "gradereport_user_get_grades_table": {
+   "description": "Get the user/s report grades table for a course",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    }
+   ]
+  },
+  "gradereport_user_view_grade_report": {
+   "description": "Trigger the report view event",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "message_airnotifier_are_notification_preferences_configured": {
+   "description": "Check if the users have notification preferences configured yet",
+   "params": []
+  },
+  "message_airnotifier_enable_device": {
+   "description": "Enables or disables a registered user device so it can receive Push notifications",
+   "params": [
+    {
+     "name": "deviceid",
+     "required": true,
+     "top": "deviceid",
+     "type": "int"
+    },
+    {
+     "name": "enable",
+     "required": true,
+     "top": "enable",
+     "type": "int"
+    }
+   ]
+  },
+  "message_airnotifier_get_user_devices": {
+   "description": "Return the list of mobile devices that are registered in Moodle for the given user",
+   "params": [
+    {
+     "name": "appid",
+     "required": true,
+     "top": "appid",
+     "type": "string"
+    }
+   ]
+  },
+  "message_airnotifier_is_system_configured": {
+   "description": "Check whether the airnotifier settings have been configured",
+   "params": []
+  },
+  "message_popup_get_popup_notifications": {
+   "description": "Retrieve a list of popup notifications for a user",
+   "params": [
+    {
+     "name": "useridto",
+     "required": true,
+     "top": "useridto",
+     "type": "int"
+    },
+    {
+     "name": "newestfirst",
+     "required": false,
+     "top": "newestfirst",
+     "type": "int"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    },
+    {
+     "name": "offset",
+     "required": false,
+     "top": "offset",
+     "type": "int"
+    }
+   ]
+  },
+  "message_popup_get_unread_popup_notification_count": {
+   "description": "Retrieve the count of unread popup notifications for a given user",
+   "params": [
+    {
+     "name": "useridto",
+     "required": true,
+     "top": "useridto",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_get_assignments": {
+   "description": "Returns the courses and assignments for the users capability",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    },
+    {
+     "name": "capabilities[0]",
+     "required": false,
+     "top": "capabilities",
+     "type": "string"
+    },
+    {
+     "name": "includenotenrolledcourses",
+     "required": false,
+     "top": "includenotenrolledcourses",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_get_grades": {
+   "description": "Returns grades from the assignment",
+   "params": [
+    {
+     "name": "assignmentids[0]",
+     "required": true,
+     "top": "assignmentids",
+     "type": "int"
+    },
+    {
+     "name": "since",
+     "required": false,
+     "top": "since",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_get_participant": {
+   "description": "Get a participant for an assignment, with some summary info about their submissions.",
+   "params": [
+    {
+     "name": "assignid",
+     "required": true,
+     "top": "assignid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "embeduser",
+     "required": false,
+     "top": "embeduser",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_get_submission_status": {
+   "description": "Returns information about an assignment submission status for a given user.",
+   "params": [
+    {
+     "name": "assignid",
+     "required": true,
+     "top": "assignid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_get_submissions": {
+   "description": "Returns the submissions for assignments",
+   "params": [
+    {
+     "name": "assignmentids[0]",
+     "required": true,
+     "top": "assignmentids",
+     "type": "int"
+    },
+    {
+     "name": "status",
+     "required": false,
+     "top": "status",
+     "type": "string"
+    },
+    {
+     "name": "since",
+     "required": false,
+     "top": "since",
+     "type": "int"
+    },
+    {
+     "name": "before",
+     "required": false,
+     "top": "before",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_get_user_flags": {
+   "description": "Returns the user flags for assignments",
+   "params": []
+  },
+  "mod_assign_get_user_mappings": {
+   "description": "Returns the blind marking mappings for assignments",
+   "params": [
+    {
+     "name": "assignmentids[0]",
+     "required": true,
+     "top": "assignmentids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_list_participants": {
+   "description": "List the participants for a single assignment, with some summary info about their submissions.",
+   "params": [
+    {
+     "name": "assignid",
+     "required": true,
+     "top": "assignid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": true,
+     "top": "groupid",
+     "type": "int"
+    },
+    {
+     "name": "filter",
+     "required": true,
+     "top": "filter",
+     "type": "string"
+    },
+    {
+     "name": "skip",
+     "required": false,
+     "top": "skip",
+     "type": "int"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    },
+    {
+     "name": "onlyids",
+     "required": false,
+     "top": "onlyids",
+     "type": "int"
+    },
+    {
+     "name": "includeenrolments",
+     "required": false,
+     "top": "includeenrolments",
+     "type": "int"
+    },
+    {
+     "name": "tablesort",
+     "required": false,
+     "top": "tablesort",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_lock_submissions": {
+   "description": "Prevent students from making changes to a list of submissions",
+   "params": [
+    {
+     "name": "assignmentid",
+     "required": true,
+     "top": "assignmentid",
+     "type": "int"
+    },
+    {
+     "name": "userids[0]",
+     "required": true,
+     "top": "userids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_reveal_identities": {
+   "description": "Reveal the identities for a blind marking assignment",
+   "params": [
+    {
+     "name": "assignmentid",
+     "required": true,
+     "top": "assignmentid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_revert_submissions_to_draft": {
+   "description": "Reverts the list of submissions to draft status",
+   "params": [
+    {
+     "name": "assignmentid",
+     "required": true,
+     "top": "assignmentid",
+     "type": "int"
+    },
+    {
+     "name": "userids[0]",
+     "required": true,
+     "top": "userids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_save_grade": {
+   "description": "Save a grade update for a single student.",
+   "params": [
+    {
+     "name": "assignmentid",
+     "required": true,
+     "top": "assignmentid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "grade",
+     "required": true,
+     "top": "grade",
+     "type": "double"
+    },
+    {
+     "name": "attemptnumber",
+     "required": true,
+     "top": "attemptnumber",
+     "type": "int"
+    },
+    {
+     "name": "addattempt",
+     "required": true,
+     "top": "addattempt",
+     "type": "int"
+    },
+    {
+     "name": "workflowstate",
+     "required": true,
+     "top": "workflowstate",
+     "type": "string"
+    },
+    {
+     "name": "applytoall",
+     "required": true,
+     "top": "applytoall",
+     "type": "int"
+    },
+    {
+     "name": "plugindata[assignfeedbackcomments_editor][text]",
+     "required": false,
+     "top": "plugindata",
+     "type": "string"
+    },
+    {
+     "name": "plugindata[assignfeedbackcomments_editor][format]",
+     "required": false,
+     "top": "plugindata",
+     "type": "int"
+    },
+    {
+     "name": "plugindata[files_filemanager]",
+     "required": false,
+     "top": "plugindata",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_save_grades": {
+   "description": "Save multiple grade updates for an assignment.",
+   "params": [
+    {
+     "name": "assignmentid",
+     "required": true,
+     "top": "assignmentid",
+     "type": "int"
+    },
+    {
+     "name": "applytoall",
+     "required": true,
+     "top": "applytoall",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_save_submission": {
+   "description": "Update the current students submission",
+   "params": [
+    {
+     "name": "assignmentid",
+     "required": true,
+     "top": "assignmentid",
+     "type": "int"
+    },
+    {
+     "name": "plugindata[onlinetext_editor][text]",
+     "required": true,
+     "top": "plugindata",
+     "type": "string"
+    },
+    {
+     "name": "plugindata[onlinetext_editor][format]",
+     "required": true,
+     "top": "plugindata",
+     "type": "int"
+    },
+    {
+     "name": "plugindata[onlinetext_editor][itemid]",
+     "required": true,
+     "top": "plugindata",
+     "type": "int"
+    },
+    {
+     "name": "plugindata[files_filemanager]",
+     "required": true,
+     "top": "plugindata",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_save_user_extensions": {
+   "description": "Save a list of assignment extensions",
+   "params": [
+    {
+     "name": "assignmentid",
+     "required": true,
+     "top": "assignmentid",
+     "type": "int"
+    },
+    {
+     "name": "userids[0]",
+     "required": true,
+     "top": "userids",
+     "type": "int"
+    },
+    {
+     "name": "dates[0]",
+     "required": true,
+     "top": "dates",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_set_user_flags": {
+   "description": "Creates or updates user flags",
+   "params": [
+    {
+     "name": "assignmentid",
+     "required": true,
+     "top": "assignmentid",
+     "type": "int"
+    },
+    {
+     "name": "userflags[0][userid]",
+     "required": true,
+     "top": "userflags",
+     "type": "int"
+    },
+    {
+     "name": "userflags[0][locked]",
+     "required": true,
+     "top": "userflags",
+     "type": "int"
+    },
+    {
+     "name": "userflags[0][mailed]",
+     "required": true,
+     "top": "userflags",
+     "type": "int"
+    },
+    {
+     "name": "userflags[0][extensionduedate]",
+     "required": true,
+     "top": "userflags",
+     "type": "int"
+    },
+    {
+     "name": "userflags[0][workflowstate]",
+     "required": true,
+     "top": "userflags",
+     "type": "string"
+    },
+    {
+     "name": "userflags[0][allocatedmarker]",
+     "required": true,
+     "top": "userflags",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_start_submission": {
+   "description": "Start a submission for user if assignment has a time limit.",
+   "params": [
+    {
+     "name": "assignid",
+     "required": true,
+     "top": "assignid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_submit_for_grading": {
+   "description": "Submit the current students assignment for grading",
+   "params": [
+    {
+     "name": "assignmentid",
+     "required": true,
+     "top": "assignmentid",
+     "type": "int"
+    },
+    {
+     "name": "acceptsubmissionstatement",
+     "required": true,
+     "top": "acceptsubmissionstatement",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_submit_grading_form": {
+   "description": "Submit the grading form data via ajax",
+   "params": [
+    {
+     "name": "assignmentid",
+     "required": true,
+     "top": "assignmentid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "jsonformdata",
+     "required": true,
+     "top": "jsonformdata",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_assign_unlock_submissions": {
+   "description": "Allow students to make changes to a list of submissions",
+   "params": [
+    {
+     "name": "assignmentid",
+     "required": true,
+     "top": "assignmentid",
+     "type": "int"
+    },
+    {
+     "name": "userids[0]",
+     "required": true,
+     "top": "userids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_view_assign": {
+   "description": "Update the module completion status.",
+   "params": []
+  },
+  "mod_assign_view_grading_table": {
+   "description": "Trigger the grading_table_viewed event.",
+   "params": [
+    {
+     "name": "assignid",
+     "required": true,
+     "top": "assignid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_assign_view_submission_status": {
+   "description": "Trigger the submission status viewed event.",
+   "params": [
+    {
+     "name": "assignid",
+     "required": true,
+     "top": "assignid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_bigbluebuttonbn_can_join": {
+   "description": "Returns information if the current user can join or not.",
+   "params": [
+    {
+     "name": "cmid",
+     "required": true,
+     "top": "cmid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_bigbluebuttonbn_completion_validate": {
+   "description": "Validate completion",
+   "params": [
+    {
+     "name": "bigbluebuttonbnid",
+     "required": true,
+     "top": "bigbluebuttonbnid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_bigbluebuttonbn_end_meeting": {
+   "description": "End a meeting",
+   "params": [
+    {
+     "name": "bigbluebuttonbnid",
+     "required": true,
+     "top": "bigbluebuttonbnid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_bigbluebuttonbn_get_bigbluebuttonbns_by_courses": {
+   "description": "Returns a list of bigbluebuttonbns in a provided list of courses, if no list is provided all bigbluebuttonbns that the user can view will be returned.",
+   "params": []
+  },
+  "mod_bigbluebuttonbn_get_join_url": {
+   "description": "Get the join URL for the meeting and create if it does not exist.",
+   "params": [
+    {
+     "name": "cmid",
+     "required": true,
+     "top": "cmid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_bigbluebuttonbn_get_recordings": {
+   "description": "Returns a list of recordings ready to be processed by a datatable.",
+   "params": [
+    {
+     "name": "bigbluebuttonbnid",
+     "required": true,
+     "top": "bigbluebuttonbnid",
+     "type": "int"
+    },
+    {
+     "name": "tools",
+     "required": false,
+     "top": "tools",
+     "type": "string"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_bigbluebuttonbn_get_recordings_to_import": {
+   "description": "Returns a list of recordings ready to import to be processed by a datatable.",
+   "params": [
+    {
+     "name": "destinationinstanceid",
+     "required": true,
+     "top": "destinationinstanceid",
+     "type": "int"
+    },
+    {
+     "name": "sourcebigbluebuttonbnid",
+     "required": false,
+     "top": "sourcebigbluebuttonbnid",
+     "type": "int"
+    },
+    {
+     "name": "sourcecourseid",
+     "required": false,
+     "top": "sourcecourseid",
+     "type": "int"
+    },
+    {
+     "name": "tools",
+     "required": false,
+     "top": "tools",
+     "type": "string"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_bigbluebuttonbn_meeting_info": {
+   "description": "Get displayable information on the meeting",
+   "params": [
+    {
+     "name": "bigbluebuttonbnid",
+     "required": true,
+     "top": "bigbluebuttonbnid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    },
+    {
+     "name": "updatecache",
+     "required": false,
+     "top": "updatecache",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_bigbluebuttonbn_update_recording": {
+   "description": "Update a single recording",
+   "params": [
+    {
+     "name": "bigbluebuttonbnid",
+     "required": true,
+     "top": "bigbluebuttonbnid",
+     "type": "int"
+    },
+    {
+     "name": "recordingid",
+     "required": true,
+     "top": "recordingid",
+     "type": "int"
+    },
+    {
+     "name": "action",
+     "required": true,
+     "top": "action",
+     "type": "string"
+    },
+    {
+     "name": "additionaloptions",
+     "required": true,
+     "top": "additionaloptions",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_bigbluebuttonbn_view_bigbluebuttonbn": {
+   "description": "Trigger the course module viewed event and update the module completion status.",
+   "params": []
+  },
+  "mod_book_get_books_by_courses": {
+   "description": "Returns a list of book instances in a provided set of courses, if no courses are provided then all the book instances the user has access to will",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_book_view_book": {
+   "description": "Simulate the view.php web interface book: trigger events, completion, etc...",
+   "params": [
+    {
+     "name": "bookid",
+     "required": true,
+     "top": "bookid",
+     "type": "int"
+    },
+    {
+     "name": "chapterid",
+     "required": false,
+     "top": "chapterid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_chat_get_chat_latest_messages": {
+   "description": "Get the latest messages from the given chat session.",
+   "params": [
+    {
+     "name": "chatsid",
+     "required": true,
+     "top": "chatsid",
+     "type": "string"
+    },
+    {
+     "name": "chatlasttime",
+     "required": false,
+     "top": "chatlasttime",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_chat_get_chat_users": {
+   "description": "Get the list of users in the given chat session.",
+   "params": []
+  },
+  "mod_chat_get_chats_by_courses": {
+   "description": "Returns a list of chat instances in a provided set of courses, if no courses are provided then all the chat instances the user has access to will be",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_chat_get_session_messages": {
+   "description": "Retrieves messages of the given chat session.",
+   "params": [
+    {
+     "name": "chatid",
+     "required": true,
+     "top": "chatid",
+     "type": "int"
+    },
+    {
+     "name": "sessionstart",
+     "required": true,
+     "top": "sessionstart",
+     "type": "int"
+    },
+    {
+     "name": "sessionend",
+     "required": true,
+     "top": "sessionend",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_chat_get_sessions": {
+   "description": "Retrieves chat sessions for a given chat.",
+   "params": [
+    {
+     "name": "chatid",
+     "required": true,
+     "top": "chatid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    },
+    {
+     "name": "showall",
+     "required": false,
+     "top": "showall",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_chat_login_user": {
+   "description": "Log a user into a chat room in the given chat.",
+   "params": [
+    {
+     "name": "chatid",
+     "required": true,
+     "top": "chatid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_chat_send_chat_message": {
+   "description": "Send a message on the given chat session.",
+   "params": [
+    {
+     "name": "chatsid",
+     "required": true,
+     "top": "chatsid",
+     "type": "string"
+    },
+    {
+     "name": "messagetext",
+     "required": true,
+     "top": "messagetext",
+     "type": "string"
+    },
+    {
+     "name": "beepid",
+     "required": false,
+     "top": "beepid",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_chat_view_chat": {
+   "description": "Trigger the course module viewed event and update the module completion status.",
+   "params": []
+  },
+  "mod_choice_delete_choice_responses": {
+   "description": "Delete the given submitted responses in a choice",
+   "params": [
+    {
+     "name": "choiceid",
+     "required": true,
+     "top": "choiceid",
+     "type": "int"
+    },
+    {
+     "name": "responses[0]",
+     "required": false,
+     "top": "responses",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_choice_get_choice_options": {
+   "description": "Retrieve options for a specific choice.",
+   "params": [
+    {
+     "name": "choiceid",
+     "required": true,
+     "top": "choiceid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_choice_get_choice_results": {
+   "description": "Retrieve users results for a given choice.",
+   "params": [
+    {
+     "name": "choiceid",
+     "required": true,
+     "top": "choiceid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_choice_get_choices_by_courses": {
+   "description": "Returns a list of choice instances in a provided set of courses, if no courses are provided then all the choice instances the user has access to",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_choice_submit_choice_response": {
+   "description": "Submit responses to a specific choice item.",
+   "params": [
+    {
+     "name": "choiceid",
+     "required": true,
+     "top": "choiceid",
+     "type": "int"
+    },
+    {
+     "name": "responses[0]",
+     "required": true,
+     "top": "responses",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_choice_view_choice": {
+   "description": "Trigger the course module viewed event and update the module completion status.",
+   "params": []
+  },
+  "mod_data_add_entry": {
+   "description": "Adds a new entry.",
+   "params": [
+    {
+     "name": "databaseid",
+     "required": true,
+     "top": "databaseid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    },
+    {
+     "name": "data[0][fieldid]",
+     "required": true,
+     "top": "data",
+     "type": "int"
+    },
+    {
+     "name": "data[0][subfield]",
+     "required": true,
+     "top": "data",
+     "type": "string"
+    },
+    {
+     "name": "data[0][value]",
+     "required": true,
+     "top": "data",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_data_approve_entry": {
+   "description": "Approves or unapproves an entry.",
+   "params": [
+    {
+     "name": "entryid",
+     "required": true,
+     "top": "entryid",
+     "type": "int"
+    },
+    {
+     "name": "approve",
+     "required": false,
+     "top": "approve",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_data_delete_entry": {
+   "description": "Deletes an entry.",
+   "params": [
+    {
+     "name": "entryid",
+     "required": true,
+     "top": "entryid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_data_get_data_access_information": {
+   "description": "Return access information for a given database.",
+   "params": [
+    {
+     "name": "databaseid",
+     "required": true,
+     "top": "databaseid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_data_get_databases_by_courses": {
+   "description": "Returns a list of database instances in a provided set of courses, if no courses are provided then all the database instances the user has access",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_data_get_entries": {
+   "description": "Return the complete list of entries of the given database.",
+   "params": [
+    {
+     "name": "databaseid",
+     "required": true,
+     "top": "databaseid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    },
+    {
+     "name": "returncontents",
+     "required": false,
+     "top": "returncontents",
+     "type": "int"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "top": "sort",
+     "type": "int"
+    },
+    {
+     "name": "order",
+     "required": false,
+     "top": "order",
+     "type": "string"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "perpage",
+     "required": false,
+     "top": "perpage",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_data_get_entry": {
+   "description": "Return one entry record from the database, including contents optionally.",
+   "params": [
+    {
+     "name": "entryid",
+     "required": true,
+     "top": "entryid",
+     "type": "int"
+    },
+    {
+     "name": "returncontents",
+     "required": false,
+     "top": "returncontents",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_data_get_fields": {
+   "description": "Return the list of configured fields for the given database.",
+   "params": [
+    {
+     "name": "databaseid",
+     "required": true,
+     "top": "databaseid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_data_search_entries": {
+   "description": "Search for entries in the given database.",
+   "params": [
+    {
+     "name": "databaseid",
+     "required": true,
+     "top": "databaseid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    },
+    {
+     "name": "returncontents",
+     "required": false,
+     "top": "returncontents",
+     "type": "int"
+    },
+    {
+     "name": "search",
+     "required": false,
+     "top": "search",
+     "type": "string"
+    },
+    {
+     "name": "advsearch[0][name]",
+     "required": false,
+     "top": "advsearch",
+     "type": "string"
+    },
+    {
+     "name": "advsearch[0][value]",
+     "required": false,
+     "top": "advsearch",
+     "type": "string"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "top": "sort",
+     "type": "int"
+    },
+    {
+     "name": "order",
+     "required": false,
+     "top": "order",
+     "type": "string"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "top": "page",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_data_update_entry": {
+   "description": "Updates an existing entry.",
+   "params": [
+    {
+     "name": "entryid",
+     "required": true,
+     "top": "entryid",
+     "type": "int"
+    },
+    {
+     "name": "data[0][fieldid]",
+     "required": true,
+     "top": "data",
+     "type": "int"
+    },
+    {
+     "name": "data[0][subfield]",
+     "required": true,
+     "top": "data",
+     "type": "string"
+    },
+    {
+     "name": "data[0][value]",
+     "required": true,
+     "top": "data",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_data_view_database": {
+   "description": "Simulate the view.php web interface data: trigger events, completion, etc...",
+   "params": []
+  },
+  "mod_feedback_get_analysis": {
+   "description": "Retrieves the feedback analysis.",
+   "params": [
+    {
+     "name": "feedbackid",
+     "required": true,
+     "top": "feedbackid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_feedback_get_current_completed_tmp": {
+   "description": "Returns the temporary completion record for the current user.",
+   "params": [
+    {
+     "name": "feedbackid",
+     "required": true,
+     "top": "feedbackid",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_feedback_get_feedback_access_information": {
+   "description": "Return access information for a given feedback.",
+   "params": [
+    {
+     "name": "feedbackid",
+     "required": true,
+     "top": "feedbackid",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_feedback_get_feedbacks_by_courses": {
+   "description": "Returns a list of feedbacks in a provided list of courses, if no list is provided all feedbacks that the user can view will be returned.",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_feedback_get_finished_responses": {
+   "description": "Retrieves responses from the last finished attempt.",
+   "params": [
+    {
+     "name": "feedbackid",
+     "required": true,
+     "top": "feedbackid",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_feedback_get_items": {
+   "description": "Returns the items (questions) in the given feedback.",
+   "params": [
+    {
+     "name": "feedbackid",
+     "required": true,
+     "top": "feedbackid",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_feedback_get_last_completed": {
+   "description": "Retrieves the last completion record for the current user.",
+   "params": [
+    {
+     "name": "feedbackid",
+     "required": true,
+     "top": "feedbackid",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_feedback_get_non_respondents": {
+   "description": "Retrieves a list of students who didn't submit the feedback.",
+   "params": [
+    {
+     "name": "feedbackid",
+     "required": true,
+     "top": "feedbackid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "top": "sort",
+     "type": "string"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "perpage",
+     "required": false,
+     "top": "perpage",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_feedback_get_page_items": {
+   "description": "Get a single feedback page items.",
+   "params": [
+    {
+     "name": "feedbackid",
+     "required": true,
+     "top": "feedbackid",
+     "type": "int"
+    },
+    {
+     "name": "page",
+     "required": true,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_feedback_get_responses_analysis": {
+   "description": "Return the feedback user responses analysis.",
+   "params": [
+    {
+     "name": "feedbackid",
+     "required": true,
+     "top": "feedbackid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "perpage",
+     "required": false,
+     "top": "perpage",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_feedback_get_unfinished_responses": {
+   "description": "Retrieves responses from the current unfinished attempt.",
+   "params": [
+    {
+     "name": "feedbackid",
+     "required": true,
+     "top": "feedbackid",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_feedback_launch_feedback": {
+   "description": "Starts or continues a feedback submission.",
+   "params": [
+    {
+     "name": "feedbackid",
+     "required": true,
+     "top": "feedbackid",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_feedback_process_page": {
+   "description": "Process a jump between pages.",
+   "params": [
+    {
+     "name": "feedbackid",
+     "required": true,
+     "top": "feedbackid",
+     "type": "int"
+    },
+    {
+     "name": "page",
+     "required": true,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "responses[0][name]",
+     "required": false,
+     "top": "responses",
+     "type": "string"
+    },
+    {
+     "name": "responses[0][value]",
+     "required": false,
+     "top": "responses",
+     "type": "string"
+    },
+    {
+     "name": "goprevious",
+     "required": false,
+     "top": "goprevious",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_feedback_view_feedback": {
+   "description": "Trigger the course module viewed event and update the module completion status.",
+   "params": [
+    {
+     "name": "feedbackid",
+     "required": true,
+     "top": "feedbackid",
+     "type": "int"
+    },
+    {
+     "name": "moduleviewed",
+     "required": false,
+     "top": "moduleviewed",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": false,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_folder_get_folders_by_courses": {
+   "description": "Returns a list of folders in a provided list of courses, if no list is provided all folders that the user can view will be returned. Please note that this",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_folder_view_folder": {
+   "description": "Simulate the view.php web interface folder: trigger events, completion, etc...",
+   "params": [
+    {
+     "name": "folderid",
+     "required": true,
+     "top": "folderid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_forum_add_discussion": {
+   "description": "Add a new discussion into an existing forum.",
+   "params": [
+    {
+     "name": "forumid",
+     "required": true,
+     "top": "forumid",
+     "type": "int"
+    },
+    {
+     "name": "subject",
+     "required": true,
+     "top": "subject",
+     "type": "string"
+    },
+    {
+     "name": "message",
+     "required": true,
+     "top": "message",
+     "type": "string"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    },
+    {
+     "name": "options[0][name]",
+     "required": false,
+     "top": "options",
+     "type": "string"
+    },
+    {
+     "name": "options[0][value]",
+     "required": false,
+     "top": "options",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_forum_add_discussion_post": {
+   "description": "Create new posts into an existing discussion.",
+   "params": [
+    {
+     "name": "postid",
+     "required": true,
+     "top": "postid",
+     "type": "int"
+    },
+    {
+     "name": "subject",
+     "required": true,
+     "top": "subject",
+     "type": "string"
+    },
+    {
+     "name": "message",
+     "required": true,
+     "top": "message",
+     "type": "string"
+    },
+    {
+     "name": "options[0][name]",
+     "required": false,
+     "top": "options",
+     "type": "string"
+    },
+    {
+     "name": "options[0][value]",
+     "required": false,
+     "top": "options",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_forum_can_add_discussion": {
+   "description": "Check if the current user can add discussions in the given forum (and optionally for the given group).",
+   "params": [
+    {
+     "name": "forumid",
+     "required": true,
+     "top": "forumid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_forum_delete_post": {
+   "description": "Deletes a post or a discussion completely when the post is the discussion topic.",
+   "params": [
+    {
+     "name": "postid",
+     "required": true,
+     "top": "postid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_forum_get_discussion_post": {
+   "description": "Get a particular discussion post.",
+   "params": [
+    {
+     "name": "postid",
+     "required": true,
+     "top": "postid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_forum_get_discussion_posts": {
+   "description": "Returns a list of forum posts for a discussion.",
+   "params": [
+    {
+     "name": "discussionid",
+     "required": true,
+     "top": "discussionid",
+     "type": "int"
+    },
+    {
+     "name": "sortby",
+     "required": false,
+     "top": "sortby",
+     "type": "string"
+    },
+    {
+     "name": "sortdirection",
+     "required": false,
+     "top": "sortdirection",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_forum_get_forum_access_information": {
+   "description": "Return capabilities information for a given forum.",
+   "params": [
+    {
+     "name": "forumid",
+     "required": true,
+     "top": "forumid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_forum_get_forum_discussions": {
+   "description": "Returns a list of forum discussions optionally sorted and paginated.",
+   "params": [
+    {
+     "name": "forumid",
+     "required": true,
+     "top": "forumid",
+     "type": "int"
+    },
+    {
+     "name": "sortorder",
+     "required": false,
+     "top": "sortorder",
+     "type": "int"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "perpage",
+     "required": false,
+     "top": "perpage",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_forum_get_forums_by_courses": {
+   "description": "Returns a list of forum instances in a provided set of courses, if no courses are provided then all the forum instances the user has access to will",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_forum_prepare_draft_area_for_post": {
+   "description": "Prepares a draft area for editing a post.",
+   "params": [
+    {
+     "name": "postid",
+     "required": true,
+     "top": "postid",
+     "type": "int"
+    },
+    {
+     "name": "area",
+     "required": true,
+     "top": "area",
+     "type": "string"
+    },
+    {
+     "name": "draftitemid",
+     "required": false,
+     "top": "draftitemid",
+     "type": "int"
+    },
+    {
+     "name": "filestokeep[0][filename]",
+     "required": false,
+     "top": "filestokeep",
+     "type": "string"
+    },
+    {
+     "name": "filestokeep[0][filepath]",
+     "required": false,
+     "top": "filestokeep",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_forum_set_lock_state": {
+   "description": "Set the lock state for the discussion",
+   "params": [
+    {
+     "name": "forumid",
+     "required": true,
+     "top": "forumid",
+     "type": "int"
+    },
+    {
+     "name": "discussionid",
+     "required": true,
+     "top": "discussionid",
+     "type": "int"
+    },
+    {
+     "name": "targetstate",
+     "required": true,
+     "top": "targetstate",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_forum_set_pin_state": {
+   "description": "Set the pin state",
+   "params": [
+    {
+     "name": "discussionid",
+     "required": true,
+     "top": "discussionid",
+     "type": "int"
+    },
+    {
+     "name": "targetstate",
+     "required": true,
+     "top": "targetstate",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_forum_set_subscription_state": {
+   "description": "Set the subscription state",
+   "params": [
+    {
+     "name": "forumid",
+     "required": true,
+     "top": "forumid",
+     "type": "int"
+    },
+    {
+     "name": "discussionid",
+     "required": true,
+     "top": "discussionid",
+     "type": "int"
+    },
+    {
+     "name": "targetstate",
+     "required": true,
+     "top": "targetstate",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_forum_toggle_favourite_state": {
+   "description": "Toggle the favourite state",
+   "params": [
+    {
+     "name": "discussionid",
+     "required": true,
+     "top": "discussionid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_forum_update_discussion_post": {
+   "description": "Updates a post or a discussion topic post.",
+   "params": [
+    {
+     "name": "postid",
+     "required": true,
+     "top": "postid",
+     "type": "int"
+    },
+    {
+     "name": "subject",
+     "required": false,
+     "top": "subject",
+     "type": "string"
+    },
+    {
+     "name": "message",
+     "required": false,
+     "top": "message",
+     "type": "string"
+    },
+    {
+     "name": "messageformat",
+     "required": false,
+     "top": "messageformat",
+     "type": "int"
+    },
+    {
+     "name": "options[0][name]",
+     "required": false,
+     "top": "options",
+     "type": "string"
+    },
+    {
+     "name": "options[0][value]",
+     "required": false,
+     "top": "options",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_forum_view_forum": {
+   "description": "Trigger the course module viewed event and update the module completion status.",
+   "params": []
+  },
+  "mod_forum_view_forum_discussion": {
+   "description": "Trigger the forum discussion viewed event.",
+   "params": [
+    {
+     "name": "discussionid",
+     "required": true,
+     "top": "discussionid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_add_entry": {
+   "description": "Add a new entry to a given glossary",
+   "params": [
+    {
+     "name": "glossaryid",
+     "required": true,
+     "top": "glossaryid",
+     "type": "int"
+    },
+    {
+     "name": "concept",
+     "required": true,
+     "top": "concept",
+     "type": "string"
+    },
+    {
+     "name": "definition",
+     "required": true,
+     "top": "definition",
+     "type": "string"
+    },
+    {
+     "name": "definitionformat",
+     "required": true,
+     "top": "definitionformat",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_delete_entry": {
+   "description": "Delete the given entry from the glossary.",
+   "params": [
+    {
+     "name": "entryid",
+     "required": true,
+     "top": "entryid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_get_authors": {
+   "description": "Get the authors.",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    },
+    {
+     "name": "from",
+     "required": false,
+     "top": "from",
+     "type": "int"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    },
+    {
+     "name": "options[includenotapproved]",
+     "required": false,
+     "top": "options",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_get_categories": {
+   "description": "Get the categories.",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    },
+    {
+     "name": "from",
+     "required": false,
+     "top": "from",
+     "type": "int"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_get_entries_by_author": {
+   "description": "Browse entries by author.",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    },
+    {
+     "name": "letter",
+     "required": true,
+     "top": "letter",
+     "type": "string"
+    },
+    {
+     "name": "field",
+     "required": false,
+     "top": "field",
+     "type": "string"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "top": "sort",
+     "type": "string"
+    },
+    {
+     "name": "from",
+     "required": false,
+     "top": "from",
+     "type": "int"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    },
+    {
+     "name": "options[includenotapproved]",
+     "required": false,
+     "top": "options",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_get_entries_by_author_id": {
+   "description": "Browse entries by author ID.",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    },
+    {
+     "name": "authorid",
+     "required": true,
+     "top": "authorid",
+     "type": "int"
+    },
+    {
+     "name": "order",
+     "required": false,
+     "top": "order",
+     "type": "string"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "top": "sort",
+     "type": "string"
+    },
+    {
+     "name": "from",
+     "required": false,
+     "top": "from",
+     "type": "int"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    },
+    {
+     "name": "options[includenotapproved]",
+     "required": false,
+     "top": "options",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_get_entries_by_category": {
+   "description": "Browse entries by category.",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    },
+    {
+     "name": "categoryid",
+     "required": true,
+     "top": "categoryid",
+     "type": "int"
+    },
+    {
+     "name": "from",
+     "required": false,
+     "top": "from",
+     "type": "int"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    },
+    {
+     "name": "options[includenotapproved]",
+     "required": false,
+     "top": "options",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_get_entries_by_date": {
+   "description": "Browse entries by date.",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    },
+    {
+     "name": "order",
+     "required": false,
+     "top": "order",
+     "type": "string"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "top": "sort",
+     "type": "string"
+    },
+    {
+     "name": "from",
+     "required": false,
+     "top": "from",
+     "type": "int"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    },
+    {
+     "name": "options[includenotapproved]",
+     "required": false,
+     "top": "options",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_get_entries_by_letter": {
+   "description": "Browse entries by letter.",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    },
+    {
+     "name": "letter",
+     "required": true,
+     "top": "letter",
+     "type": "string"
+    },
+    {
+     "name": "from",
+     "required": false,
+     "top": "from",
+     "type": "int"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    },
+    {
+     "name": "options[includenotapproved]",
+     "required": false,
+     "top": "options",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_get_entries_by_search": {
+   "description": "Browse entries by search query.",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    },
+    {
+     "name": "query",
+     "required": true,
+     "top": "query",
+     "type": "string"
+    },
+    {
+     "name": "fullsearch",
+     "required": false,
+     "top": "fullsearch",
+     "type": "int"
+    },
+    {
+     "name": "order",
+     "required": false,
+     "top": "order",
+     "type": "string"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "top": "sort",
+     "type": "string"
+    },
+    {
+     "name": "from",
+     "required": false,
+     "top": "from",
+     "type": "int"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    },
+    {
+     "name": "options[includenotapproved]",
+     "required": false,
+     "top": "options",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_get_entries_by_term": {
+   "description": "Browse entries by term (concept or alias).",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    },
+    {
+     "name": "term",
+     "required": true,
+     "top": "term",
+     "type": "string"
+    },
+    {
+     "name": "from",
+     "required": false,
+     "top": "from",
+     "type": "int"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    },
+    {
+     "name": "options[includenotapproved]",
+     "required": false,
+     "top": "options",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_get_entries_to_approve": {
+   "description": "Browse entries to be approved.",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    },
+    {
+     "name": "letter",
+     "required": true,
+     "top": "letter",
+     "type": "string"
+    },
+    {
+     "name": "order",
+     "required": false,
+     "top": "order",
+     "type": "string"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "top": "sort",
+     "type": "string"
+    },
+    {
+     "name": "from",
+     "required": false,
+     "top": "from",
+     "type": "int"
+    },
+    {
+     "name": "limit",
+     "required": false,
+     "top": "limit",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_get_entry_by_id": {
+   "description": "Get an entry by ID",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_get_glossaries_by_courses": {
+   "description": "Retrieve a list of glossaries from several courses.",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_prepare_entry_for_edition": {
+   "description": "Prepares the given entry for edition returning draft item areas and file areas information.",
+   "params": [
+    {
+     "name": "entryid",
+     "required": true,
+     "top": "entryid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_update_entry": {
+   "description": "Updates the given glossary entry.",
+   "params": [
+    {
+     "name": "entryid",
+     "required": true,
+     "top": "entryid",
+     "type": "int"
+    },
+    {
+     "name": "concept",
+     "required": true,
+     "top": "concept",
+     "type": "string"
+    },
+    {
+     "name": "definition",
+     "required": true,
+     "top": "definition",
+     "type": "string"
+    },
+    {
+     "name": "definitionformat",
+     "required": true,
+     "top": "definitionformat",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_view_entry": {
+   "description": "Notify a glossary entry as being viewed.",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_glossary_view_glossary": {
+   "description": "Notify the glossary as being viewed.",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_h5pactivity_get_attempts": {
+   "description": "Return the information needed to list a user attempts.",
+   "params": [
+    {
+     "name": "h5pactivityid",
+     "required": true,
+     "top": "h5pactivityid",
+     "type": "int"
+    },
+    {
+     "name": "userids[0]",
+     "required": false,
+     "top": "userids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_h5pactivity_get_h5pactivities_by_courses": {
+   "description": "Returns a list of h5p activities in a list of provided courses, if no list is provided all h5p activities that the user can view will be returned.",
+   "params": []
+  },
+  "mod_h5pactivity_get_h5pactivity_access_information": {
+   "description": "Return access information for a given h5p activity.",
+   "params": [
+    {
+     "name": "h5pactivityid",
+     "required": true,
+     "top": "h5pactivityid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_h5pactivity_get_results": {
+   "description": "Return the information needed to list a user attempt results.",
+   "params": [
+    {
+     "name": "h5pactivityid",
+     "required": true,
+     "top": "h5pactivityid",
+     "type": "int"
+    },
+    {
+     "name": "attemptids[0]",
+     "required": false,
+     "top": "attemptids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_h5pactivity_get_user_attempts": {
+   "description": "Return the information needed to list all enrolled user attempts.",
+   "params": [
+    {
+     "name": "h5pactivityid",
+     "required": true,
+     "top": "h5pactivityid",
+     "type": "int"
+    },
+    {
+     "name": "sortorder",
+     "required": false,
+     "top": "sortorder",
+     "type": "string"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "perpage",
+     "required": false,
+     "top": "perpage",
+     "type": "int"
+    },
+    {
+     "name": "firstinitial",
+     "required": false,
+     "top": "firstinitial",
+     "type": "string"
+    },
+    {
+     "name": "lastinitial",
+     "required": false,
+     "top": "lastinitial",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_h5pactivity_log_report_viewed": {
+   "description": "Log that the h5pactivity was viewed.",
+   "params": [
+    {
+     "name": "h5pactivityid",
+     "required": true,
+     "top": "h5pactivityid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "attemptid",
+     "required": false,
+     "top": "attemptid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_h5pactivity_view_h5pactivity": {
+   "description": "Trigger the course module viewed event and update the module completion status.",
+   "params": [
+    {
+     "name": "h5pactivityid",
+     "required": true,
+     "top": "h5pactivityid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_imscp_get_imscps_by_courses": {
+   "description": "Returns a list of IMSCP instances in a provided set of courses, if no courses are provided then all the IMSCP instances the user has access to",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_imscp_view_imscp": {
+   "description": "Simulate the view.php web interface imscp: trigger events, completion, etc...",
+   "params": [
+    {
+     "name": "imscpid",
+     "required": true,
+     "top": "imscpid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_journal_get_entry": {
+   "description": "Gets the user's journal.",
+   "params": [
+    {
+     "name": "journalid",
+     "required": true,
+     "top": "journalid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_journal_set_text": {
+   "description": "Sets the journal text.",
+   "params": [
+    {
+     "name": "journalid",
+     "required": true,
+     "top": "journalid",
+     "type": "int"
+    },
+    {
+     "name": "text",
+     "required": true,
+     "top": "text",
+     "type": "string"
+    },
+    {
+     "name": "format",
+     "required": true,
+     "top": "format",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_label_get_labels_by_courses": {
+   "description": "Returns a list of labels in a provided list of courses, if no list is provided all labels that the user can view will be returned.",
+   "params": []
+  },
+  "mod_lesson_finish_attempt": {
+   "description": "Finishes the current attempt.",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    },
+    {
+     "name": "password",
+     "required": false,
+     "top": "password",
+     "type": "string"
+    },
+    {
+     "name": "outoftime",
+     "required": false,
+     "top": "outoftime",
+     "type": "int"
+    },
+    {
+     "name": "review",
+     "required": false,
+     "top": "review",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_lesson_get_attempts_overview": {
+   "description": "Get a list of all the attempts made by users in a lesson.",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_lesson_get_content_pages_viewed": {
+   "description": "Return the list of content pages viewed by a user during a lesson attempt.",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    },
+    {
+     "name": "lessonattempt",
+     "required": true,
+     "top": "lessonattempt",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_lesson_get_lesson": {
+   "description": "Return information of a given lesson.",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    },
+    {
+     "name": "password",
+     "required": false,
+     "top": "password",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_lesson_get_lesson_access_information": {
+   "description": "Return access information for a given lesson.",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_lesson_get_lessons_by_courses": {
+   "description": "Returns a list of lessons in a provided list of courses, if no list is provided all lessons that the user can view will be returned.",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_lesson_get_page_data": {
+   "description": "Return information of a given page, including its contents.",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    },
+    {
+     "name": "pageid",
+     "required": true,
+     "top": "pageid",
+     "type": "int"
+    },
+    {
+     "name": "password",
+     "required": false,
+     "top": "password",
+     "type": "string"
+    },
+    {
+     "name": "review",
+     "required": false,
+     "top": "review",
+     "type": "int"
+    },
+    {
+     "name": "returncontents",
+     "required": false,
+     "top": "returncontents",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_lesson_get_pages": {
+   "description": "Return the list of pages in a lesson (based on the user permissions).",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    },
+    {
+     "name": "password",
+     "required": false,
+     "top": "password",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_lesson_get_pages_possible_jumps": {
+   "description": "Return all the possible jumps for the pages in a given lesson.",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_lesson_get_questions_attempts": {
+   "description": "Return the list of questions attempts in a given lesson.",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    },
+    {
+     "name": "attempt",
+     "required": true,
+     "top": "attempt",
+     "type": "int"
+    },
+    {
+     "name": "correct",
+     "required": false,
+     "top": "correct",
+     "type": "int"
+    },
+    {
+     "name": "pageid",
+     "required": false,
+     "top": "pageid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_lesson_get_user_attempt": {
+   "description": "Return information about the given user attempt (including answers).",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "lessonattempt",
+     "required": true,
+     "top": "lessonattempt",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_lesson_get_user_attempt_grade": {
+   "description": "Return grade information in the attempt for a given user.",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    },
+    {
+     "name": "lessonattempt",
+     "required": true,
+     "top": "lessonattempt",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_lesson_get_user_grade": {
+   "description": "Return the final grade in the lesson for the given user.",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_lesson_get_user_timers": {
+   "description": "Return the timers in the current lesson for the given user.",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_lesson_launch_attempt": {
+   "description": "Starts a new attempt or continues an existing one.",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    },
+    {
+     "name": "password",
+     "required": false,
+     "top": "password",
+     "type": "string"
+    },
+    {
+     "name": "pageid",
+     "required": false,
+     "top": "pageid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_lesson_process_page": {
+   "description": "Processes page responses.",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    },
+    {
+     "name": "pageid",
+     "required": true,
+     "top": "pageid",
+     "type": "int"
+    },
+    {
+     "name": "data[0][name]",
+     "required": true,
+     "top": "data",
+     "type": "string"
+    },
+    {
+     "name": "data[0][value]",
+     "required": true,
+     "top": "data",
+     "type": "string"
+    },
+    {
+     "name": "password",
+     "required": false,
+     "top": "password",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_lesson_view_lesson": {
+   "description": "Trigger the course module viewed event and update the module completion status.",
+   "params": [
+    {
+     "name": "lessonid",
+     "required": true,
+     "top": "lessonid",
+     "type": "int"
+    },
+    {
+     "name": "password",
+     "required": false,
+     "top": "password",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_lti_get_ltis_by_courses": {
+   "description": "Returns a list of external tool instances in a provided set of courses, if no courses are provided then all the external tool instances the user has",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_lti_get_tool_launch_data": {
+   "description": "Return the launch data for a given external tool.",
+   "params": [
+    {
+     "name": "toolid",
+     "required": true,
+     "top": "toolid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_lti_view_lti": {
+   "description": "Trigger the course module viewed event and update the module completion status.",
+   "params": []
+  },
+  "mod_page_get_pages_by_courses": {
+   "description": "Returns a list of pages in a provided list of courses, if no list is provided all pages that the user can view will be returned.",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_page_view_page": {
+   "description": "Simulate the view.php web interface page: trigger events, completion, etc...",
+   "params": [
+    {
+     "name": "pageid",
+     "required": true,
+     "top": "pageid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_quiz_get_attempt_access_information": {
+   "description": "Return access information for a given attempt in a quiz.",
+   "params": [
+    {
+     "name": "quizid",
+     "required": true,
+     "top": "quizid",
+     "type": "int"
+    },
+    {
+     "name": "attemptid",
+     "required": false,
+     "top": "attemptid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_quiz_get_attempt_data": {
+   "description": "Returns information for the given attempt page for a quiz attempt in progress.",
+   "params": [
+    {
+     "name": "attemptid",
+     "required": true,
+     "top": "attemptid",
+     "type": "int"
+    },
+    {
+     "name": "page",
+     "required": true,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "preflightdata[0][name]",
+     "required": false,
+     "top": "preflightdata",
+     "type": "string"
+    },
+    {
+     "name": "preflightdata[0][value]",
+     "required": false,
+     "top": "preflightdata",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_quiz_get_attempt_review": {
+   "description": "Returns review information for the given finished attempt, can be used by users or teachers.",
+   "params": [
+    {
+     "name": "attemptid",
+     "required": true,
+     "top": "attemptid",
+     "type": "int"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "top": "page",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_quiz_get_attempt_summary": {
+   "description": "Returns a summary of a quiz attempt before it is submitted.",
+   "params": [
+    {
+     "name": "attemptid",
+     "required": true,
+     "top": "attemptid",
+     "type": "int"
+    },
+    {
+     "name": "preflightdata[0][name]",
+     "required": false,
+     "top": "preflightdata",
+     "type": "string"
+    },
+    {
+     "name": "preflightdata[0][value]",
+     "required": false,
+     "top": "preflightdata",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_quiz_get_combined_review_options": {
+   "description": "Combines the review options from a number of different quiz attempts.",
+   "params": [
+    {
+     "name": "quizid",
+     "required": true,
+     "top": "quizid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_quiz_get_quiz_access_information": {
+   "description": "Return access information for a given quiz.",
+   "params": [
+    {
+     "name": "quizid",
+     "required": true,
+     "top": "quizid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_quiz_get_quiz_feedback_for_grade": {
+   "description": "Get the feedback text that should be show to a student who got the given grade in the given quiz.",
+   "params": [
+    {
+     "name": "quizid",
+     "required": true,
+     "top": "quizid",
+     "type": "int"
+    },
+    {
+     "name": "grade",
+     "required": true,
+     "top": "grade",
+     "type": "double"
+    }
+   ]
+  },
+  "mod_quiz_get_quiz_required_qtypes": {
+   "description": "Return the potential question types that would be required for a given quiz.",
+   "params": [
+    {
+     "name": "quizid",
+     "required": true,
+     "top": "quizid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_quiz_get_quizzes_by_courses": {
+   "description": "Returns a list of quizzes in a provided list of courses, if no list is provided all quizzes that the user can view will be returned.",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_quiz_get_user_attempts": {
+   "description": "Return a list of attempts for the given quiz and user.",
+   "params": [
+    {
+     "name": "quizid",
+     "required": true,
+     "top": "quizid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "status",
+     "required": false,
+     "top": "status",
+     "type": "string"
+    },
+    {
+     "name": "includepreviews",
+     "required": false,
+     "top": "includepreviews",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_quiz_get_user_best_grade": {
+   "description": "Get the best current grade for the given user on a quiz.",
+   "params": [
+    {
+     "name": "quizid",
+     "required": true,
+     "top": "quizid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_quiz_process_attempt": {
+   "description": "Process responses during an attempt at a quiz and also deals with attempts finishing.",
+   "params": [
+    {
+     "name": "attemptid",
+     "required": true,
+     "top": "attemptid",
+     "type": "int"
+    },
+    {
+     "name": "data[0][name]",
+     "required": false,
+     "top": "data",
+     "type": "string"
+    },
+    {
+     "name": "data[0][value]",
+     "required": false,
+     "top": "data",
+     "type": "string"
+    },
+    {
+     "name": "finishattempt",
+     "required": false,
+     "top": "finishattempt",
+     "type": "int"
+    },
+    {
+     "name": "timeup",
+     "required": false,
+     "top": "timeup",
+     "type": "int"
+    },
+    {
+     "name": "preflightdata[0][name]",
+     "required": false,
+     "top": "preflightdata",
+     "type": "string"
+    },
+    {
+     "name": "preflightdata[0][value]",
+     "required": false,
+     "top": "preflightdata",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_quiz_save_attempt": {
+   "description": "Processes save requests during the quiz. This function is intended for the quiz auto-save feature.",
+   "params": [
+    {
+     "name": "attemptid",
+     "required": true,
+     "top": "attemptid",
+     "type": "int"
+    },
+    {
+     "name": "data[0][name]",
+     "required": true,
+     "top": "data",
+     "type": "string"
+    },
+    {
+     "name": "data[0][value]",
+     "required": true,
+     "top": "data",
+     "type": "string"
+    },
+    {
+     "name": "preflightdata[0][name]",
+     "required": false,
+     "top": "preflightdata",
+     "type": "string"
+    },
+    {
+     "name": "preflightdata[0][value]",
+     "required": false,
+     "top": "preflightdata",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_quiz_start_attempt": {
+   "description": "Starts a new attempt at a quiz.",
+   "params": [
+    {
+     "name": "quizid",
+     "required": true,
+     "top": "quizid",
+     "type": "int"
+    },
+    {
+     "name": "preflightdata[0][name]",
+     "required": false,
+     "top": "preflightdata",
+     "type": "string"
+    },
+    {
+     "name": "preflightdata[0][value]",
+     "required": false,
+     "top": "preflightdata",
+     "type": "string"
+    },
+    {
+     "name": "forcenew",
+     "required": false,
+     "top": "forcenew",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_quiz_view_attempt": {
+   "description": "Trigger the attempt viewed event.",
+   "params": [
+    {
+     "name": "attemptid",
+     "required": true,
+     "top": "attemptid",
+     "type": "int"
+    },
+    {
+     "name": "page",
+     "required": true,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "preflightdata[0][name]",
+     "required": false,
+     "top": "preflightdata",
+     "type": "string"
+    },
+    {
+     "name": "preflightdata[0][value]",
+     "required": false,
+     "top": "preflightdata",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_quiz_view_attempt_review": {
+   "description": "Trigger the attempt reviewed event.",
+   "params": []
+  },
+  "mod_quiz_view_attempt_summary": {
+   "description": "Trigger the attempt summary viewed event.",
+   "params": [
+    {
+     "name": "attemptid",
+     "required": true,
+     "top": "attemptid",
+     "type": "int"
+    },
+    {
+     "name": "preflightdata[0][name]",
+     "required": false,
+     "top": "preflightdata",
+     "type": "string"
+    },
+    {
+     "name": "preflightdata[0][value]",
+     "required": false,
+     "top": "preflightdata",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_quiz_view_quiz": {
+   "description": "Trigger the course module viewed event and update the module completion status.",
+   "params": [
+    {
+     "name": "quizid",
+     "required": true,
+     "top": "quizid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_resource_get_resources_by_courses": {
+   "description": "Returns a list of files in a provided list of courses, if no list is provided all files that the user can view will be returned.",
+   "params": []
+  },
+  "mod_resource_view_resource": {
+   "description": "Simulate the view.php web interface resource: trigger events, completion, etc...",
+   "params": [
+    {
+     "name": "resourceid",
+     "required": true,
+     "top": "resourceid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_scorm_get_scorm_access_information": {
+   "description": "Return capabilities information for a given scorm.",
+   "params": [
+    {
+     "name": "scormid",
+     "required": true,
+     "top": "scormid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_scorm_get_scorm_attempt_count": {
+   "description": "Return the number of attempts done by a user in the given SCORM.",
+   "params": [
+    {
+     "name": "scormid",
+     "required": true,
+     "top": "scormid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "ignoremissingcompletion",
+     "required": false,
+     "top": "ignoremissingcompletion",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_scorm_get_scorm_sco_tracks": {
+   "description": "Retrieves SCO tracking data for the given user id and attempt number",
+   "params": [
+    {
+     "name": "scoid",
+     "required": true,
+     "top": "scoid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "attempt",
+     "required": false,
+     "top": "attempt",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_scorm_get_scorm_scoes": {
+   "description": "Returns a list containing all the scoes data related to the given scorm id",
+   "params": [
+    {
+     "name": "scormid",
+     "required": true,
+     "top": "scormid",
+     "type": "int"
+    },
+    {
+     "name": "organization",
+     "required": false,
+     "top": "organization",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_scorm_get_scorm_user_data": {
+   "description": "Retrieves user tracking and SCO data and default SCORM values",
+   "params": [
+    {
+     "name": "scormid",
+     "required": true,
+     "top": "scormid",
+     "type": "int"
+    },
+    {
+     "name": "attempt",
+     "required": true,
+     "top": "attempt",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_scorm_get_scorms_by_courses": {
+   "description": "Returns a list of scorm instances in a provided set of courses, if no courses are provided then all the scorm instances the user has access to will",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_scorm_insert_scorm_tracks": {
+   "description": "Saves a scorm tracking record. It will overwrite any existing tracking data for this attempt. Validation should be performed before running the",
+   "params": [
+    {
+     "name": "scoid",
+     "required": true,
+     "top": "scoid",
+     "type": "int"
+    },
+    {
+     "name": "attempt",
+     "required": true,
+     "top": "attempt",
+     "type": "int"
+    },
+    {
+     "name": "tracks[0][element]",
+     "required": true,
+     "top": "tracks",
+     "type": "string"
+    },
+    {
+     "name": "tracks[0][value]",
+     "required": true,
+     "top": "tracks",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_scorm_launch_sco": {
+   "description": "Trigger the SCO launched event.",
+   "params": [
+    {
+     "name": "scormid",
+     "required": true,
+     "top": "scormid",
+     "type": "int"
+    },
+    {
+     "name": "scoid",
+     "required": false,
+     "top": "scoid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_scorm_view_scorm": {
+   "description": "Trigger the course module viewed event.",
+   "params": [
+    {
+     "name": "scormid",
+     "required": true,
+     "top": "scormid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_survey_get_questions": {
+   "description": "Get the complete list of questions for the survey, including subquestions.",
+   "params": []
+  },
+  "mod_survey_get_surveys_by_courses": {
+   "description": "Returns a list of survey instances in a provided set of courses, if no courses are provided then all the survey instances the user has access to",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_survey_submit_answers": {
+   "description": "Submit the answers for a given survey.",
+   "params": [
+    {
+     "name": "surveyid",
+     "required": true,
+     "top": "surveyid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_survey_view_survey": {
+   "description": "Trigger the course module viewed event and update the module completion status.",
+   "params": [
+    {
+     "name": "surveyid",
+     "required": true,
+     "top": "surveyid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_url_get_urls_by_courses": {
+   "description": "Returns a list of urls in a provided list of courses, if no list is provided all urls that the user can view will be returned.",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_url_view_url": {
+   "description": "Trigger the course module viewed event and update the module completion status.",
+   "params": [
+    {
+     "name": "urlid",
+     "required": true,
+     "top": "urlid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_wiki_edit_page": {
+   "description": "Save the contents of a page.",
+   "params": [
+    {
+     "name": "pageid",
+     "required": true,
+     "top": "pageid",
+     "type": "int"
+    },
+    {
+     "name": "content",
+     "required": true,
+     "top": "content",
+     "type": "string"
+    },
+    {
+     "name": "section",
+     "required": false,
+     "top": "section",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_wiki_get_page_contents": {
+   "description": "Returns the contents of a page.",
+   "params": [
+    {
+     "name": "pageid",
+     "required": true,
+     "top": "pageid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_wiki_get_page_for_editing": {
+   "description": "Locks and retrieves info of page-section to be edited.",
+   "params": [
+    {
+     "name": "pageid",
+     "required": true,
+     "top": "pageid",
+     "type": "int"
+    },
+    {
+     "name": "section",
+     "required": false,
+     "top": "section",
+     "type": "string"
+    },
+    {
+     "name": "lockonly",
+     "required": false,
+     "top": "lockonly",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_wiki_get_subwiki_files": {
+   "description": "Returns the list of files for a specific subwiki.",
+   "params": [
+    {
+     "name": "wikiid",
+     "required": true,
+     "top": "wikiid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_wiki_get_subwiki_pages": {
+   "description": "Returns the list of pages for a specific subwiki.",
+   "params": [
+    {
+     "name": "wikiid",
+     "required": true,
+     "top": "wikiid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "options[sortby]",
+     "required": false,
+     "top": "options",
+     "type": "string"
+    },
+    {
+     "name": "options[sortdirection]",
+     "required": false,
+     "top": "options",
+     "type": "string"
+    },
+    {
+     "name": "options[includecontent]",
+     "required": false,
+     "top": "options",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_wiki_get_subwikis": {
+   "description": "Returns the list of subwikis the user can see in a specific wiki.",
+   "params": [
+    {
+     "name": "wikiid",
+     "required": true,
+     "top": "wikiid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_wiki_get_wikis_by_courses": {
+   "description": "Returns a list of wiki instances in a provided set of courses, if no courses are provided then all the wiki instances the user has access to will be",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_wiki_new_page": {
+   "description": "Create a new page in a subwiki.",
+   "params": [
+    {
+     "name": "title",
+     "required": true,
+     "top": "title",
+     "type": "string"
+    },
+    {
+     "name": "content",
+     "required": true,
+     "top": "content",
+     "type": "string"
+    },
+    {
+     "name": "contentformat",
+     "required": false,
+     "top": "contentformat",
+     "type": "string"
+    },
+    {
+     "name": "subwikiid",
+     "required": false,
+     "top": "subwikiid",
+     "type": "int"
+    },
+    {
+     "name": "wikiid",
+     "required": false,
+     "top": "wikiid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_wiki_view_page": {
+   "description": "Trigger the page viewed event and update the module completion status.",
+   "params": [
+    {
+     "name": "pageid",
+     "required": true,
+     "top": "pageid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_wiki_view_wiki": {
+   "description": "Trigger the course module viewed event and update the module completion status.",
+   "params": [
+    {
+     "name": "wikiid",
+     "required": true,
+     "top": "wikiid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_workshop_add_submission": {
+   "description": "Add a new submission to a given workshop.",
+   "params": [
+    {
+     "name": "workshopid",
+     "required": true,
+     "top": "workshopid",
+     "type": "int"
+    },
+    {
+     "name": "title",
+     "required": true,
+     "top": "title",
+     "type": "string"
+    },
+    {
+     "name": "content",
+     "required": false,
+     "top": "content",
+     "type": "string"
+    },
+    {
+     "name": "contentformat",
+     "required": false,
+     "top": "contentformat",
+     "type": "int"
+    },
+    {
+     "name": "inlineattachmentsid",
+     "required": false,
+     "top": "inlineattachmentsid",
+     "type": "int"
+    },
+    {
+     "name": "attachmentsid",
+     "required": false,
+     "top": "attachmentsid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_workshop_delete_submission": {
+   "description": "Deletes the given submission.",
+   "params": [
+    {
+     "name": "submissionid",
+     "required": true,
+     "top": "submissionid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_workshop_evaluate_assessment": {
+   "description": "Evaluates an assessment (used by teachers for provide feedback to the reviewer).",
+   "params": [
+    {
+     "name": "assessmentid",
+     "required": true,
+     "top": "assessmentid",
+     "type": "int"
+    },
+    {
+     "name": "feedbacktext",
+     "required": false,
+     "top": "feedbacktext",
+     "type": "string"
+    },
+    {
+     "name": "feedbackformat",
+     "required": false,
+     "top": "feedbackformat",
+     "type": "int"
+    },
+    {
+     "name": "weight",
+     "required": false,
+     "top": "weight",
+     "type": "int"
+    },
+    {
+     "name": "gradinggradeover",
+     "required": false,
+     "top": "gradinggradeover",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_workshop_evaluate_submission": {
+   "description": "Evaluates a submission (used by teachers for provide feedback or override the submission grade).",
+   "params": [
+    {
+     "name": "submissionid",
+     "required": true,
+     "top": "submissionid",
+     "type": "int"
+    },
+    {
+     "name": "feedbacktext",
+     "required": false,
+     "top": "feedbacktext",
+     "type": "string"
+    },
+    {
+     "name": "feedbackformat",
+     "required": false,
+     "top": "feedbackformat",
+     "type": "int"
+    },
+    {
+     "name": "published",
+     "required": false,
+     "top": "published",
+     "type": "int"
+    },
+    {
+     "name": "gradeover",
+     "required": false,
+     "top": "gradeover",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_workshop_get_assessment": {
+   "description": "Retrieves the given assessment.",
+   "params": []
+  },
+  "mod_workshop_get_assessment_form_definition": {
+   "description": "Retrieves the assessment form definition.",
+   "params": [
+    {
+     "name": "assessmentid",
+     "required": true,
+     "top": "assessmentid",
+     "type": "int"
+    },
+    {
+     "name": "mode",
+     "required": false,
+     "top": "mode",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_workshop_get_grades": {
+   "description": "Returns the assessment and submission grade for the given user.",
+   "params": [
+    {
+     "name": "workshopid",
+     "required": true,
+     "top": "workshopid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_workshop_get_grades_report": {
+   "description": "Retrieves the assessment grades report.",
+   "params": [
+    {
+     "name": "workshopid",
+     "required": true,
+     "top": "workshopid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    },
+    {
+     "name": "sortby",
+     "required": false,
+     "top": "sortby",
+     "type": "string"
+    },
+    {
+     "name": "sortdirection",
+     "required": false,
+     "top": "sortdirection",
+     "type": "string"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "perpage",
+     "required": false,
+     "top": "perpage",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_workshop_get_reviewer_assessments": {
+   "description": "Retrieves all the assessments reviewed by the given user.",
+   "params": [
+    {
+     "name": "workshopid",
+     "required": true,
+     "top": "workshopid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_workshop_get_submission": {
+   "description": "Retrieves the given submission.",
+   "params": []
+  },
+  "mod_workshop_get_submission_assessments": {
+   "description": "Retrieves all the assessments of the given submission.",
+   "params": [
+    {
+     "name": "submissionid",
+     "required": true,
+     "top": "submissionid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_workshop_get_submissions": {
+   "description": "Retrieves all the workshop submissions or the one done by the given user (except example submissions).",
+   "params": [
+    {
+     "name": "workshopid",
+     "required": true,
+     "top": "workshopid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "groupid",
+     "required": false,
+     "top": "groupid",
+     "type": "int"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "top": "page",
+     "type": "int"
+    },
+    {
+     "name": "perpage",
+     "required": false,
+     "top": "perpage",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_workshop_get_user_plan": {
+   "description": "Return the planner information for the given user.",
+   "params": [
+    {
+     "name": "workshopid",
+     "required": true,
+     "top": "workshopid",
+     "type": "int"
+    },
+    {
+     "name": "userid",
+     "required": false,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_workshop_get_workshop_access_information": {
+   "description": "Return access information for a given workshop.",
+   "params": [
+    {
+     "name": "workshopid",
+     "required": true,
+     "top": "workshopid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_workshop_get_workshops_by_courses": {
+   "description": "Returns a list of workshops in a provided list of courses, if no list is provided all workshops that the user can view will be returned.",
+   "params": [
+    {
+     "name": "courseids[0]",
+     "required": false,
+     "top": "courseids",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_workshop_update_assessment": {
+   "description": "Add information to an allocated assessment.",
+   "params": [
+    {
+     "name": "assessmentid",
+     "required": true,
+     "top": "assessmentid",
+     "type": "int"
+    },
+    {
+     "name": "data[0][name]",
+     "required": true,
+     "top": "data",
+     "type": "string"
+    },
+    {
+     "name": "data[0][value]",
+     "required": true,
+     "top": "data",
+     "type": "string"
+    }
+   ]
+  },
+  "mod_workshop_update_submission": {
+   "description": "Update the given submission.",
+   "params": [
+    {
+     "name": "submissionid",
+     "required": true,
+     "top": "submissionid",
+     "type": "int"
+    },
+    {
+     "name": "title",
+     "required": true,
+     "top": "title",
+     "type": "string"
+    },
+    {
+     "name": "content",
+     "required": false,
+     "top": "content",
+     "type": "string"
+    },
+    {
+     "name": "contentformat",
+     "required": false,
+     "top": "contentformat",
+     "type": "int"
+    },
+    {
+     "name": "inlineattachmentsid",
+     "required": false,
+     "top": "inlineattachmentsid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_workshop_view_submission": {
+   "description": "Trigger the submission viewed event.",
+   "params": [
+    {
+     "name": "submissionid",
+     "required": true,
+     "top": "submissionid",
+     "type": "int"
+    }
+   ]
+  },
+  "mod_workshop_view_workshop": {
+   "description": "Trigger the course module viewed event and update the module completion status.",
+   "params": [
+    {
+     "name": "workshopid",
+     "required": true,
+     "top": "workshopid",
+     "type": "int"
+    }
+   ]
+  },
+  "qtype_stack_validate_input": {
+   "description": "Validates STACK question type input data",
+   "params": [
+    {
+     "name": "qaid",
+     "required": true,
+     "top": "qaid",
+     "type": "int"
+    },
+    {
+     "name": "name",
+     "required": true,
+     "top": "name",
+     "type": "string"
+    },
+    {
+     "name": "input",
+     "required": true,
+     "top": "input",
+     "type": "string"
+    }
+   ]
+  },
+  "report_insights_action_executed": {
+   "description": "Stores an action executed over a group of predictions.",
+   "params": [
+    {
+     "name": "actionname",
+     "required": true,
+     "top": "actionname",
+     "type": "string"
+    }
+   ]
+  },
+  "tool_analytics_potential_contexts": {
+   "description": "Retrieve the list of potential contexts for a model.",
+   "params": [
+    {
+     "name": "query",
+     "required": false,
+     "top": "query",
+     "type": "string"
+    },
+    {
+     "name": "modelid",
+     "required": false,
+     "top": "modelid",
+     "type": "int"
+    }
+   ]
+  },
+  "tool_lp_data_for_course_competencies_page": {
+   "description": "Load the data for the course competencies page template.",
+   "params": [
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    },
+    {
+     "name": "moduleid",
+     "required": false,
+     "top": "moduleid",
+     "type": "int"
+    }
+   ]
+  },
+  "tool_lp_data_for_plan_page": {
+   "description": "Load the data for the plan page template.",
+   "params": [
+    {
+     "name": "planid",
+     "required": true,
+     "top": "planid",
+     "type": "int"
+    }
+   ]
+  },
+  "tool_lp_data_for_plans_page": {
+   "description": "Load the data for the plans page template",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "tool_lp_data_for_user_competency_summary": {
+   "description": "Load a summary of a user competency.",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "competencyid",
+     "required": true,
+     "top": "competencyid",
+     "type": "int"
+    }
+   ]
+  },
+  "tool_lp_data_for_user_competency_summary_in_course": {
+   "description": "Load a summary of a user competency.",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    },
+    {
+     "name": "competencyid",
+     "required": true,
+     "top": "competencyid",
+     "type": "int"
+    },
+    {
+     "name": "courseid",
+     "required": true,
+     "top": "courseid",
+     "type": "int"
+    }
+   ]
+  },
+  "tool_lp_data_for_user_competency_summary_in_plan": {
+   "description": "Load a summary of a user competency.",
+   "params": [
+    {
+     "name": "competencyid",
+     "required": true,
+     "top": "competencyid",
+     "type": "int"
+    },
+    {
+     "name": "planid",
+     "required": true,
+     "top": "planid",
+     "type": "int"
+    }
+   ]
+  },
+  "tool_lp_data_for_user_evidence_list_page": {
+   "description": "Load the data for the user evidence list page template",
+   "params": [
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "tool_lp_data_for_user_evidence_page": {
+   "description": "Load the data for the user evidence page template",
+   "params": [
+    {
+     "name": "id",
+     "required": true,
+     "top": "id",
+     "type": "int"
+    }
+   ]
+  },
+  "tool_mobile_call_external_functions": {
+   "description": "Call multiple external functions and return all responses.",
+   "params": [
+    {
+     "name": "requests[0][function]",
+     "required": true,
+     "top": "requests",
+     "type": "string"
+    },
+    {
+     "name": "requests[0][arguments]",
+     "required": true,
+     "top": "requests",
+     "type": "string"
+    },
+    {
+     "name": "requests[0][settingraw]",
+     "required": true,
+     "top": "requests",
+     "type": "int"
+    },
+    {
+     "name": "requests[0][settingfilter]",
+     "required": true,
+     "top": "requests",
+     "type": "int"
+    },
+    {
+     "name": "requests[0][settingfileurl]",
+     "required": true,
+     "top": "requests",
+     "type": "int"
+    },
+    {
+     "name": "requests[0][settinglang]",
+     "required": true,
+     "top": "requests",
+     "type": "string"
+    }
+   ]
+  },
+  "tool_mobile_get_autologin_key": {
+   "description": "Creates an auto-login key for the current user. Is created only in https sites and is restricted by time, ip address and only works if the request",
+   "params": [
+    {
+     "name": "privatetoken",
+     "required": true,
+     "top": "privatetoken",
+     "type": "string"
+    }
+   ]
+  },
+  "tool_mobile_get_config": {
+   "description": "Returns a list of the site configurations, filtering by section.",
+   "params": [
+    {
+     "name": "section",
+     "required": false,
+     "top": "section",
+     "type": "string"
+    }
+   ]
+  },
+  "tool_mobile_get_content": {
+   "description": "Returns a piece of content to be displayed in the Mobile app.",
+   "params": [
+    {
+     "name": "component",
+     "required": true,
+     "top": "component",
+     "type": "string"
+    },
+    {
+     "name": "method",
+     "required": true,
+     "top": "method",
+     "type": "string"
+    },
+    {
+     "name": "args[0][name]",
+     "required": false,
+     "top": "args",
+     "type": "string"
+    },
+    {
+     "name": "args[0][value]",
+     "required": false,
+     "top": "args",
+     "type": "string"
+    }
+   ]
+  },
+  "tool_mobile_get_plugins_supporting_mobile": {
+   "description": "Returns a list of Moodle plugins supporting the mobile app.",
+   "params": []
+  },
+  "tool_mobile_get_public_config": {
+   "description": "Returns a list of the site public settings, those not requiring authentication.",
+   "params": []
+  },
+  "tool_mobile_get_tokens_for_qr_login": {
+   "description": "Returns a WebService token (and private token) for QR login.",
+   "params": [
+    {
+     "name": "qrloginkey",
+     "required": true,
+     "top": "qrloginkey",
+     "type": "string"
+    },
+    {
+     "name": "userid",
+     "required": true,
+     "top": "userid",
+     "type": "int"
+    }
+   ]
+  },
+  "tool_mobile_validate_subscription_key": {
+   "description": "Check if the given site subscription key is valid.",
+   "params": [
+    {
+     "name": "key",
+     "required": true,
+     "top": "key",
+     "type": "string"
+    }
+   ]
+  },
+  "tool_moodlenet_search_courses": {
+   "description": "For some given input search for a course that matches",
+   "params": [
+    {
+     "name": "searchvalue",
+     "required": true,
+     "top": "searchvalue",
+     "type": "string"
+    }
+   ]
+  },
+  "tool_moodlenet_verify_webfinger": {
+   "description": "Verify if the passed information resolves into a WebFinger profile URL",
+   "params": [
+    {
+     "name": "profileurl",
+     "required": true,
+     "top": "profileurl",
+     "type": "string"
+    },
+    {
+     "name": "course",
+     "required": true,
+     "top": "course",
+     "type": "int"
+    },
+    {
+     "name": "section",
+     "required": true,
+     "top": "section",
+     "type": "int"
+    }
+   ]
+  }
+ },
+ "provenance": {
+  "exported": "2026-11-03",
+  "note": "Documented for the service of the exporting account; documentation is not proof that every account may call every function.",
+  "service": "mobile",
+  "source": "UFSC Presencial Moodle web service documentation (wsdoc.php), mobile service"
+ }
+}

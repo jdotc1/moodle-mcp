@@ -1,0 +1,10 @@
+{
+  "_comment": "Real-integration evidence only. Mock/fake-server tests never appear here. Keys are feature ids.",
+  "validated_sandbox": {},
+  "validated_ufsc": {
+    "courses": {"date": "2026-11-04", "moodle": "4.1.5+ (2022112805.09)", "service": "mobile", "note": "read-only: core_enrol_get_users_courses"},
+    "assignments": {"date": "2026-11-04", "moodle": "4.1.5+ (2022112805.09)", "service": "mobile", "note": "read-only: get_assignments + get_submission_status; writes NOT tested"},
+    "calendar": {"date": "2026-11-04", "moodle": "4.1.5+ (2022112805.09)", "service": "mobile", "note": "read-only: get_action_events_by_timesort; event.instance is the cmid on this site"},
+    "forums": {"date": "2026-11-04", "moodle": "4.1.5+ (2022112805.09)", "service": "mobile", "note": "read-only, only get_forums_by_courses exercised; posting NOT tested"}
+  }
+}
