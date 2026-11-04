@@ -51,6 +51,60 @@ def make_pptx(slides: list[str]) -> bytes:
     return b.getvalue()
 
 
+def make_odf(mimetype: str, body: str) -> bytes:
+    b = io.BytesIO()
+    with zipfile.ZipFile(b, "w") as z:
+        z.writestr("mimetype", mimetype)
+        z.writestr(
+            "content.xml",
+            '<office:document-content xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" '
+            'xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" '
+            'xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" '
+            'xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0">'
+            f"<office:body>{body}</office:body></office:document-content>",
+        )
+    return b.getvalue()
+
+
+def test_odt_ods_odp_text_and_locations():
+    odt = make_odf(
+        "application/vnd.oasis.opendocument.text",
+        "<office:text><text:h>Titulo</text:h><text:p>Ola mundo</text:p></office:text>",
+    )
+    ex = extract("a.odt", odt)
+    assert ex.kind == "odt" and "Titulo" in ex.chunks[0][1] and "Ola mundo" in ex.chunks[0][1]
+    ods = make_odf(
+        "application/vnd.oasis.opendocument.spreadsheet",
+        "<office:spreadsheet><table:table table:name='Notas'>"
+        "<table:table-row><table:table-cell><text:p>Ana</text:p></table:table-cell></table:table-row>"
+        "</table:table></office:spreadsheet>",
+    )
+    ex = extract("a.ods", ods)
+    assert ex.kind == "ods" and [loc for loc, _ in ex.chunks] == ["sheet 1"] and "Ana" in ex.chunks[0][1]
+    odp = make_odf(
+        "application/vnd.oasis.opendocument.presentation",
+        "<office:presentation>"
+        "<draw:page><draw:frame><draw:text-box><text:p>Slide um</text:p></draw:text-box></draw:frame></draw:page>"
+        "<draw:page><draw:frame><draw:text-box><text:p>Slide dois</text:p></draw:text-box></draw:frame></draw:page>"
+        "</office:presentation>",
+    )
+    ex = extract("a.odp", odp)
+    assert ex.kind == "odp" and [loc for loc, _ in ex.chunks] == ["slide 1", "slide 2"]
+    assert "Slide dois" in ex.chunks[1][1]
+
+
+def test_odf_preserves_tab_line_break_and_repeated_spaces():
+    odt = make_odf(
+        "application/vnd.oasis.opendocument.text",
+        "<office:text><text:p>Nome<text:tab/>Nota</text:p>"
+        "<text:p>Linha um<text:line-break/>linha dois</text:p>"
+        "<text:p>a<text:s text:c='3'/>b</text:p></office:text>",
+    )
+
+    ex = extract("a.odt", odt)
+    assert ex.chunks[0][1] == "Nome\tNota\nLinha um\nlinha dois\na   b\n"
+
+
 def test_pdf_page_references_and_scanned_detection():
     ex = extract("a.pdf", make_pdf(["Normalizacao 3FN", "Transacoes ACID"]))
     assert (

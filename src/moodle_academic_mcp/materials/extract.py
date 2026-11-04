@@ -174,6 +174,55 @@ def extract_pptx(data: bytes) -> Extracted:
     return ex
 
 
+def _odf_paragraphs(el: ET.Element) -> list[str]:
+    t = "{urn:oasis:names:tc:opendocument:xmlns:text:1.0}"
+
+    def inline_text(node: ET.Element) -> str:
+        if node.tag == t + "tab":
+            content = "\t"
+        elif node.tag == t + "line-break":
+            content = "\n"
+        elif node.tag == t + "s":
+            count = int(node.get(t + "c", "1"))
+            if count < 1 or count > MAX_ZIP_MEMBER:
+                raise ValueError("ODF repeated-space count is outside the extraction limit")
+            content = " " * count
+        else:
+            content = (node.text or "") + "".join(inline_text(child) for child in node)
+        return content + (node.tail or "")
+
+    def paragraph_text(node: ET.Element) -> str:
+        return (node.text or "") + "".join(inline_text(child) for child in node)
+
+    return [paragraph_text(p) for p in el.iter() if p.tag in (t + "p", t + "h")]
+
+
+def extract_odf(data: bytes) -> Extracted:
+    """ODT (paragraphs), ODP (one chunk per slide) and ODS (one chunk per sheet) from content.xml."""
+    office = "{urn:oasis:names:tc:opendocument:xmlns:office:1.0}"
+    table = "{urn:oasis:names:tc:opendocument:xmlns:table:1.0}"
+    draw = "{urn:oasis:names:tc:opendocument:xmlns:drawing:1.0}"
+    with zipfile.ZipFile(io.BytesIO(data)) as z:
+        root = ET.fromstring(_zip_member(z, "content.xml"))  # noqa: S314 - ODF from the user's own course material
+    found = root.find(office + "body")
+    if found is None or len(found) == 0:
+        raise ValueError("content.xml has no document body")
+    body = found[0]
+    if body.tag == office + "presentation":
+        ex = Extracted(kind="odp")
+        for i, page in enumerate(body.findall(draw + "page"), 1):
+            ex.chunks.append((f"slide {i}", "\n".join(x for x in _odf_paragraphs(page) if x.strip())))
+    elif body.tag == office + "spreadsheet":
+        ex = Extracted(kind="ods")
+        for i, sheet in enumerate(body.findall(table + "table"), 1):
+            ex.chunks.append((f"sheet {i}", "\n".join(x for x in _odf_paragraphs(sheet) if x.strip())))
+    else:
+        ex = Extracted(kind="odt")
+        text = "\n".join(_odf_paragraphs(body))
+        ex.chunks = [(f"part {i + 1}", t) for i, t in enumerate(_split(text))]
+    return ex
+
+
 def extract_pdf(data: bytes) -> Extracted:
     try:
         from pypdf import PdfReader
@@ -242,6 +291,8 @@ def extract(filename: str, data: bytes, mimetype: str | None = None, *, ocr: boo
         return extract_docx(data)
     if ext == ".pptx":
         return extract_pptx(data)
+    if ext in (".odt", ".ods", ".odp"):
+        return extract_odf(data)
     if ext in (".html", ".htm") or (mimetype or "").startswith("text/html"):
         ex = Extracted(kind="html")
         ex.chunks = [(f"part {i + 1}", t) for i, t in enumerate(_split(html_to_text(_decode(data))))]
@@ -253,6 +304,6 @@ def extract(filename: str, data: bytes, mimetype: str | None = None, *, ocr: boo
     ex = Extracted(kind="unsupported")
     ex.warnings.append(
         f"No extractor for {ext or mimetype or 'this file type'} "
-        "(supported: pdf, docx, pptx, html, txt/code). Binary files are not decoded."
+        "(supported: pdf, docx, pptx, odt, ods, odp, html, txt/code). Binary files are not decoded."
     )
     return ex
