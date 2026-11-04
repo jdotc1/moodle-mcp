@@ -423,3 +423,14 @@ def test_env_profile_rejects_plain_http(monkeypatch, tmp_path):
     monkeypatch.setenv("MAMCP_BASE_URL", "http://moodle.example.edu")
     with pytest.raises(ConfigError):
         AppConfig.load(tmp_path / "missing.toml")
+
+
+def test_env_profile_becomes_default_over_config_file(monkeypatch, tmp_path):
+    from moodle_academic_mcp.config import AppConfig
+
+    f = tmp_path / "config.toml"
+    f.write_text('default_profile = "ufsc"\n[profiles.ufsc]\nbase_url = "https://a.example.edu"\n')
+    monkeypatch.setenv("MAMCP_BASE_URL", "https://b.example.edu")
+    cfg = AppConfig.load(f)
+    assert cfg.profile().name == "default" and cfg.profile().base_url == "https://b.example.edu"
+    assert cfg.profile("ufsc").base_url == "https://a.example.edu"  # still reachable explicitly

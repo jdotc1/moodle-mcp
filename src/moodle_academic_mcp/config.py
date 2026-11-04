@@ -153,7 +153,8 @@ def _apply_env_profile(cfg: AppConfig) -> None:
         attendance_rule_source=_env("MAMCP_ATTENDANCE_RULE_SOURCE") or None,
         attested_services=[s.strip() for s in _env("MAMCP_ATTEST").split(",") if s.strip()],
     )
-    cfg.default_profile = cfg.default_profile or name
+    # Explicit launch-time configuration beats whatever default a config file on disk names.
+    cfg.default_profile = name
 
 
 @dataclass
