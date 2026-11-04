@@ -10,7 +10,7 @@ jobs:
       matrix:
         python: ["3.11", "3.12", "3.13"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --python ${{ matrix.python }} --group dev --all-extras
       - run: uv run ruff check src tests scripts
@@ -27,7 +27,7 @@ jobs:
         options: >-
           --health-cmd "pg_isready -U mamcp" --health-interval 5s --health-retries 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --group dev --all-extras
       - run: uv run pytest -q tests/test_store_postgres.py
@@ -36,7 +36,7 @@ jobs:
   package:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v5
       - run: uv build
       - run: |
