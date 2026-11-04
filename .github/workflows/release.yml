@@ -9,6 +9,6 @@ jobs:
       - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v5
       - run: uv build
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with: {files: dist/*, generate_release_notes: true}
       # PyPI publishing is intentionally not enabled yet (needs a trusted-publisher setup by the maintainer).
