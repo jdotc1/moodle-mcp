@@ -236,3 +236,12 @@ async def test_window_match_explains_why_an_item_is_listed(alice):
     res = await deadlines.list_deadlines(alice, "next_30_days")
     t1 = next(i for i in res["items"] if i["name"] == "Trabalho 1")
     assert t1["window_match"] == "due"
+
+
+def test_derive_state_real_moodle_team_shape_without_team_submission_yet():
+    # Real Moodle: no 'teamsubmissionenabled'; submissiongroup is set for team assignments.
+    team = assignments.derive_state({"lastattempt": {"submission": {}, "submissiongroup": 70010}}, None)
+    assert team["is_group"] is True and team["group_id"] == 70010
+    solo = assignments.derive_state({"lastattempt": {"submission": {"status": "new"}}}, None)
+    assert solo["is_group"] is False
+

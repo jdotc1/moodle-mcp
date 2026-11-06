@@ -338,8 +338,8 @@ def create_fake(state: State | None = None) -> tuple[FastAPI, State]:
                 "lastattempt": {
                     "submission": sub if not team else {},
                     "teamsubmission": sub if team else None,
-                    "teamsubmissionenabled": bool(team),
-                    "submissiongroup": 2 if team else 0,
+                    # real Moodle sets submissiongroup only for team assignments
+                    **({"submissiongroup": 2} if team else {}),
                     "locked": False,
                     "canedit": not s or s["status"] != "submitted",
                     "cansubmit": True,

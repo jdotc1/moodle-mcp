@@ -109,12 +109,23 @@ async def get_assignment(acct: Account, assignment_id: int, course_id: int | Non
     raise NotFoundError(f"Assignment {assignment_id} not found among your courses.")
 
 
+def _is_team(la: dict) -> bool:
+    """Real Moodle has no 'teamsubmissionenabled' in lastattempt: for team assignments it sets
+    submissiongroup/usergroups (and teamsubmission once one exists); they are absent otherwise."""
+    return bool(
+        la.get("teamsubmissionenabled")
+        or la.get("teamsubmission")
+        or la.get("submissiongroup") is not None
+        or la.get("usergroups")
+    )
+
+
 def derive_state(status: dict, assignment: dict | None) -> dict[str, Any]:
     """Normalise Moodle's submission status into one explicit state."""
     la = status.get("lastattempt") or {}
     sub = la.get("submission") or {}
     team = la.get("teamsubmission") or {}
-    effective = team if (la.get("teamsubmissionenabled") or team) and team else sub
+    effective = team if team else sub
     raw = (effective or {}).get("status")  # new | draft | submitted | reopened
     fb = status.get("feedback") or {}
     grading = la.get("gradingstatus")
@@ -137,7 +148,7 @@ def derive_state(status: dict, assignment: dict | None) -> dict[str, Any]:
         "locked": bool(la.get("locked")),
         "can_edit": bool(la.get("canedit")),
         "can_submit": bool(la.get("cansubmit")),
-        "is_group": bool(la.get("teamsubmissionenabled")),
+        "is_group": _is_team(la),
         "group_id": la.get("submissiongroup") or None,
     }
 
