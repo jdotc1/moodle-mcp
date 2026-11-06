@@ -1,6 +1,6 @@
 [project]
 name = "moodle-academic-mcp"
-version = "0.1.1"
+version = "0.1.2"
 description = "Community MCP server connecting each student's own Moodle account to AI clients (Claude Code, Codex, ChatGPT)."
 readme = "README.md"
 license = { text = "MIT" }
