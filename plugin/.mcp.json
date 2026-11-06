@@ -2,7 +2,7 @@
   "mcpServers": {
     "moodle": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/matheussilvano/moodle-mcp@v0.1.1", "moodle-academic-mcp", "serve"],
+      "args": ["--from", "git+https://github.com/matheussilvano/moodle-mcp@v0.1.2", "moodle-academic-mcp", "serve"],
       "env": {
         "MAMCP_BASE_URL": "${user_config.moodle_url}",
         "MAMCP_TIMEZONE": "${user_config.timezone}",
