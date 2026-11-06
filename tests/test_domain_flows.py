@@ -250,7 +250,11 @@ def test_dmlwriteexception_gets_actionable_error():
     from moodle_academic_mcp.moodle.client import MoodleClient
 
     e = MoodleClient._map_error(
-        {"exception": "dml_write_exception", "errorcode": "dmlwriteexception", "message": "Error writing to database"},
+        {
+            "exception": "dml_write_exception",
+            "errorcode": "dmlwriteexception",
+            "message": "Error writing to database",
+        },
         "mod_assign_save_submission",
     )
     assert "server-side" in e.hint and "website" in e.hint
@@ -260,7 +264,11 @@ def test_invalidresponse_is_reported_as_server_side_with_workaround():
     from moodle_academic_mcp.moodle.client import MoodleClient
 
     e = MoodleClient._map_error(
-        {"exception": "moodle_exception", "errorcode": "invalidresponse", "message": "Valor inválido de resposta detectado"},
+        {
+            "exception": "moodle_exception",
+            "errorcode": "invalidresponse",
+            "message": "Valor inválido de resposta detectado",
+        },
         "gradereport_user_get_grade_items",
     )
     assert "server-side" in e.message and "gradereport_user_get_grades_table" in e.hint
@@ -276,8 +284,12 @@ async def test_quiz_writes_are_journaled_so_an_unexpected_close_can_be_traced(al
     saves = [o for o in ops if o["kind"] == "quiz_save"]
     assert len(saves) == 2 and all(o["target"] == str(aid) for o in saves)
     ev = [o["evidence"] for o in saves]
-    assert any(e["finish_requested"] is False and e["page"] == 0 and e["state_after"] == "inprogress" for e in ev)
-    assert any(e["finish_requested"] is True and e["page"] == 1 and e["state_after"] == "finished" for e in ev)
+    assert any(
+        e["finish_requested"] is False and e["page"] == 0 and e["state_after"] == "inprogress" for e in ev
+    )
+    assert any(
+        e["finish_requested"] is True and e["page"] == 1 and e["state_after"] == "finished" for e in ev
+    )
 
 
 async def test_finish_attempt_is_journaled(alice):

@@ -22,7 +22,9 @@ async def _journal(acct: Account, kind: str, target: str, evidence: dict, ok: bo
     failure must never break or mask the quiz call itself, so it is swallowed here on purpose.
     """
     try:
-        op_id, _ = await acct.store.begin_operation(acct.user_key, acct.profile.name, kind, target, uuid.uuid4().hex)
+        op_id, _ = await acct.store.begin_operation(
+            acct.user_key, acct.profile.name, kind, target, uuid.uuid4().hex
+        )
         await acct.store.finish_operation(op_id, "done" if ok else "failed", evidence)
     except Exception:  # noqa: BLE001
         pass
@@ -328,7 +330,9 @@ async def start_attempt(
         params["preflightdata"] = [{"name": k, "value": v} for k, v in pre.items()]
     res = await acct.client().call("mod_quiz_start_attempt", params, write=True)
     att = res.get("attempt", {})
-    await _journal(acct, "quiz_start", str(att.get("id")), {"quiz_id": quiz_id, "state_after": att.get("state")})
+    await _journal(
+        acct, "quiz_start", str(att.get("id")), {"quiz_id": quiz_id, "state_after": att.get("state")}
+    )
     page = await _attempt_page(acct, att["id"], 0, pre)
     return {
         "resumed": False,
@@ -384,8 +388,13 @@ async def save_answers(
             acct,
             "quiz_save",
             str(attempt_id),
-            {"page": page, "fields": responses, "finish_requested": finish, "state_before": current["state"],
-             "error": "attempt_not_in_progress"},
+            {
+                "page": page,
+                "fields": responses,
+                "finish_requested": finish,
+                "state_before": current["state"],
+                "error": "attempt_not_in_progress",
+            },
             ok=False,
         )
         raise ValidationError(
@@ -419,7 +428,12 @@ async def save_answers(
     params: dict[str, Any] = {"attemptid": attempt_id, "data": data, "finishattempt": 1 if finish else 0}
     if pre:
         params["preflightdata"] = [{"name": k, "value": v} for k, v in pre.items()]
-    journal = {"page": page, "fields": responses, "finish_requested": finish, "state_before": current["state"]}
+    journal = {
+        "page": page,
+        "fields": responses,
+        "finish_requested": finish,
+        "state_before": current["state"],
+    }
     try:
         res = await acct.client().call("mod_quiz_process_attempt", params, write=True)
     except MamcpError as e:
