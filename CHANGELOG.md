@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 0.1.3
+- **PDF reading now works out of the box.** `pypdf` is a core dependency; before, the plugin (which starts the server via `uvx` without extras) could not read any PDF: course slides and assignment statements failed with `ImportError`. The `pdf` extra remains as an empty alias.
+
 ## 0.1.2
 - `list_deadlines` items carry `window_match` (due | cutoff | past_due) to explain why they are listed.
 - Quiz writes (`start`, `save`, `finish`) are recorded in the operations journal (`list_operations`) with page, fields, `finish_requested` and the resulting attempt state, so an attempt that closes unexpectedly can be traced.
