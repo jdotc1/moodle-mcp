@@ -53,10 +53,10 @@ Claude Code **asks for your Moodle URL and token** (kept in secure storage, neve
 
 ### Option B — the MCP server alone (any client, terminal setup)
 ```bash
-uvx --from git+https://github.com/matheussilvano/moodle-mcp@v0.1.2 moodle-academic-mcp configure --profile ufsc --service mobile
-uvx --from git+https://github.com/matheussilvano/moodle-mcp@v0.1.2 moodle-academic-mcp doctor
-claude mcp add --scope user --transport stdio moodle -- uvx --from git+https://github.com/matheussilvano/moodle-mcp@v0.1.2 moodle-academic-mcp serve
-codex mcp add moodle -- uvx --from git+https://github.com/matheussilvano/moodle-mcp@v0.1.2 moodle-academic-mcp serve
+uvx --from git+https://github.com/matheussilvano/moodle-mcp@v0.1.3 moodle-academic-mcp configure --profile ufsc --service mobile
+uvx --from git+https://github.com/matheussilvano/moodle-mcp@v0.1.3 moodle-academic-mcp doctor
+claude mcp add --scope user --transport stdio moodle -- uvx --from git+https://github.com/matheussilvano/moodle-mcp@v0.1.3 moodle-academic-mcp serve
+codex mcp add moodle -- uvx --from git+https://github.com/matheussilvano/moodle-mcp@v0.1.3 moodle-academic-mcp serve
 ```
 Restart the client and ask: *"list my current courses"*. Requires Python 3.11+ and uv. **Not** on PyPI yet ([how it gets there](docs/distribution.md)). ChatGPT and custom GPTs need the [hosted mode](docs/auth.md). Per-client guide: [docs/clients.md](docs/clients.md).
 
