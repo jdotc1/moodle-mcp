@@ -232,6 +232,15 @@ class MoodleClient:
                 "current state before retrying; if it persists (seen on group assignments), submit through the "
                 "Moodle website and tell the course staff.",
             )
+        if code == "invalidresponse":
+            return MoodleAPIError(
+                f"Moodle rejected its own response for {function} (invalidresponse): a server-side data/validation "
+                "problem, not your token or parameters.",
+                **kw,
+                hint="Retrying will not help. For the gradebook, read the rendered table instead with "
+                "moodle_call_read('gradereport_user_get_grades_table', {courseid, userid}) (large HTML output), or "
+                "check the grades on the Moodle website.",
+            )
         return MoodleAPIError(msg or "Moodle error.", **kw)
 
     # ----------------------------------------------------------------- files

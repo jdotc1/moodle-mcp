@@ -254,3 +254,13 @@ def test_dmlwriteexception_gets_actionable_error():
         "mod_assign_save_submission",
     )
     assert "server-side" in e.hint and "website" in e.hint
+
+
+def test_invalidresponse_is_reported_as_server_side_with_workaround():
+    from moodle_academic_mcp.moodle.client import MoodleClient
+
+    e = MoodleClient._map_error(
+        {"exception": "moodle_exception", "errorcode": "invalidresponse", "message": "Valor inválido de resposta detectado"},
+        "gradereport_user_get_grade_items",
+    )
+    assert "server-side" in e.message and "gradereport_user_get_grades_table" in e.hint
