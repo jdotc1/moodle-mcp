@@ -993,6 +993,7 @@ dependencies = [
     { name = "mcp" },
     { name = "pydantic" },
     { name = "pyjwt", extra = ["crypto"] },
+    { name = "pypdf" },
     { name = "python-multipart" },
     { name = "sqlalchemy", extra = ["asyncio"] },
     { name = "uvicorn" },
@@ -1002,7 +1003,6 @@ dependencies = [
 all = [
     { name = "asyncpg" },
     { name = "keyring" },
-    { name = "pypdf" },
 ]
 keyring = [
     { name = "keyring" },
@@ -1010,9 +1010,6 @@ keyring = [
 ocr = [
     { name = "pdf2image" },
     { name = "pytesseract" },
-]
-pdf = [
-    { name = "pypdf" },
 ]
 postgres = [
     { name = "asyncpg" },
@@ -1043,7 +1040,7 @@ requires-dist = [
     { name = "pdf2image", marker = "extra == 'ocr'", specifier = ">=1.17" },
     { name = "pydantic", specifier = ">=2.7" },
     { name = "pyjwt", extras = ["crypto"], specifier = ">=2.9" },
-    { name = "pypdf", marker = "extra == 'pdf'", specifier = ">=4.2" },
+    { name = "pypdf", specifier = ">=4.2" },
     { name = "pytesseract", marker = "extra == 'ocr'", specifier = ">=0.3" },
     { name = "python-multipart", specifier = ">=0.0.9" },
     { name = "sqlalchemy", extras = ["asyncio"], specifier = ">=2.0.30" },
