@@ -228,7 +228,8 @@ def extract_pdf(data: bytes) -> Extracted:
         from pypdf import PdfReader
     except ImportError:
         raise ImportError(
-            "PDF extraction needs the optional dependency: pip install 'moodle-academic-mcp[pdf]'"
+            "PDF extraction needs 'pypdf', which ships with moodle-academic-mcp >= 0.1.3; "
+            "this environment is older or broken: update the plugin/package and restart the server"
         ) from None
     ex = Extracted(kind="pdf")
     reader = PdfReader(io.BytesIO(data))
