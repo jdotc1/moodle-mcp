@@ -264,3 +264,27 @@ def test_invalidresponse_is_reported_as_server_side_with_workaround():
         "gradereport_user_get_grade_items",
     )
     assert "server-side" in e.message and "gradereport_user_get_grades_table" in e.hint
+
+
+async def test_quiz_writes_are_journaled_so_an_unexpected_close_can_be_traced(alice):
+    q = await quizzes.start_attempt(alice, 5)
+    aid = q["attempt_id"]
+    await quizzes.save_answers(alice, aid, 0, {"q50:1_answer": "1"})
+    await quizzes.save_answers(alice, aid, 1, {"q50:2_answer": "Paris"}, finish=True)
+    ops = await alice.store.list_operations(alice.user_key)
+    assert [o["kind"] for o in ops].count("quiz_start") == 1
+    saves = [o for o in ops if o["kind"] == "quiz_save"]
+    assert len(saves) == 2 and all(o["target"] == str(aid) for o in saves)
+    ev = [o["evidence"] for o in saves]
+    assert any(e["finish_requested"] is False and e["page"] == 0 and e["state_after"] == "inprogress" for e in ev)
+    assert any(e["finish_requested"] is True and e["page"] == 1 and e["state_after"] == "finished" for e in ev)
+
+
+async def test_finish_attempt_is_journaled(alice):
+    q = await quizzes.start_attempt(alice, 5)
+    aid = q["attempt_id"]
+    await quizzes.finish_attempt(alice, aid)
+    ops = await alice.store.list_operations(alice.user_key)
+    fin = [o for o in ops if o["kind"] == "quiz_finish"]
+    assert len(fin) == 1 and fin[0]["status"] == "done" and fin[0]["evidence"]["state_after"] == "finished"
+

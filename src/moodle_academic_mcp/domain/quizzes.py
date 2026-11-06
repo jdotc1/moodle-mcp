@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import re
 import time
+import uuid
 from html.parser import HTMLParser
 from typing import Any
 
@@ -12,6 +13,19 @@ from ..errors import MamcpError, NotFoundError, ValidationError
 from ..timeutil import iso
 from .account import Account
 from .courses import course_ids
+
+
+async def _journal(acct: Account, kind: str, target: str, evidence: dict, ok: bool = True) -> None:
+    """Record a quiz write in the operations journal (each entry unique: never deduplicated).
+
+    Without this, an attempt that ends unexpectedly cannot be traced to the call that closed it. A journal
+    failure must never break or mask the quiz call itself, so it is swallowed here on purpose.
+    """
+    try:
+        op_id, _ = await acct.store.begin_operation(acct.user_key, acct.profile.name, kind, target, uuid.uuid4().hex)
+        await acct.store.finish_operation(op_id, "done" if ok else "failed", evidence)
+    except Exception:  # noqa: BLE001
+        pass
 
 
 async def quizzes_by_courses(acct: Account, ids: list[int], attempts: bool = False) -> list[dict]:
@@ -314,6 +328,7 @@ async def start_attempt(
         params["preflightdata"] = [{"name": k, "value": v} for k, v in pre.items()]
     res = await acct.client().call("mod_quiz_start_attempt", params, write=True)
     att = res.get("attempt", {})
+    await _journal(acct, "quiz_start", str(att.get("id")), {"quiz_id": quiz_id, "state_after": att.get("state")})
     page = await _attempt_page(acct, att["id"], 0, pre)
     return {
         "resumed": False,
@@ -391,7 +406,18 @@ async def save_answers(
     params: dict[str, Any] = {"attemptid": attempt_id, "data": data, "finishattempt": 1 if finish else 0}
     if pre:
         params["preflightdata"] = [{"name": k, "value": v} for k, v in pre.items()]
-    res = await acct.client().call("mod_quiz_process_attempt", params, write=True)
+    journal = {"page": page, "fields": responses, "finish_requested": finish, "state_before": current["state"]}
+    try:
+        res = await acct.client().call("mod_quiz_process_attempt", params, write=True)
+    except MamcpError as e:
+        await _journal(acct, "quiz_save", str(attempt_id), {**journal, "error": e.code}, ok=False)
+        raise
+    await _journal(
+        acct,
+        "quiz_save",
+        str(attempt_id),
+        {**journal, "state_after": res.get("state") if isinstance(res, dict) else None},
+    )
     out: dict[str, Any] = {
         "attempt_id": attempt_id,
         "saved_fields": sorted(responses),
@@ -411,10 +437,15 @@ async def save_answers(
 
 async def finish_attempt(acct: Account, attempt_id: int) -> dict[str, Any]:
     """WRITE: submit all answers for grading and close the attempt (no further changes)."""
-    res = await acct.client().call(
-        "mod_quiz_process_attempt", {"attemptid": attempt_id, "data": [], "finishattempt": 1}, write=True
-    )
+    try:
+        res = await acct.client().call(
+            "mod_quiz_process_attempt", {"attemptid": attempt_id, "data": [], "finishattempt": 1}, write=True
+        )
+    except MamcpError as e:
+        await _journal(acct, "quiz_finish", str(attempt_id), {"error": e.code}, ok=False)
+        raise
     state = res.get("state") if isinstance(res, dict) else None
+    await _journal(acct, "quiz_finish", str(attempt_id), {"state_after": state})
     return {
         "attempt_id": attempt_id,
         "finished": state == "finished",
