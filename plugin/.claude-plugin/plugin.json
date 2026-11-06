@@ -1,7 +1,7 @@
 {
   "name": "moodle-academic",
   "displayName": "Moodle Academic",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Connect your own Moodle account (UFSC and others) to Claude Code: deadlines, assignments, quizzes, grades, attendance, materials, announcements.",
   "author": { "name": "moodle-academic-mcp contributors", "url": "https://github.com/matheussilvano/moodle-mcp" },
   "homepage": "https://github.com/matheussilvano/moodle-mcp",
