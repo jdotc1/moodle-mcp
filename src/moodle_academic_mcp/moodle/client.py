@@ -224,6 +224,14 @@ class MoodleClient:
             return PermissionDeniedError(msg, **kw)
         if code in {"invalidrecord", "invalidfunction"} and "external_functions" in (msg + dbg).lower():
             return FunctionUnavailableError(f"{function} does not exist on this Moodle.", **kw)
+        if code == "dmlwriteexception" or exc == "dml_write_exception":
+            return MoodleAPIError(
+                "Moodle failed to write to its own database (dmlwriteexception). Nothing was confirmed saved.",
+                **kw,
+                hint="This is a server-side error, not a problem with your file, group or permissions. Read the "
+                "current state before retrying; if it persists (seen on group assignments), submit through the "
+                "Moodle website and tell the course staff.",
+            )
         return MoodleAPIError(msg or "Moodle error.", **kw)
 
     # ----------------------------------------------------------------- files

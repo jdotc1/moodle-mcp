@@ -245,3 +245,12 @@ def test_derive_state_real_moodle_team_shape_without_team_submission_yet():
     solo = assignments.derive_state({"lastattempt": {"submission": {"status": "new"}}}, None)
     assert solo["is_group"] is False
 
+
+def test_dmlwriteexception_gets_actionable_error():
+    from moodle_academic_mcp.moodle.client import MoodleClient
+
+    e = MoodleClient._map_error(
+        {"exception": "dml_write_exception", "errorcode": "dmlwriteexception", "message": "Error writing to database"},
+        "mod_assign_save_submission",
+    )
+    assert "server-side" in e.hint and "website" in e.hint
