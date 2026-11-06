@@ -288,3 +288,13 @@ async def test_finish_attempt_is_journaled(alice):
     fin = [o for o in ops if o["kind"] == "quiz_finish"]
     assert len(fin) == 1 and fin[0]["status"] == "done" and fin[0]["evidence"]["state_after"] == "finished"
 
+
+async def test_save_on_a_closed_attempt_says_nothing_was_saved(alice, fake_state):
+    q = await quizzes.start_attempt(alice, 5)
+    aid = q["attempt_id"]
+    await quizzes.finish_attempt(alice, aid)
+    with pytest.raises(ValidationError, match="NOT saved"):
+        await quizzes.save_answers(alice, aid, 0, {"q50:1_answer": "1"})
+    assert fake_state.attempts[aid]["answers"] == {}
+    ops = await alice.store.list_operations(alice.user_key)
+    assert any(o["kind"] == "quiz_save" and o["status"] == "failed" for o in ops)

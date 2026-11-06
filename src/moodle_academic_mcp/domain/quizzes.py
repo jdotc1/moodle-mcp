@@ -379,6 +379,19 @@ async def save_answers(
     """
     pre = {"quizpassword": password} if password else None
     current = await _attempt_page(acct, attempt_id, page, pre)
+    if current["state"] != "inprogress":
+        await _journal(
+            acct,
+            "quiz_save",
+            str(attempt_id),
+            {"page": page, "fields": responses, "finish_requested": finish, "state_before": current["state"],
+             "error": "attempt_not_in_progress"},
+            ok=False,
+        )
+        raise ValidationError(
+            f"Attempt {attempt_id} is {current['state']!r}, not in progress: these answers were NOT saved.",
+            details={"state": current["state"]},
+        )
     valid: dict[str, dict] = {}
     seqs: dict[str, str] = {}
     for q in current["questions"]:
