@@ -42,6 +42,11 @@ OpenAI's docs (checked 2026-11-04): *Plugins → + → Add custom MCP server*, S
 ## Custom GPT (Actions)
 Not MCP. Use `/openapi-actions.json` ([auth.md](auth.md#gpt-actions)).
 
+## Windows
+Install `uv`: `powershell -c "irm https://astral.sh/uv/install.ps1 | iex"`, then **open a new terminal** (most common error: PATH not refreshed, so `uv`/`uvx` is "not recognized").
+PowerShell quoting uses double quotes: `claude mcp add --transport http moodle-remote https://mcp.example.org/mcp --header "Authorization: Bearer $env:MAMCP_TOKEN"` and `codex mcp add moodle -- uvx --from git+https://github.com/matheussilvano/moodle-mcp moodle-academic-mcp serve`.
+Config/state live under `%USERPROFILE%\.codex\config.toml`, `%APPDATA%\Claude`, and the project `.mcp.json`.
+
 ## Política de confirmação
 The server adds **no** mandatory confirmation. Autonomous use: allow the tools in your client (Claude Code `permissions.allow`, Codex `default_tools_approval_mode = "approve"`). Cautious use: leave writes on prompt (`"writes"`/default). `prepare_submission` is an optional dry run. An explicit "send it" request authorises `deliver_assignment`; if intent is ambiguous the prompts ask only for the missing piece. Your client's and institution's policies still apply; the server cannot control how a model responds.
 
