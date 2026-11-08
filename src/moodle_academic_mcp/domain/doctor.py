@@ -10,6 +10,7 @@ from ..config import ProfileSettings
 from ..errors import MamcpError
 from ..moodle.client import MoodleClient
 from ..moodle.netsafe import check_destination
+from ..redact import scrub
 from .account import Account
 from .capabilities import matrix
 
@@ -26,7 +27,7 @@ async def probe_endpoint(profile: ProfileSettings, http: httpx.AsyncClient | Non
             allow_insecure_http=ep.allow_insecure_http,
         )
     except MamcpError as e:
-        return {**res, "ok": False, "stage": "destination_policy", **e.to_dict()}
+        return {**res, "ok": False, "stage": "destination_policy", **scrub(e.to_dict())}
     probe = MoodleClient(ep, "invalid-probe-token", "probe", http=http, read_retries=1)
     try:
         await probe.call("core_webservice_get_site_info")
@@ -35,9 +36,9 @@ async def probe_endpoint(profile: ProfileSettings, http: httpx.AsyncClient | Non
         if e.code in ("token_invalid", "permission_denied"):
             res.update(ok=True, stage="rest", note="REST endpoint reachable and web services enabled.")
         elif e.code == "network_restriction":
-            res.update(ok=False, stage="network", **e.to_dict())
+            res.update(ok=False, stage="network", **scrub(e.to_dict()))
         else:
-            res.update(ok=False, stage="rest", **e.to_dict())
+            res.update(ok=False, stage="rest", **scrub(e.to_dict()))
     finally:
         await probe.aclose()
     return res
@@ -62,7 +63,7 @@ async def diagnose(acct: Account, detect: bool = True) -> dict[str, Any]:
                 identity=(await acct.service_identity(s)) if s != "mobile" else {"verified": True},
             )
         except MamcpError as e:
-            entry.update(ok=False, **e.to_dict())
+            entry.update(ok=False, **scrub(e.to_dict()))
             if e.code == "function_unavailable" or e.code == "permission_denied":
                 entry["note"] = (
                     "This token may be valid but its service lacks core_webservice_get_site_info "

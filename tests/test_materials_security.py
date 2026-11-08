@@ -5,13 +5,13 @@ import zipfile
 import httpx
 import pytest
 
-from moodle_academic_mcp.domain import attendance, forums, generic, materials
+from moodle_academic_mcp.domain import attendance, doctor, forums, generic, materials
 from moodle_academic_mcp.errors import UnsafeDestinationError, UnsupportedError, ValidationError
 from moodle_academic_mcp.materials.extract import extract, injection_flag
 from moodle_academic_mcp.moodle.catalog import Effect, classify
 from moodle_academic_mcp.moodle.client import Endpoint, MoodleClient
 from moodle_academic_mcp.moodle.netsafe import check_destination
-from moodle_academic_mcp.redact import scrub, scrub_text, strip_url_credentials
+from moodle_academic_mcp.redact import REDACTED, scrub, scrub_text, strip_url_credentials
 from tests.conftest import profile
 
 
@@ -492,3 +492,54 @@ def test_env_profile_becomes_default_over_config_file(monkeypatch, tmp_path):
     cfg = AppConfig.load(f)
     assert cfg.profile().name == "default" and cfg.profile().base_url == "https://b.example.edu"
     assert cfg.profile("ufsc").base_url == "https://a.example.edu"  # still reachable explicitly
+
+
+# ------------------------------------------------------------------ doctor --json redaction (issue #18)
+async def test_doctor_json_redacts_hostile_server_tokens(alice, fake_state):
+    """Guards: doctor --json / diagnose never echoes token-like strings from a hostile Moodle (#18)."""
+    secret = "LEAKEDHOSTILETOKEN99"
+    fake_state.hostile_rest_error = {
+        "exception": f"moodle_exception token={secret}",
+        "errorcode": "hostileecho",
+        "message": (
+            f"Denied; see https://fake/webservice/pluginfile.php/1/mod_resource/content/0/a.pdf/token/{secret}/x "
+            f"and Set-Cookie: MoodleSession={secret}; Path=/; token={secret}"
+        ),
+        "debuginfo": (
+            f"Bearer {secret} wstoken={secret} "
+            f"https://fake/tokenpluginfile.php/{secret}/1/mod_resource/content/0/a.pdf"
+        ),
+    }
+    out = await doctor.diagnose(alice, detect=False)
+    # Same path as `doctor --json`: scrub then serialize for paste into bug reports.
+    dumped = json.dumps(scrub(out), ensure_ascii=False, default=str)
+    assert secret not in dumped
+    assert REDACTED in dumped
+    svc = out["services"]["mobile"]
+    assert svc.get("ok") is False
+    assert secret not in json.dumps(svc, ensure_ascii=False, default=str)
+    assert secret not in (svc.get("message") or "")
+    assert secret not in json.dumps(svc.get("details") or {}, ensure_ascii=False)
+    # Raised error text (message + str) must also stay clean.
+    with pytest.raises(Exception) as ei:
+        await alice.site_info(refresh=True)
+    err = ei.value
+    assert secret not in str(err)
+    assert secret not in getattr(err, "message", "")
+    assert REDACTED in (getattr(err, "message", "") + json.dumps(getattr(err, "details", {}), default=str))
+
+
+def test_scrub_text_pluginfile_and_set_cookie_tokens():
+    """Guards: scrub_text redacts pluginfile token paths and Set-Cookie-like strings (#18)."""
+    secret = "COOKIEANDFILETOKEN88"
+    samples = [
+        f"https://m.edu/webservice/pluginfile.php/123/x/y/z/file.pdf/token/{secret}/more",
+        f"https://m.edu/tokenpluginfile.php/{secret}/1/a.pdf",
+        f"Set-Cookie: MoodleSession={secret}; Path=/",
+        f"Set-Cookie: token={secret}; Path=/",
+        f"Cookie: wstoken={secret}",
+    ]
+    for raw in samples:
+        out = scrub_text(raw)
+        assert secret not in out, raw
+        assert REDACTED in out, raw

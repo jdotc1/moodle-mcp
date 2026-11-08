@@ -31,11 +31,19 @@ SENSITIVE_KEYS = {
 }
 
 _URL_TOKEN = re.compile(
-    r"(?i)([?&;/](?:wstoken|token|privatetoken|key|sesskey|access_token)[=/])([^&\s\"'#/]+)"
+    r"(?i)([?&;/](?:wstoken|token|privatetoken|key|sesskey|access_token)[=/])([^&\s\"\'#/]+)"
 )
 _BEARER = re.compile(r"(?i)(bearer\s+)[A-Za-z0-9._~+/=-]+")
-_PLUGINFILE_TOKEN = re.compile(r"(?i)(/(?:token)?pluginfile\.php/)")
-_KV = re.compile(r"(?i)\b(wstoken|token|password|userprivateaccesskey|privatetoken)(\s*[=:]\s*)([^\s,&\"']+)")
+# Moodle serves private files as /tokenpluginfile.php/<token>/rest-of-path
+_TOKENPLUGINFILE = re.compile(r"(?i)(/tokenpluginfile\.php/)([^/\s\"\'#]+)")
+_KV = re.compile(
+    r"(?i)\b(wstoken|token|password|userprivateaccesskey|privatetoken)(\s*[=:]\s*)([^\s,&\"\']+)"
+)
+# Set-Cookie / Cookie headers: redact sensitive cookie names (and Moodle session cookies).
+_COOKIE_PAIR = re.compile(
+    r"(?i)(\b(?:set-)?cookie\b[^\r\n]*?(?:^|[;\s])(?:wstoken|token|privatetoken|userprivateaccesskey|"
+    r"sesskey|MoodleSession[^=;\s]*)(=))([^;\s\r\n]+)"
+)
 _registered: set[str] = set()
 
 
@@ -53,6 +61,8 @@ def scrub_text(text: str) -> str:
     out = _URL_TOKEN.sub(lambda m: m.group(1) + REDACTED, text)
     out = _BEARER.sub(lambda m: m.group(1) + REDACTED, out)
     out = _KV.sub(lambda m: m.group(1) + m.group(2) + REDACTED, out)
+    out = _TOKENPLUGINFILE.sub(lambda m: m.group(1) + REDACTED, out)
+    out = _COOKIE_PAIR.sub(lambda m: m.group(1) + REDACTED, out)  # group(1) already includes '='
     for s in sorted(_registered, key=len, reverse=True):
         out = out.replace(s, REDACTED)
     return out

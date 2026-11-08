@@ -76,6 +76,8 @@ class State:
     group_members: dict[int, set[int]] = field(default_factory=lambda: {1: set(), 2: {102}})
     attendance_sessions: list[dict] = field(default_factory=list)
     files: dict[str, tuple[bytes, str]] = field(default_factory=dict)
+    # When set, every REST call returns this JSON body (hostile/faulty server simulation).
+    hostile_rest_error: dict[str, Any] | None = None
 
 
 def create_fake(state: State | None = None) -> tuple[FastAPI, State]:
@@ -181,6 +183,8 @@ def create_fake(state: State | None = None) -> tuple[FastAPI, State]:
             return HTMLResponse("<html><body>Login</body></html>")
         write = not re.search(r"_(get|view)_", fn)
         st.calls.append((token, fn, p))
+        if st.hostile_rest_error is not None:
+            return JSONResponse(st.hostile_rest_error)
         if token not in st.users or token in st.revoked:
             return err("invalidtoken", "Invalid token - token not found", "moodle_exception")
         u = st.users[token]

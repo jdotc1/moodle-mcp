@@ -184,10 +184,16 @@ class MoodleClient:
     @staticmethod
     def _map_error(data: dict, function: str) -> MoodleAPIError:
         code = str(data.get("errorcode", ""))
-        exc = str(data.get("exception", ""))
+        # Scrub before any branching/echo: a hostile server may put tokens in these fields.
+        exc = scrub_text(str(data.get("exception", "")))
         msg = scrub_text(str(data.get("message", "Moodle error")))
         dbg = scrub_text(str(data.get("debuginfo", "")))
-        kw = {"errorcode": code, "function": function}
+        details: dict[str, str] = {}
+        if data.get("exception") is not None:
+            details["exception"] = exc
+        if data.get("debuginfo"):
+            details["debuginfo"] = dbg
+        kw: dict[str, Any] = {"errorcode": code, "function": function, "details": details}
         if code in {"invalidtoken", "tokenexpired"} or "invalid token" in msg.lower():
             return TokenInvalidError(
                 "Token invalid, revoked or expired.",
