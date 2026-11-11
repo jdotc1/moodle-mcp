@@ -114,7 +114,7 @@ make check     # lint + types + tests (~10 s, no credentials, no network)
 
 ## 📚 Documentation
 
-[Tools](docs/tools.md) · [Architecture](docs/architecture.md) · [Tokens and VPN](docs/tokens.md) · [Clients](docs/clients.md) · [Hosting and auth](docs/auth.md) · [Attendance and grades](docs/attendance-grades.md) · [Feature matrix](docs/feature-matrix.md) · [Workflows](docs/workflows.md)
+[FAQ](docs/faq.md) · [Tools](docs/tools.md) · [Architecture](docs/architecture.md) · [Tokens and VPN](docs/tokens.md) · [Clients](docs/clients.md) · [Hosting and auth](docs/auth.md) · [Attendance and grades](docs/attendance-grades.md) · [Feature matrix](docs/feature-matrix.md) · [Workflows](docs/workflows.md)
 
 [MIT](LICENSE) license. It covers the code in this repository, not the logo and the name "Moodle", which are trademarks of [Moodle Pty Ltd](https://moodle.com) and appear here only to identify the platform. This project is independent and **unofficial**.
 
